@@ -37,7 +37,7 @@ module.exports.get_privcy_policy = (req, res) => {
                     if (PrivacyAndPolicy.length != 0) {
                         return res.status(200).json({
                             message: lang.SUCCESS,
-                            employee: PrivacyAndPolicy
+                            privacypolicy: PrivacyAndPolicy
                         });
                     }
                     else {

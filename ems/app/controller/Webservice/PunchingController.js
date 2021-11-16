@@ -458,7 +458,7 @@ module.exports.add_overtime = (req, res) => {
             }
                 
             if (punch_id != "" ) {
-                console.log(lang);
+                // console.log(lang);
                 if(type=="delete"){
                     var punchData = {
                         over_time_rate: "",
@@ -525,5 +525,79 @@ module.exports.add_overtime = (req, res) => {
 
 } 
 
+/* ============
+delete punch
+============= */
+module.exports.delete_punch = (req, res) => {
+    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
+    var lang = language_helper.load_language(language);
+    var authheader = req.headers.authorization;
+
+    if (authheader) {
+        var data = token_helper.verifyJwtToken(authheader);
+        if (data) {
+            var lang = language_helper.load_language(language);
+            var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
+            var punch_type = typeof req.body.punch_type != 'undefined' ? req.body.punch_type : "";
+            var punch_id = typeof req.body.punch_id != 'undefined' ? req.body.punch_id : "";
+                
+                if(punch_type=="In"){
+                    var punchType = {
+                        punch_in_location: "",
+                        punch_in_lat: "",
+                        punch_in_long: "",
+                        punch_in_image: "",
+                        }
+                }
+                
+                else if(punch_type=="Out"){
+                    var punchType = {
+                        punch_out_location: "",
+                        punch_out_lat: "",
+                        punch_out_long: "",
+                        punch_out_image: "",
+                        }
+                }
+                var punchData = {
+                    user_id:user_id,
+                    punch_type:punch_type,
+                    punch_id:punch_id,
+                }
+                    if (punch_id != "" && punch_type!="" && user_id!="") {
+                            db.Attendance.update(punchType,
+                            {
+                                where:
+                                {
+                                    attendance_id: punch_id,
+                                }
+                                
+                            }).then((result) => {
+                                return res.status(200).json({
+                                    message: lang.SUCCESS,
+                                    punchType:punchType
+                                });
+
+                            });
+                    }
+                    else {
+                        res.status(400).json({
+                            message: lang.ALL_REQUIRED,
+                            punchData: punchData
+                        });
+                    }
+            }
+        else {
+            res.status(400).json({
+                message: lang.INVALID_TOKEN
+            });
+        }
+    }
+    else {
+        res.status(400).json({
+            message: lang.TOKEN_REQUIRED
+        });
+    }
+
+}
 
 

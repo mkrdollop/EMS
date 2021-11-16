@@ -29,6 +29,7 @@ module.exports.get_faq = (req, res) => {
     if (authheader)
     {
         var data = token_helper.verifyJwtToken(authheader);
+        
         console.log(data);
         if (data) {
             db.FAQ.findAll()
@@ -36,7 +37,7 @@ module.exports.get_faq = (req, res) => {
                     if (FAQ.length != 0) {
                         return res.status(200).json({
                             message: lang.SUCCESS,
-                            employee: FAQ
+                            FAQ: FAQ
                         });
                     }
                     else {
