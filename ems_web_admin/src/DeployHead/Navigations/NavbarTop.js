@@ -1,0 +1,119 @@
+import React, { Fragment,useState } from 'react';
+import '../../assets/css/style.css';
+import { IoMdSettings } from "react-icons/io";
+import { FaBell } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
+import { FaUser} from "react-icons/fa";
+import { FaSignOutAlt} from "react-icons/fa";
+
+
+function NavbarTop() {
+
+	/////////Open Profile dropdown
+    const [topDropdown, setTopDropdown] = useState("");
+	const handleTopDropdown=()=>{
+		if(topDropdown===""){
+			setTopDropdown("show");
+		}else{
+			setTopDropdown("");
+		}
+	}
+
+	/////////Open Notification dropdown
+	const [Notifi, setNotifi] = useState("");
+	const handleTopNotifi=()=>{
+		if(Notifi===""){
+			setNotifi("show");
+		}else{
+			setNotifi("");
+		}
+	}
+
+	
+    return (
+    <Fragment>
+	
+        {/* <div class="ems-dashboard dark dark-sidebar theme-black sidebar-mini"> */}
+        <div className="ems-dashboard dark dark-sidebar theme-black">    
+        	<div className="main-wrapper main-wrapper-1">
+				<div className="navbar-bg"></div>
+					<nav className="navbar navbar-expand-lg main-navbar position-fixed">
+						<div className="search_dash_input position-relative">
+							<input type="text" name="" placeholder="Seach here..."/>
+							<a href="#">
+								<i><FiSearch/></i>
+							</a>
+						</div>
+						<div className="form-inline mr-auto">
+							<ul className="navbar-nav mr-3">
+								<li>
+									<a href="#" data-toggle="sidebar" className="nav-link nav-link-lg collapse-btn"> 
+										<i data-feather="align-justify"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#" className="nav-link nav-link-lg fullscreen-btn">
+										<i data-feather="maximize"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<ul className="navbar-nav navbar-right">
+							<li className={`nav-item dropdown notification_dropdown pr-3 ${Notifi}`}>
+								<a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown" dataToggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" onclick="updateStatus(); showNotification();">
+									<span className="icons mr-0">
+										<i onClick={handleTopNotifi}><FaBell/></i>
+									</span>
+									<span className="noti_circle pulls-effact align-items-center rounded-circle justify-content-center d-none noti-count">
+										1
+									</span>
+								</a>
+								<div className={`dropdown-menu ${Notifi}`} aria-labelledby="notificactionDropdown">
+									<div className="delete_all_btn ">
+										<h6 className="font-14 mb-0">Notifications</h6>
+										<a href="#" className="btn btn_delete">View all</a>
+									</div>
+									{/* <div className="notification_items_body showNotification">
+									<a href="#" className="notification-item p-3 bg-white border_rounded_5 position-relative d-inline-block w-100">
+											<div className=" d-inline-flex w-100 mb-2 flex-wrap">
+												<div className="notification_title noti_detail">
+													<span className="icons mr-0"><i> <FaUserCircle /></i></span>
+													<h4 className="font-12 font-600 mb-0">Article</h4>
+													<p className="noti_text font-14 mb-0">ADARSH .client like on your article.</p>
+												</div>
+												<div className="noti_time">
+													<spna className="notification-data">3 Minutes ago</spna>
+													
+												</div>
+											</div>
+									</a>
+									
+									</div> */}
+								</div>
+							</li>
+							<li className="dropdown profile_dropdown">
+								<a href="#" dataToggle="dropdown" className="nav-link dropdown-toggle nav-link-lg nav-link-user" onClick={handleTopDropdown} style={{padding:"1rem !important" ,borderRadius:"7px"}}> 
+									<span className="icons mr-0">
+										<i><FaUser/></i>
+									</span>
+									<span className="ml-2">
+										Kamal Gupta
+									</span>
+								</a>
+								<div className={`dropdown-menu dropdown-menu-right pullDown ${topDropdown}`} >
+									<div className="dropdown-title">Hello Kamal Narayan Gupta</div>
+										<a href="admin_change_password" className="dropdown-item has-icon"> <i><FaUser/></i> Chnage Password</a>
+										<a href="admin_setting" className="dropdown-item has-icon"> <i><IoMdSettings/></i> Setting</a>
+									<div className="dropdown-divider"></div>
+										<a href="#" className="dropdown-item has-icon text-danger"> <i><FaSignOutAlt/></i> Logout</a>
+								</div>
+							</li>
+						</ul>
+				</nav>
+        	</div>
+		</div>  
+    </Fragment>
+    )
+}
+
+export default NavbarTop;

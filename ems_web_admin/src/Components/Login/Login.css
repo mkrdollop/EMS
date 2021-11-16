@@ -1,0 +1,119 @@
+.login_main_sec{
+    background: linear-gradient(to top, #ffffff, #c3e1ff);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.card{
+box-shadow:
+0 0.46875rem 2.1875rem rgb(90 97 105 / 10%),
+0 0.9375rem 1.40625rem rgb(90 97 105 / 10%),
+0 0.25rem 0.53125rem rgb(90 97 105 / 12%),
+0 0.125rem 0.1875rem rgb(90 97 105 / 10%);
+
+}
+
+  
+  .card_login_fl{
+    width: 75%;
+    /* height: 100%; */
+    float: right;
+    font-size: 14px;
+    margin: 0 !important;
+  }
+  
+  .login_btn_group button{
+    background: #0976ec;
+    border: 1px solid #0976ec;
+    height: 55px;
+    margin-top: 55px;
+    font-size: 14px !important;
+  }
+  
+  .login_form .form-group input{
+    height: 52px;
+    font-size: 14px;
+  }
+
+  
+  .login_form .form-group label{
+    font-size: 14px !important;
+    color: #222;
+  }
+  
+  
+  .round {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .round label {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 22px;
+    left: 0;
+    /* position: absolute; */
+    top: 5px;
+    width: 22px;
+  }
+  
+  .round label:after {
+      border: 2.5px solid #fff;
+      border-top: none;
+      border-right: none;
+      content: "";
+      height: 6px;
+      opacity: 0;
+      position: absolute;
+      top: 6px;
+      transform: rotate(-45deg);
+      width: 12px;
+      left: 4px;
+  }
+  
+  .round input[type="checkbox"] {
+    visibility: hidden;
+  }
+  
+  .round input[type="checkbox"]:checked + label {
+    background-color: #0976ec;
+    border-color: #0976ec;
+  }
+  
+  .round input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+  
+  .form-group .round label{
+    padding: 0 !important;
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+  }
+  
+  .card.card-primary{
+    border-top: 4px solid #0976ec;
+  }
+  
+  .login_logo_ctnr{
+    width: 75%;
+    float: right;
+  }
+  
+  .login_vec_img_sec img{
+      max-width: 75%;
+      filter: drop-shadow(14px 25px 7px rgba(9,118,236,.21));
+      -webkit-filter: drop-shadow(14px 25px 7px rgba(9,118,236,.21));
+      -moz-filter: drop-shadow(14px 25px 7px rgba(9,118,236,.21));
+  }
+  
+  .card-header{
+    border-bottom: none;
+  }
+
+ 
