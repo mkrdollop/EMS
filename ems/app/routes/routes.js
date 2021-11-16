@@ -19,11 +19,12 @@ module.exports = app => {
     const ChatController = require("../controller/Webservice/ChatController.js");
     const SalaryController = require("../controller/Webservice/SalaryController.js");
 
-
     /* =============== Super Admin API ================ */
-    const PlanController = require("../controller/Admin/PlanController.js");
+    const PlanController = require("../controller/Admin/PlanController");
     const AdminLogin = require("../controller/Admin/AdminLogin");
     const AdminCommonController = require("../controller/Admin/AdminCommonController");
+    const AdminDetailsControler = require("../controller/Admin/AdminDetailsControler");
+    const NotificationController = require("../controller/Admin/NotificationController");
 
     /////////////Create Login Signup routes
     
@@ -83,6 +84,7 @@ module.exports = app => {
     app.post("/punch_out", PunchingController.punch_out);
     //app.get("/get_punch", PunchingController.get_punch);
     app.put("/add_overtime", PunchingController.add_overtime);
+    app.put("/delete_punch", PunchingController.delete_punch);
 
     /////////////////EmployeeController
     app.post("/add_employee", EmployeeController.add_employee);
@@ -123,10 +125,17 @@ module.exports = app => {
      app.get("/admin_get_user_list",AdminCommonController.admin_get_user_list);
     //  app.put("/update_user_by_admin",AdminCommonController.update_user_by_admin);
 
-    // .......................login web supper admin routes
+    // .......................login web supper admin routes.........
     app.post("/admin_login", AdminLogin.admin_login);
     app.put("/admin_forgot_password", AdminLogin.admin_forgot_password);
     app.put("/admin_match_otp", AdminLogin.admin_match_otp);
     app.put("/admin_change_forgot_password", AdminLogin.admin_change_forgot_password);
+
+    //.....................AdminDetailsControler.................
+    app.post("/get_admin_profile",AdminDetailsControler.get_admin_profile);
+    app.put("/update_admin_profile",AdminDetailsControler.update_admin_profile);
+
+    //...................NotificationController................
+    app.get("/get_all_notification",NotificationController.get_all_notification);
 
 };

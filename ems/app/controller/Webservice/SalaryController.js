@@ -24,13 +24,13 @@ module.exports.get_salary = (req, res) => {
     var header = req.headers.authorization;
     if (header) {
         var data = token_helper.verifyJwtToken(header);
-        // console.log(data);
+         
         if (data) {
             user_id=data.user_id;
 
             let query;
 
-            query = `SELECT user.first_name AS user_name,salary.salary_amount
+            query = `SELECT user.first_name AS user_name,salary.salary_amount,salary.salary_type,salary.role_type
             FROM user  
             LEFT JOIN salary ON (salary.user_id = user.user_id)
             WHERE user.admin_id='`+ user_id + `'`;
@@ -43,14 +43,14 @@ module.exports.get_salary = (req, res) => {
                 });
             });
         
-            } else {                  
-                res.status(400).send({message: lang.NOT_EXIST});
-    
-            }
-        }
-        else {
-            res.status(400).json({
-                message: lang.INVALID_TOKEN
-            });
+        } else {                  
+            res.status(400).send({message: lang.NOT_EXIST});
+
         }
     }
+    else {
+        res.status(400).json({
+            message: lang.INVALID_TOKEN
+        });
+    }
+}

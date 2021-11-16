@@ -72,6 +72,7 @@ db.PrivacyAndPolicy = require("../models/PrivacyAndPolicy.js")(connection,Sequel
 db.AboutUs = require("../models/AboutUs.js")(connection,Sequelize);
 db.SupportChat = require("../models/SupportChat.js")(connection,Sequelize);
 db.Admin = require("../models/Admin.js")(connection,Sequelize);
+db.Notification = require("../models/Notification")(connection,Sequelize);
 
 
 /////////////////////////////////config key

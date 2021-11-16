@@ -170,13 +170,11 @@ module.exports.get_user_profile = (req, res) => {
 
     var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
     var lang = language_helper.load_language(language);
-    
     var header = req.headers.authorization;
     if (header) {
         var data = token_helper.verifyJwtToken(header);
         if (data) {
             var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
-            console.log(req.query);
 
             if(data.role_type=="Admin_User" || data.role_type=="Employee"){
                 user_id = data.user_id ;
@@ -240,6 +238,7 @@ module.exports.update_user_profile = (req, res) => {
 
             cpUpload(req, res, function (err) {
                 
+                var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "English";
                 var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
                 var company_name = typeof req.body.company_name != 'undefined' ? req.body.company_name : "";
                 var first_name = typeof req.body.first_name != 'undefined' ? req.body.first_name : "";
@@ -253,6 +252,10 @@ module.exports.update_user_profile = (req, res) => {
                 var logo = typeof req.files.logo != 'undefined' ? req.files.logo : "";
                 
                 var lang = language_helper.load_language(language);
+
+                if(data.role_type=="Admin_User" || data.role_type=="Employee"){
+                    user_id = data.user_id ;
+                }
             
                 var updateValues = [];
                 if (first_name != "") {
@@ -296,7 +299,7 @@ module.exports.update_user_profile = (req, res) => {
                     {
                         where:
                         {
-                            user_id: data.user_id
+                            user_id: user_id
                         }
                     }).then((result) => {
                         return res.status(200).json({
