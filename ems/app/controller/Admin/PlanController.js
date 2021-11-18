@@ -187,7 +187,6 @@ module.exports.get_admin_plan_by_user=(req,res)=>
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
-
         if (data) {
             if (plan_id != "") {
                 db.Plan.findOne({ where: { plan_id: plan_id } }).then(plan => {
@@ -239,4 +238,51 @@ module.exports.get_admin_plan_by_user=(req,res)=>
     } 
 }
 
+module.exports.delete_plan = (req, res) => {
+    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
+    var lang = language_helper.load_language(language);
+    var authheader = req.headers.authorization;
+
+    if (authheader) {
+        var data = token_helper.verifyJwtToken(authheader);
+        if (data) {
+            var plan_id = typeof req.body.plan_id != 'undefined' ? req.body.plan_id : "";
+                if (plan_id != "") {
+
+                    var updateValues = {is_deleted:0 ,updated_at: current_date};
+                    db.Plan.update(updateValues,
+                        {
+                            where:
+                            {
+                                plan_id: plan_id,
+                                
+                            }
+                            
+                        }).then((result) => {
+                            return res.status(200).json({
+                                message: lang.SUCCESS,
+                            });
+
+                        });
+                }
+                else {
+                    res.status(400).json({
+                        message: lang.ALL_REQUIRED,
+                        planData: planData
+                    });
+                }
+            }
+        else {
+            res.status(400).json({
+                message: lang.INVALID_TOKEN
+            });
+        }
+    }
+    else {
+        res.status(400).json({
+            message: lang.TOKEN_REQUIRED
+        });
+    }
+
+}
 

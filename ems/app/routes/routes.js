@@ -13,7 +13,6 @@ module.exports = app => {
     const EmployeeController = require("../controller/Webservice/EmployeeController.js");
     const AttendanceController = require("../controller/Webservice/AttendanceController.js");
     const CalanderController = require("../controller/Webservice/CalanderController.js");
-    const WebController = require("../controller/Webservice/WebController.js");
     const FAQController = require("../controller/Webservice/FAQController.js");
     const PrivacyController = require("../controller/Webservice/PrivacyController.js");
     const ChatController = require("../controller/Webservice/ChatController.js");
@@ -25,6 +24,8 @@ module.exports = app => {
     const AdminCommonController = require("../controller/Admin/AdminCommonController");
     const AdminDetailsControler = require("../controller/Admin/AdminDetailsControler");
     const NotificationController = require("../controller/Admin/NotificationController");
+    const WebController = require("../controller/Admin/WebController.js");
+
 
     /////////////Create Login Signup routes
     
@@ -99,15 +100,10 @@ module.exports = app => {
     app.get("/add_calander", CalanderController.add_calander);
     app.get("/get_calander", CalanderController.get_calander);
 
-    ////////////////////////////web contant WebController
-    app.get("/get_terms_and_condition", WebController.get_terms_and_condition);
-    app.get("/get_about", WebController.get_about);
-
-    ///////////////////// web contant Get FAQ
-    app.get("/get_faq", FAQController.get_faq);
-
     ////////////////// web contant Get PrivacyAndPolicy
     app.get("/get_privcy_policy",PrivacyController.get_privcy_policy);
+    app.post("/add_privcy_policy",PrivacyController.add_privcy_policy);
+    app.post("/delete_privcy_policy",PrivacyController.delete_privcy_policy);
 
     ////////////////////////////////get user salary 
     app.get("/get_salary",SalaryController.get_salary);
@@ -115,14 +111,16 @@ module.exports = app => {
     ///////////////////////////chat support
     app.post("/add_support_chat",ChatController.add_support_chat);
     app.get("/get_support_chat",ChatController.get_support_chat);
+    // app.get("/get_all_chat_by_user",ChatController.get_all_chat_by_user);
     
-     //////////////////////////////////admin plan
-     app.post("/admin_add_plan", PlanController.admin_add_plan);
-     app.get("/admin_get_all_plan", PlanController.admin_get_all_plan);
-     app.get("/get_admin_plan_by_user", PlanController.get_admin_plan_by_user);
+    //////////////////////////////////admin plan
+    app.post("/admin_add_plan", PlanController.admin_add_plan);
+    app.get("/admin_get_all_plan", PlanController.admin_get_all_plan);
+    app.get("/get_admin_plan_by_user", PlanController.get_admin_plan_by_user);
+    app.put("/delete_plan", PlanController.delete_plan);
 
-     //////////////////////////AdminCommonController
-     app.get("/admin_get_user_list",AdminCommonController.admin_get_user_list);
+    //////////////////////////AdminCommonController
+    app.get("/admin_get_user_list",AdminCommonController.admin_get_user_list);
     //  app.put("/update_user_by_admin",AdminCommonController.update_user_by_admin);
 
     // .......................login web supper admin routes.........
@@ -135,7 +133,17 @@ module.exports = app => {
     app.post("/get_admin_profile",AdminDetailsControler.get_admin_profile);
     app.put("/update_admin_profile",AdminDetailsControler.update_admin_profile);
 
-    //...................NotificationController................
+    //...................NotificationController....................
     app.get("/get_all_notification",NotificationController.get_all_notification);
+
+    ////////////////////////////web contant WebController............
+    app.get("/get_terms_and_condition", WebController.get_terms_and_condition);
+    app.get("/get_about", WebController.get_about);
+
+    //.................FAQController.add_faq Get FAQ..........
+    app.get("/get_faq", FAQController.get_faq);
+    app.post("/add_faq", FAQController.add_faq);
+    app.post("/delete_faq", FAQController.delete_faq);
+
 
 };

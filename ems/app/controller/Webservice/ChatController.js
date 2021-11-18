@@ -104,3 +104,40 @@ module.exports.get_support_chat = (req, res) => {
            
 }
 
+// module.exports.get_all_chat_by_user = (req, res) => {
+
+//     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
+//     var lang = language_helper.load_language(language);
+//     var header = req.headers.authorization;
+//     if (header) {
+//         var data = token_helper.verifyJwtToken(header);
+//         if (data) {
+//             var user_id = data.user_id;
+//             var role_type = data.role_type;
+
+//             let querys = `SELECT support_chat.user_id,user.first_name
+//                 FROM support_chat
+//                 INNER JOIN user ON support_chat.user_id = user.user_id
+//                 WHERE reciever_id = `+ user_id +`  AND reciever_type = '`+ role_type +`'
+//                 ORDER BY support_chat.created_at DESC`;
+
+//             db.connection.query(querys, { type: db.Sequelize.QueryTypes.SELECT}).then((chatData)=>{
+                
+//                 return res.status(200).json({
+//                     message: lang.SUCCESS,
+//                     chatData: chatData
+//                 });
+//             });
+        
+//         } else {                  
+//             res.status(400).send({message: lang.NOT_EXIST});
+
+//         }
+//     }
+//     else {
+//         res.status(400).json({
+//             message: lang.INVALID_TOKEN
+//         });
+//     }
+// }
+
