@@ -168,7 +168,7 @@ module.exports.change_user_password = (req, res) => {
   ********** */
 module.exports.get_user_profile = (req, res) => {
 
-    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
+    var language = typeof req.body.language != 'undefined' ? req.query.language : "English";
     var lang = language_helper.load_language(language);
     var header = req.headers.authorization;
     if (header) {
