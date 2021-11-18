@@ -17,6 +17,7 @@ module.exports = app => {
     const PrivacyController = require("../controller/Webservice/PrivacyController.js");
     const ChatController = require("../controller/Webservice/ChatController.js");
     const SalaryController = require("../controller/Webservice/SalaryController.js");
+  
 
     /* =============== Super Admin API ================ */
     const PlanController = require("../controller/Admin/PlanController");
@@ -24,7 +25,11 @@ module.exports = app => {
     const AdminCommonController = require("../controller/Admin/AdminCommonController");
     const AdminDetailsControler = require("../controller/Admin/AdminDetailsControler");
     const NotificationController = require("../controller/Admin/NotificationController");
+
     const WebController = require("../controller/Admin/WebController.js");
+
+    const AboutController = require("../controller/Admin/AboutController");
+    const TermsAndCondtionController = require("../controller/Admin/TermsAndCondtionController");
 
 
     /////////////Create Login Signup routes
@@ -37,6 +42,28 @@ module.exports = app => {
     app.post("/resend_otp", LoginSignup.resend_otp);
     app.post("/email_varification", LoginSignup.email_varification);
     app.post("/complete_signup", LoginSignup.complete_signup);
+
+
+    ////////// About Us
+    app.post("/add_about_us", AboutController.admin_add_about_us);
+    app.delete("/delete_about_us", AboutController.admin_delete_about_us);
+    app.get("/get_about_us", AboutController.admin_get_all_about_us);
+
+
+
+    ////////// Terms and condition
+    app.post("/add_terms_condition", TermsAndCondtionController.admin_add_terms_condition);
+    // app.patch("/add_terms_condition", TermsAndCondtionController.admin_add_terms_condition);
+    app.delete("/delete_terms_condition", TermsAndCondtionController.admin_delete_terms_condition);
+    app.get("/get_terms_condition", TermsAndCondtionController.admin_get_all_terms_condition);
+
+
+
+
+    // admin_add_terms_condition
+    
+    
+
 
     //////////////////WorkTImeController
     app.get("/get_all_work_timing", WorkTimeController.get_all_work_timing);
