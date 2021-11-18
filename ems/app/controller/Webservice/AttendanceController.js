@@ -80,6 +80,7 @@ module.exports.get_punch = (req, res) => {
             }
             let empSql;
             empSql = "SELECT * FROM `attendance` WHERE  user_id = '" + user_id + "'  GROUP BY (CONVERT(created_at,date)) ORDER BY (CONVERT(created_at,date)) DESC";
+            //console.log(empSql);
             db.connection.query(empSql, { type: Sequelizes.QueryTypes.SELECT })
                     .then(function (punchData) {
                         console.log(punchData);
