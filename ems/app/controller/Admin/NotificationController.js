@@ -25,7 +25,7 @@ module.exports.get_all_notification = (req, res) => {
             var user_id = data.user_id;
             var role_type = data.role_type;
 
-                var querys = `SELECT notification.*,user.first_name
+                let querys = `SELECT notification.*,user.first_name
                 FROM notification
                 LEFT JOIN user ON notification.user_id = user.user_id
                 WHERE reciever_id = `+ user_id +`  AND reciever_type = '`+ role_type +`'
