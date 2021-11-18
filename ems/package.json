@@ -38,6 +38,7 @@
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.14",
     "otp-generator": "^2.0.1",
+    "package.json": "^2.0.1",
     "pdfkit": "^0.13.0",
     "sequelize": "^6.6.5",
     "timezones.json": "^1.5.3",

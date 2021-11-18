@@ -1,0 +1,4 @@
+1. admin_add_about_us : (add /update by id )
+2. admin_delete_about_us : (by id)
+
+update ke case me created_at update nhi krna he
