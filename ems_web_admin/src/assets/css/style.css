@@ -10183,7 +10183,7 @@ input:checked + .slider-switch:before {
     align-items: start;
     padding: 10px;
     border-bottom: 1px solid #efefef;
-    width: 100%;
+    /* width: calc(50% - 30px); */
 }
 .shopowner-dts {
     margin-top: 20px;

@@ -17,7 +17,6 @@ module.exports = app => {
     const PrivacyController = require("../controller/Webservice/PrivacyController.js");
     const ChatController = require("../controller/Webservice/ChatController.js");
     const SalaryController = require("../controller/Webservice/SalaryController.js");
-  
 
     /* =============== Super Admin API ================ */
     const PlanController = require("../controller/Admin/PlanController");
@@ -25,7 +24,7 @@ module.exports = app => {
     const AdminCommonController = require("../controller/Admin/AdminCommonController");
     const AdminDetailsControler = require("../controller/Admin/AdminDetailsControler");
     const NotificationController = require("../controller/Admin/NotificationController");
-
+    const UserDashboardController = require("../controller/Admin/UserDashboardController");
     const WebController = require("../controller/Admin/WebController.js");
 
     const AboutController = require("../controller/Admin/AboutController");
@@ -59,11 +58,8 @@ module.exports = app => {
 
 
 
-
     // admin_add_terms_condition
     
-    
-
 
     //////////////////WorkTImeController
     app.get("/get_all_work_timing", WorkTimeController.get_all_work_timing);
@@ -171,6 +167,9 @@ module.exports = app => {
     app.get("/get_faq", FAQController.get_faq);
     app.post("/add_faq", FAQController.add_faq);
     app.post("/delete_faq", FAQController.delete_faq);
+
+    //.................UserDashboardController ..........
+    app.get("/get_admin_dashboard", UserDashboardController.get_admin_dashboard);
 
 
 };
