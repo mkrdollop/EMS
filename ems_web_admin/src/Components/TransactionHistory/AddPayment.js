@@ -2,13 +2,11 @@ import React, { Fragment } from 'react';
 import '../../assets/css/style.css';
 import { Link } from 'react-router-dom';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
-import Footer from '../../DeployHead/Footer/Footer';
 import Navside from '../NavsideBar/Navside';
 
-
-function Addplan() {
+function AddPayment() {
     return (
-    <Fragment>
+       <Fragment>
 		<div className="ems-dashboard dark dark-sidebar theme-black">    
 			<div className="main-wrapper main-wrapper-1">
 
@@ -22,7 +20,7 @@ function Addplan() {
 				<div className="main-content overflow-hidden">
 					<section className="section">
 						<h4 className="border-bottom pb-2 mb-4 text-dark">
-							Add Plan
+							payments
 						</h4>
 						<div className="section-body">
 							<div className="row">
@@ -30,7 +28,7 @@ function Addplan() {
 									<div className="card">
 										<form className="needs-validation" name="planForm" id="plan" novalidate="">
 											<div className="card-header">
-												<h4>Add Plan</h4>
+												<h4>Add payments</h4>
 											</div>
 											<div className="card-body">
 												<div className="row">
@@ -77,10 +75,8 @@ function Addplan() {
 														<label>Features</label>
 														<select className="form-control" name="duration" id="duration">
 														<option value="">Payment method</option>
-														<option value="1">Credit Card</option>
-														<option value="2">Debit Card</option>
-														<option value="3">UPI</option>
-														<option value="4">Wallet</option>
+														<option value="1">by cash</option>
+														<option value="6">Transactions</option>
 														</select>
 													</div>
 													</div>
@@ -134,10 +130,9 @@ function Addplan() {
 					</section>
 				</div>
 			</div>
-			<Footer />
 		</div>
     </Fragment>
     )
 }
 
-export default Addplan;
+export default AddPayment;

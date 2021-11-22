@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function SidebarMenu(props){
     // console.log(props);
@@ -8,127 +9,109 @@ function SidebarMenu(props){
     const stockDataMenu = [
         {
             menuId:1,
-            childMenu:"User Menu1 usha",
-
-            
-        },
-        {
-            menuId:1,
-            childMenu:"Plan menu2",
-
-            
-        },
-        {
-            menuId:1,
-            childMenu:"Plan menu8",
-            
-        },
+            childMenu:"All User List",
+            Link:"/alluserlist"
+        }, 
+        
+        // {
+        //     menuId:1,
+        //     childMenu:"Company List",
+        // },  Link
+        // {
+        //     menuId:1,
+        //     childMenu:"Contact Number",
+           
+        // },
         {
             menuId:2,
-            childMenu:"Plan menu2 usha",
-
+            childMenu:"All Plan",
+            Link:"/allplan"
+        }, 
+        {
+            menuId:2,
+            childMenu:"Add Plan ",
+            Link:"/addplanlist"
+        }, 
+        
+        {
+            menuId:3,
+            childMenu:"Admin",
+            Link
+        },
+        {
+            menuId:3,
+            childMenu:"Admin_User",
+            Link
             
         },
         {
             menuId:3,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:3,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:3,
-            childMenu:"Plan menu8 another",
-            
-        },
+            childMenu:"Employee",
+            Link
+        }, 
         {
             menuId:4,
-            childMenu:"Plan menu8 another",
-            
-        },
+            childMenu:"History of all transaction",
+            Link:"/alltransactions"
+        }, 
         {
             menuId:4,
-            childMenu:"Plan menu8 another",
-            
+            childMenu:"Payment Methods",
+            Link:"/paymentmethode"
+        }, 
+        {
+            menuId:5,
+            childMenu:"FAQ",
+            Link:"/faq"
         },
         {
             menuId:5,
-            childMenu:"Plan menu8 another 5",
-            
+            childMenu:"Privacy Policy",
+            Link:"/privacypolicy"
         },
         {
             menuId:5,
-            childMenu:"Plan menu8 another",
-            
+            childMenu:"Terms and Condition",
+            Link:"/termconditions"
         },
         {
-            menuId:6,
-            childMenu:"Plan menu8 another",
-            
+            menuId:5,
+            childMenu:"About Us",
+            Link:"/about"
         },
-        {
-            menuId:6,
-            childMenu:"Plan menu8 another 6",
+        // {
+        //     menuId:7,
+        //     childMenu:"Plan menu8 another7",
             
-        },
-        {
-            menuId:7,
-            childMenu:"Plan menu8 another7",
+        // },
+        
+        // {
+        //     menuId:8,
+        //     childMenu:"Plan menu8 another",
             
-        },
-        {
-            menuId:7,
-            childMenu:"Plan menu8 another7",
+        // },
+       
+        // {
+        //     menuId:9,
+        //     childMenu:"Plan menu8 another",
             
-        },
-        {
-            menuId:8,
-            childMenu:"Plan menu8 another ",
+        // },
+        // {
+        //     menuId:10,
+        //     childMenu:"Plan menu8 another",
             
-        },
-        {
-            menuId:8,
-            childMenu:"Plan menu8 another",
+        // },
+        // {
+        //     menuId:11,
+        //     childMenu:"Plan menu8 another",
             
-        },
-        {
-            menuId:9,
-            childMenu:"Plan menu8 another",
+        // },
+        // {
+        //     menuId:12,
+        //     childMenu:"Plan menu8 another",
             
-        },
-        {
-            menuId:9,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:10,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:11,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:11,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:12,
-            childMenu:"Plan menu8 another",
-            
-        },
-        {
-            menuId:13,
-            childMenu:"Plan menu8 another",
-            
-        },
+        // },
+       
     ];
     
     ///////////Open Side menu dropdown
@@ -147,7 +130,8 @@ function SidebarMenu(props){
 
                 {stockDataMenu.map((data, index) => {
                     if(data.menuId==props.menuId){
-                        var subMenuData = <li><a className="nav-link" href="#">{data.childMenu}</a></li> ;
+                        
+                        var subMenuData = <li><a className="nav-link" href={data.Link}>{data.childMenu}</a></li> ;
                     }
 
                 return (
