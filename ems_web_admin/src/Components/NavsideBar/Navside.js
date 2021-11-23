@@ -17,6 +17,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { MdAddBox } from "react-icons/md";
 import SidebarMenu from "../NavsideBar/SidebarMenu";
 import '../../assets/css/bootstrap.min.css'; 
+import { Link } from "react-router-dom";
 
 function Navside() {
 
@@ -112,9 +113,9 @@ function Navside() {
 				</div>
 				<ul className="sidebar-menu">
 					<li className="dropdown active">
-                        <a href="/dashboard" className="nav-link"><i ><FaCube/></i>
+                        <Link to="/dashboard" className="nav-link"><i ><FaCube/></i>
                             <span>Dashboard</span>
-                        </a>
+                        </Link>
 					</li>
 
 

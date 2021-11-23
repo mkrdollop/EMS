@@ -6,7 +6,7 @@ import { MdContentPaste } from "react-icons/md";
 function PrivacyModel(props) {
     const history= useHistory();
     
-    ///////////Redirect page to About
+    ///////////Redirect page to Privacy
     const  editPrivacy = () => history.push('/privacypolicy');
     
     ///////////Click function Show Modal
@@ -25,27 +25,27 @@ function PrivacyModel(props) {
     }
     return (
         <Fragment>
-        <div className="dropdown kb_menu_on_dta_tbl" onClick={()=>onToggleHandler()}>
-            <button className="bg-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="dropdown kb_menu_on_dta_tbl">
+            <button  onClick={()=>onToggleHandler()} className="bg-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span className="material-icons">more_vert</span>
             </button>
-                <div className={`dropdown-menu ${open}`}>
+                <div className={`dropdown-menu viewpage ${open}`}>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={handleShow}>
                         <span className="material-icons">visibility</span>{props.view}
                         
                     </a>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={editPrivacy}>
-                        <span className="material-icons">{props.edit}</span>
+                        <span className="material-icons">edit</span>{props.edit}
                     </a>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#">
-                        <span className="material-icons">{props.delete}</span>
+                        <span className="material-icons">delete_outline</span>{props.delete}
                         
                     </a>
                 </div>
         </div>
 
     {/* Modal show */}
-    <div className="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}} onClick={closeModal}>
+    <div className="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
     <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
             <div className="modal-body">
@@ -56,7 +56,7 @@ function PrivacyModel(props) {
                             <div className="shopowner-content-left pd-20 modalId pd-user_popup">
                             <div className="shopowner-dt-left">
                                 <h4 className="font-bold mb-0 text-left p-2"><i><MdOutlinePrivacyTip/></i> Privacy And Policy</h4>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <button  onClick={closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                             </div>

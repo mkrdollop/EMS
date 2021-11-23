@@ -1,14 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types';
 import './Login.css';
 
-function Login() {
+async function loginUser(credentials) {
+   return fetch('http://localhost:3002/admin_login', {
+     method: 'POST',
+     body: JSON.stringify(credentials)
+   })
+     .then(data => data.json())
+  }
+
+function Login({setToken}) {
    const history = useHistory();
+   const [email, setEmail] = useState();
+   const [password, setPassword] = useState();
 
    /////////Redirect page to addplan
    function handleClick(){
-      history.push("/addplan");
+      history.push("/dashboard");
    }
+
+   const handleSubmit = async e => {
+      e.preventDefault();
+      const token = await loginUser({
+         email,
+         password
+      });
+      setToken(token);
+    }
 
     return (
    <Fragment>
@@ -27,17 +47,17 @@ function Login() {
                      </p>
                   </div>
                   <div className="card-body">
-                     <form className="login_form">
+                     <form onSubmit={handleSubmit} className="login_form">
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
-                           <input id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
+                           <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
                            <div className="invalid-feedback">
                               Please fill in your email
                            </div>
                         </div>
                         <div className="form-group">
                            <label for="password">Password</label>
-                           <input id="password" type="password" className="form-control" name="password" placeholder="Enter Your Password"/>
+                           <input onChange={e => setPassword(e.target.value)} id="password" type="password" className="form-control" name="password" placeholder="Enter Your Password"/>
                            <div className="invalid-feedback">
                               please fill in your password
                            </div>
@@ -53,7 +73,7 @@ function Login() {
                               </a>
                            </div>
                         <div className="form-group login_btn_group mb-0">
-                           <button onClick={handleClick} type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
+                           <button type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
                               Login
                            </button>
                         </div>
@@ -70,11 +90,8 @@ function Login() {
    </Fragment>
     )
 }
-
-//  General JS Scripts 
-
-{/* <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script> */}
+   Login.propTypes = {
+      setToken: PropTypes.func.isRequired
+   }
 
 export default Login;

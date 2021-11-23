@@ -1,13 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { useHistory } from "react-router-dom";
 import { MdContentPaste } from "react-icons/md";
 import { MdOutlineFactCheck } from "react-icons/md";
 
 function TermsModel(props) {
-    const history= useHistory();
-    
-    ///////////Redirect page to About
-    const editTerms = () => history.push('/termconditions');
     
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
@@ -25,16 +20,16 @@ function TermsModel(props) {
     }
     return (
         <Fragment>
-        <div className="dropdown kb_menu_on_dta_tbl" onClick={()=>onToggleHandler()}>
-            <button className="bg-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="dropdown kb_menu_on_dta_tbl">
+            <button onClick={()=>onToggleHandler()} className="bg-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span className="material-icons">more_vert</span>
             </button>
-                <div className={`dropdown-menu ${open}`}>
+                <div className={`dropdown-menu viewpage ${open}`}>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={handleShow}>
                         <span className="material-icons">visibility</span>{props.view}
                         
                     </a>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={editTerms}>
+                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="/termconditions">
                         <span className="material-icons">edit</span>{props.edit}
                     </a>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#">
@@ -45,7 +40,7 @@ function TermsModel(props) {
         </div>
 
     {/* Modal show */}
-    <div class="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}} onClick={closeModal}>
+    <div class="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -56,7 +51,7 @@ function TermsModel(props) {
                             <div class="shopowner-content-left pd-20 modalId pd-user_popup">
                             <div class="shopowner-dt-left">
                                 <h4 class="font-bold mb-0 text-left p-2"><i><MdOutlineFactCheck /></i> TermsAndConditions</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button  onClick={closeModal} type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                             </div>

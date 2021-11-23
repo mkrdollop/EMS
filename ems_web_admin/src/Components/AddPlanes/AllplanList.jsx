@@ -3,6 +3,7 @@ import '../../assets/css/style.css';
 import ShowData from '../DataTables/ShowData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
+import { Link } from 'react-router-dom';
 
 function AllplanList() {
     const stockVeiwMenu=[
@@ -65,6 +66,10 @@ function AllplanList() {
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h4>All Plan</h4>
+                                    <Link to="/addplan" className="px-4 btn btn-primary ad_btn_on_dtble">
+                                        <span className="font-600 font-16">+</span>
+                                        Add
+                                    </Link>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
