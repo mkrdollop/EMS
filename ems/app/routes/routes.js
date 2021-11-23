@@ -28,8 +28,10 @@ module.exports = app => {
 
     const WebController = require("../controller/Admin/WebController.js");
 
+
     const AboutController = require("../controller/Admin/AboutController");
     const TermsAndCondtionController = require("../controller/Admin/TermsAndCondtionController");
+    const TotalUserController = require("../controller/Admin/TotalUserController");
 
 
     /////////////Create Login Signup routes
@@ -59,9 +61,9 @@ module.exports = app => {
 
 
 
+    //  get_admin_dashboard_data ,employee,  admin, where is_verified, is_deleted, is_active,  is_register  = 1 
 
-    // admin_add_terms_condition
-    
+    app.get("/get_admin_dashboard_data", TotalUserController.get_admin_dashboard_data);
     
 
 
