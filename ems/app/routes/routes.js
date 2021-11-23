@@ -106,7 +106,7 @@ module.exports = app => {
     app.post("/add_punch", PunchingController.add_punch);
     app.put("/change_punch_status", PunchingController.change_punch_status);
     app.post("/punch_out", PunchingController.punch_out);
-    //app.get("/get_punch", PunchingController.get_punch);
+    app.get("/get_punch", PunchingController.get_punch);
     app.put("/add_overtime", PunchingController.add_overtime);
     app.put("/delete_punch", PunchingController.delete_punch);
 
@@ -117,7 +117,7 @@ module.exports = app => {
     
     /////////////////AttendanceController
     app.get("/get_attendance_type", AttendanceController.get_attendance_type);
-    app.get("/get_punch", AttendanceController.get_punch);
+    //app.get("/get_punch", AttendanceController.get_punch);
 
     //////////////////CalanderController
     app.get("/add_calander", CalanderController.add_calander);

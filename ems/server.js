@@ -39,8 +39,8 @@ require("./app/routes/routes.js")(app);
 // const tokenResult = createJwtToken.verifyJwtToken(token);
 
 
-app.listen(3002, () => {
-  console.log("Server is running on port 3002.");
+app.listen(3001, () => {
+  console.log("Server is running on port 3001.");
 });
 
 // noclks
