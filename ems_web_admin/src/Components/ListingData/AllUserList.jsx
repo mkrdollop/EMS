@@ -1,8 +1,9 @@
 import React from 'react';
 import '../../assets/css/style.css';
-import ShowData from '../DataTables/ShowData';
+import ShowUserData from '../ListingData/ShowUserData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
+import { Link } from 'react-router-dom';
 
 function AllUserList() {
     const stockVeiwMenu=[
@@ -35,10 +36,10 @@ function AllUserList() {
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h4>All Users</h4>
-                                    <a href="#" className="px-4 btn btn-primary ad_btn_on_dtble">
+                                    <Link to="/showuser" className="px-4 btn btn-primary ad_btn_on_dtble">
                                         <span className="font-600 font-16">+</span>
                                         Add
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -67,7 +68,7 @@ function AllUserList() {
                                                     <td>Active usha</td>
                                                     <td>Active usha</td>
                                                     <td>
-                                                        <ShowData key={index} view={data.view} edit={data.edit} delete={data.delete} />
+                                                        <ShowUserData key={index} view={data.view} edit={data.edit} delete={data.delete} />
                                                     </td>
                                                     </tr>
                                                         </>

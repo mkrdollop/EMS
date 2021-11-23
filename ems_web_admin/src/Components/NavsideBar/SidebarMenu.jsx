@@ -131,7 +131,7 @@ function SidebarMenu(props){
                 {stockDataMenu.map((data, index) => {
                     if(data.menuId==props.menuId){
                         
-                        var subMenuData = <li><a className="nav-link" href={data.Link}>{data.childMenu}</a></li> ;
+                        var subMenuData = <li><Link className="nav-link" to={data.Link}>{data.childMenu}</Link></li> ;
                     }
 
                 return (

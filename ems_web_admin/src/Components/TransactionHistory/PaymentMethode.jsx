@@ -3,6 +3,7 @@ import '../../assets/css/style.css';
 import ShowData from '../DataTables/ShowData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
+import { Link } from 'react-router-dom';
 
 
 function PaymentMethode() {
@@ -36,9 +37,9 @@ function PaymentMethode() {
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h4>Payment Methods</h4>
-                                    <a href="/addplan" className="px-4 btn btn-primary ad_btn_on_dtble">
+                                    <Link to="/addplan" className="px-4 btn btn-primary ad_btn_on_dtble">
                                         <span className="font-600 font-16">+Add</span>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
