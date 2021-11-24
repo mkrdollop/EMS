@@ -8,7 +8,7 @@ import { FaUserSecret } from "react-icons/fa";
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
 import Navside from '../NavsideBar/Navside';
-import ShowData from '../DataTables/ShowData'
+import ShowData from '../DataTables/ShowData';
 
 function Dashboard() {
 	const stockVeiwMenu=[

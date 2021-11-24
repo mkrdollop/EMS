@@ -1,18 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { useHistory } from "react-router-dom";
-import { RiFocusLine } from "react-icons/ri";
-import { RiAlignLeft } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
-import { FaUserTag } from "react-icons/fa";
-import { FaTags } from "react-icons/fa";
+import { MdContentPaste } from "react-icons/md";
+import { MdOutlineFactCheck } from "react-icons/md";
 
-function ShowData(props) {
-    const history= useHistory();
+function TermsModel(props) {
     
-    ///////////Redirect page to addplan
-    const editPlan = () => history.push('/addplan');
-    
-
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
     const handleShow = ()=>{setShow("block")}
@@ -38,7 +29,7 @@ function ShowData(props) {
                         <span className="material-icons">visibility</span>{props.view}
                         
                     </a>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={editPlan}>
+                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="/termconditions">
                         <span className="material-icons">edit</span>{props.edit}
                     </a>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#">
@@ -59,55 +50,37 @@ function ShowData(props) {
                         <div class="card-body-table" id="showDetail">
                             <div class="shopowner-content-left pd-20 modalId pd-user_popup">
                             <div class="shopowner-dt-left">
-                                <h4 class="font-bold mb-0 text-left p-2">Plan Info</h4>
-                                    <button onClick={closeModal} type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h4 class="font-bold mb-0 text-left p-2"><i><MdOutlineFactCheck /></i> TermsAndConditions</h4>
+                                    <button  onClick={closeModal} type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                             </div>
                             <div class="shopowner-dts">
-                                    <div class="shopowner-dt-list">
+                                    {/* <div class="shopowner-dt-list">
                                         <span class="left-dt">
                                             <span class="dp_icon">
                                                 <i><FaTags/></i>
                                             </span>
-                                            <b>Plan Title</b>
+                                            <b>Users</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Silver Package</span>
-                                    </div>
-                                    <div class="shopowner-dt-list">
+                                        <span class="right-dt mt-2 font-16">Admin</span>
+                                    </div> */}
+                                    <div class="shopowner-dt-list" style={{width: '100%'}}>
                                         <span class="left-dt">
                                             <span class="dp_icon">
-                                                <i><FaRegUser/></i>
+                                            <i><MdContentPaste/></i>
                                             </span>
-                                            <b>Plan Fee</b>
+                                            <b>Contains</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">₹1250.00</span>
-                                    </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
-                                                <i><RiAlignLeft/></i>
-                                            </span>
-                                            <b>Role Type</b>
+                                        <span class="right-dt mt-2 font-16">5.1	FAQ
+                                        Ability to add/ modify/ remove FAQ page content. 
+                                        5.2	Privacy Policy
+                                        Ability to add/ modify/ remove Privacy Policy page Content.  
+                                        5.3	Terms and Condition
+                                        Ability to add/ modify/ remove Privacy Policy page Content.  
+                                        5.4	About Use
+                                        Ability to add/ modify/ remove Privacy Policy page Content.  
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Silver</span>
-                                    </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
-                                                <i><FaUserTag/></i>
-                                            </span>
-                                            <b>Posted By</b>
-                                        </span>
-                                        <span class="right-dt mt-2 font-16">KP</span>
-                                    </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
-                                                <i class="far fa-dot-circle"><RiFocusLine/></i>
-                                            </span><b>Status</b>
-                                        </span>
-                                    <span class="right-dt mt-2 font-16">Active</span>
                                     </div>
                                 </div>
                             </div>
@@ -123,4 +96,4 @@ function ShowData(props) {
     )
 }
 
-export default ShowData;
+export default TermsModel;

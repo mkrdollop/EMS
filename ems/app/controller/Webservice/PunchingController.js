@@ -369,13 +369,72 @@ module.exports.get_punch = (req, res) => {
             else {
                 user_id = data.user_id
             }
-            let empSql;
-            empSql = "SELECT * FROM `attendance` WHERE  user_id = '" + user_id + "'  GROUP BY (CONVERT(created_at,date)) ORDER BY (CONVERT(created_at,date)) DESC";
-            db.connection.query(empSql, { type: Sequelizes.QueryTypes.SELECT })
-                    .then(function (punchData) {
-                        console.log(punchData);
-            }); 
-                let query;
+            async function getResults() {
+                let punchData=[];
+                let empSql;
+                empSql = "SELECT *,CONVERT(created_at,date) AS date FROM `attendance` WHERE  user_id = '" + user_id + "' ";
+                if(start_date!="" && end_date!=""){
+                    empSql += " AND  (CONVERT(created_at,date)) >= '" + start_date + "' AND (CONVERT(created_at,date)) < '" + end_date + "' ";
+
+                }
+                empSql += " GROUP BY (CONVERT(created_at,date)) ORDER BY (CONVERT(created_at,date)) DESC";
+                //db.connection.query(empSql, { type: Sequelizes.QueryTypes.SELECT }).then(function (punchData) {
+                let punch = await db.connection.query(empSql, { type: Sequelizes.QueryTypes.SELECT }) ;
+                /* for (let val of punch) {
+                    // let punchSql;
+                    // punchSql = "SELECT * FROM `attendance` WHERE  user_id = '" + user_id + "' AND DATE_FORMATE((CONVERT(created_at,date)),'%Y-%m-%d')='"+val.date+"'  ORDER BY (CONVERT(created_at,date)) DESC";
+                    
+                    //let attendanceDetail = "";
+                    //val.attendanceDetail = attendanceDetail;
+                    console.log(val);
+                } */
+                console.log("1");
+                return 1;
+            }
+            var presentCount = 0;
+            var absentCount = 0;
+            var workHour = 0;
+
+            getResults().then(results => {
+                return res.status(200).json({
+                    message: lang.SUCCESS,
+                    punchDetail: results
+                });
+            }).catch(err => {
+                return res.status(200).json({
+                    message: "err",
+                    punchDetail: ""
+                });
+            });
+            
+            /* if (punch.length != 0) {
+                for (let punchData of punch) {
+                    for(var i =0; i<punchData.length; i++){
+                        if(punchData[i]['attendance_type_id']==1){
+                            presentCount += 1;
+                        }
+                        if(punchData[i]['attendance_type_id']==2){
+                            absentCount += 1;
+                        }
+                    }
+                    
+                    return res.status(200).json({
+                        message: lang.SUCCESS,
+                        punchDetail: punchData,
+                        presentCount: presentCount,
+                        absentCount: absentCount,
+                        workHour: workHour,
+                    });
+                }
+            }
+            else {
+                res.status(200).json({
+                    message: lang.NOT_FOUND,
+                });
+
+            } */
+             
+                /* let query;
                 query = "SELECT * FROM `attendance` WHERE  user_id = '" + user_id + "' ";
                 if(start_date!="" && end_date!=""){
                     query += " AND  (CONVERT(created_at,date)) >= '" + start_date + "' AND (CONVERT(created_at,date)) < '" + end_date + "' ";
@@ -412,7 +471,7 @@ module.exports.get_punch = (req, res) => {
                             });
 
                         }
-                    });
+                    }); */
            
         }
         else {

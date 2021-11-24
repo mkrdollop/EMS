@@ -6,7 +6,6 @@ import { FiSearch } from "react-icons/fi";
 import { FaUser} from "react-icons/fa";
 import { FaSignOutAlt} from "react-icons/fa";
 
-
 function NavbarTop() {
 
 	/////////Open Profile dropdown
@@ -28,11 +27,8 @@ function NavbarTop() {
 			setNotifi("");
 		}
 	}
-
-	
     return (
     <Fragment>
-	
         {/* <div class="ems-dashboard dark dark-sidebar theme-black sidebar-mini"> */}
         <div className="ems-dashboard dark dark-sidebar theme-black">    
         	<div className="main-wrapper main-wrapper-1">
@@ -73,22 +69,6 @@ function NavbarTop() {
 										<h6 className="font-14 mb-0">Notifications</h6>
 										<a href="#" className="btn btn_delete">View all</a>
 									</div>
-									{/* <div className="notification_items_body showNotification">
-									<a href="#" className="notification-item p-3 bg-white border_rounded_5 position-relative d-inline-block w-100">
-											<div className=" d-inline-flex w-100 mb-2 flex-wrap">
-												<div className="notification_title noti_detail">
-													<span className="icons mr-0"><i> <FaUserCircle /></i></span>
-													<h4 className="font-12 font-600 mb-0">Article</h4>
-													<p className="noti_text font-14 mb-0">ADARSH .client like on your article.</p>
-												</div>
-												<div className="noti_time">
-													<spna className="notification-data">3 Minutes ago</spna>
-													
-												</div>
-											</div>
-									</a>
-									
-									</div> */}
 								</div>
 							</li>
 							<li className="dropdown profile_dropdown">

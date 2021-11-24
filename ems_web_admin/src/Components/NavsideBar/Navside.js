@@ -17,6 +17,7 @@ import { MdManageAccounts } from "react-icons/md";
 import { MdAddBox } from "react-icons/md";
 import SidebarMenu from "../NavsideBar/SidebarMenu";
 import '../../assets/css/bootstrap.min.css'; 
+import { Link } from "react-router-dom";
 
 function Navside() {
 
@@ -35,72 +36,70 @@ function Navside() {
         },
         {   
             menuId:3,
-            parentMenu: "Article Managment",
-            parentIcon: <FaRegClone/>,
-
-            
+            parentMenu: "Role Management",
+            parentIcon: <FaUsers/>,
         },
         {
             menuId:4,
-            parentMenu: "Question Managment",
-            parentIcon: <FaQuestionCircle/>,
-            
+            parentMenu: "Transaction Managment",
+            parentIcon: <FaHandHoldingUsd/>,
         },
         {
             menuId:5,
-            parentMenu: "Job Managment",
-            parentIcon: <FaFolder/>,
-            
-        },
-        {
-            menuId:6,
-            parentMenu: "Project Managment",
-            parentIcon: <MdManageAccounts/>,
-            
-        },
-        {
-            menuId:7,
-            parentMenu: "Advertise Managment",
+            parentMenu: "Web Management",
             parentIcon: <MdAddBox/>,
             
         },
-        {
-            menuId:8,
-            parentMenu: "Transaction Managment",
-            parentIcon: <FaHandHoldingUsd/>,
+        // {
+        //     menuId:4,
+        //     parentMenu: "Question Managment",
+        //     parentIcon: <FaQuestionCircle/>,
+            
+        // },
+        // {
+        //     menuId:5,
+        //     parentMenu: "Job Managment",
+        //     parentIcon: <FaFolder/>,
+            
+        // },
+        // {
+        //     menuId:6,
+        //     parentMenu: "Project Managment",
+        //     parentIcon: <MdManageAccounts/>,
+            
+        // },
+       
+        // {
+        //     menuId:9,
+        //     parentMenu: "Community Managment",
+        //     parentIcon: <FaUsers/>,
+            
+        // },
+        // {
+        //     menuId:10,
+        //     parentMenu: "Skill Managment",
+        //     parentIcon: <FaGraduationCap/>,
            
-        },
-        {
-            menuId:9,
-            parentMenu: "Community Managment",
-            parentIcon: <FaUsers/>,
+        // },
+        // {
+        //     menuId:11,
+        //     parentMenu: "Payment mode",
+        //     parentIcon: <FaMoneyCheck/>,
             
-        },
-        {
-            menuId:10,
-            parentMenu: "Skill Managment",
-            parentIcon: <FaGraduationCap/>,
-           
-        },
-        {
-            menuId:11,
-            parentMenu: "Payment mode",
-            parentIcon: <FaMoneyCheck/>,
+        // },
+        // {
+        //     menuId:12,
+        //     parentMenu: "Wallet Managment",
+        //     parentIcon: <FaWallet/>,
+        //     // childMenu
             
-        },
-        {
-            menuId:12,
-            parentMenu: "Wallet Managment",
-            parentIcon: <FaWallet/>,
-            // childMenu
+        // },
+        // {
+        //     menuId:13,
+        //     parentMenu: "Earning Managment",
+        //     parentIcon: <RiAddBoxFill/>,
             
-        },
-        {
-            menuId:13,
-            parentMenu: "Earning Managment",
-            parentIcon: <RiAddBoxFill/>,
-            
-        },
+        // },
         ];
 
     return (
@@ -114,9 +113,9 @@ function Navside() {
 				</div>
 				<ul className="sidebar-menu">
 					<li className="dropdown active">
-                        <a href="#" className="nav-link"><i ><FaCube/></i>
+                        <Link to="/dashboard" className="nav-link"><i ><FaCube/></i>
                             <span>Dashboard</span>
-                        </a>
+                        </Link>
 					</li>
 
 
@@ -124,7 +123,6 @@ function Navside() {
                     return (
                         <>
                         <SidebarMenu key={index} menu={data.parentMenu} menuIcon={data.parentIcon} menuId={data.menuId}/>
-                        
                         </>
                     );
                     })}

@@ -1,24 +1,23 @@
-
-const { Op } = require("sequelize");
 const express = require('express');
 const app = new express();
 var md5 = require('md5');
 var token_helper = require('../../helper/token_helper.js');
 const db = require("../../config/db.js");
 const language_helper = require("../../helper/language_helper");
-
+const Common_helper = require("../../helper/Common_helper");
+var multer = require('multer');
+var multipart = require('connect-multiparty');
+//var multipartMiddleware = multipart();
 var path = require('path');
-
-var FormData = require('form-data');
-const Sequelizes = require('sequelize');
+var Sequelizes = require('Sequelize');
 
 
+var current_date = new Date();
+current_date = current_date.toISOString();
 /* ============
-get All user, role_type = Employee, Admin_User  where is_verified, is_deleted, is_active,  is_register  = 1 
+get All user, role_type = Employee, Admin_User
 ============= */
-
-
-module.exports.get_admin_dashboard_data = (req, res) => {
+module.exports.get_admin_dashboard= (req, res) => {
     var authheader = req.headers.authorization;
     var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
     var lang = language_helper.load_language(language);
