@@ -8,7 +8,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { FaRegClone } from "react-icons/fa";
 import { FaClone } from "react-icons/fa";
 import { RiAddBoxFill } from "react-icons/ri";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaMoneyCheck } from "react-icons/fa";
 import { FaHandHoldingUsd } from "react-icons/fa";
@@ -50,12 +50,12 @@ function Navside() {
             parentIcon: <MdAddBox/>,
             
         },
-        // {
-        //     menuId:4,
-        //     parentMenu: "Question Managment",
-        //     parentIcon: <FaQuestionCircle/>,
+        {
+            menuId:6,
+            parentMenu: "Notification",
+            parentIcon: <FaBell/>,
             
-        // },
+        },
         // {
         //     menuId:5,
         //     parentMenu: "Job Managment",

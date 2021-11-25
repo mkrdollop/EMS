@@ -11,7 +11,7 @@ function TermsPages() {
                 <h1 class="top-title">Terms & Conditions <span class="underline"></span></h1>
                 <ul class="ems_breadcrums">
                     <li><Link to="/dashboard" class="page_name">Dashboard </Link>//</li>
-                    <li><Link to="#" class="page_name active">Terms & Conditions</Link></li>
+                    <li><Link to="/termconditions" class="page_name active">Terms & Conditions</Link></li>
                 </ul>
             </div>
         </section>

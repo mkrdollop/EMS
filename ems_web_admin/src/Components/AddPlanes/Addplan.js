@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment,useState } from 'react';
 import '../../assets/css/style.css';
 import { Link } from 'react-router-dom';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
@@ -7,6 +7,9 @@ import Navside from '../NavsideBar/Navside';
 
 
 function Addplan() {
+	const [title, setTitle] = useState();
+	const [description, setDescription] = useState();
+
     return (
     <Fragment>
 		<div className="ems-dashboard dark dark-sidebar theme-black">    
@@ -38,7 +41,7 @@ function Addplan() {
 														<div className="form-group">
 															<label>Plan Title</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input type="text" value="" className="form-control" id="plan_title" name="plan_title" required=""/>
+															<input onChange={e => setTitle(e.target.value)} type="text" className="form-control" id="plan_title" name="plan_title" required=""/>
 														</div>
 													</div>
 													<div className="col-md-6">
@@ -55,7 +58,7 @@ function Addplan() {
 													<div className="col-md-12">
 														<div className="form-group ">
 															<label>Description</label>
-															<textarea className="form-control" id="description" name="description" required="" value=""></textarea>
+															<textarea onChange={e => setDescription(e.target.value)} className="form-control" id="description" name="description" required=""></textarea>
 														</div>
 													</div>
 													

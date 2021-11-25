@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const createJwtToken = require("./app/helper/token_helper.js");
 const dotenv = require('dotenv');
+const cors = require('cors');
 var expressSession = require('express-session');
 
 // app.use(session({
@@ -24,6 +25,19 @@ app.use(bodyParser.json());
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
+//listen to specific rout
+app.use(cors(corsOptions));
+
+// app.use('/login', (req, res) => {
+//   res.send({
+//     token: 'test123'
+//   });
+// });
+
+
 // simple route
 app.get("/", (req, res) => {
   //console.log(res);
@@ -31,6 +45,13 @@ app.get("/", (req, res) => {
 });
 require("./app/routes/routes.js")(app);
 // set port, listen for requests
+
+ //redirect dashboard
+//  app.get("/admin_login", (req, res) => {
+//   console.log(res);
+//   // res.render("Dashboard");
+//   res.send("Dashboard");
+// });
 
 
 
