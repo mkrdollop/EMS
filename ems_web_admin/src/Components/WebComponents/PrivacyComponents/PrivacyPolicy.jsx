@@ -8,13 +8,13 @@ function PrivacyPolicy() {
         <>
         <div className="ems-dashboard dark dark-sidebar theme-black">   
 		<div className="main-wrapper main-wrapper-1">
-        <NavbarTop />
-        <Navside />
+			<NavbarTop />
+			<Navside />
 			<div className="main-content">
-            <section className="section">
-					<h4 className="border-bottom pb-2 mb-4 text-dark">
-						Privacy And Policy
-					</h4>
+            	<section className="section">
+					<Link to="/privacypage">
+					<h4 className="border-bottom pb-2 mb-4 text-dark">Privacy And Policy</h4>
+					</Link>
 					<div className="section-body">
 						<div className="row">
 							<div className="col-12 col-md-10 col-lg-8 mx-auto">

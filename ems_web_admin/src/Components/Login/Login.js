@@ -3,6 +3,17 @@ import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './Login.css';
 
+
+
+
+// async function loginUser(credentials) {
+//    return fetch('http://localhost:3002/admin_login', {
+//      method: 'POST',
+//      body: JSON.stringify(credentials)
+//    })
+//      .then(data => data.json())
+//   }
+
 async function loginUser(credentials) {
    console.log(JSON.stringify(credentials));
    const data = {userEmail:"admin@gmail.com",userPassword:"123456"};
@@ -31,6 +42,7 @@ async function loginUser(credentials) {
       }) */
   }
 
+
 function Login({setToken}) {
    const history = useHistory();
    const [email, setEmail] = useState();
@@ -41,6 +53,16 @@ function Login({setToken}) {
       history.push("/dashboard");
    }
 
+
+   // const handleSubmit = async e => {
+   //    e.preventDefault();
+   //    const token = await loginUser({
+   //       email,
+   //       password
+   //    });
+   //    setToken(token);
+   //  }
+
    const handleSubmit = async e => {
       e.preventDefault();
       const token = await loginUser({
@@ -50,6 +72,7 @@ function Login({setToken}) {
       console.log(token);
       //setToken(token);
     }
+
 
     
     return (
@@ -69,7 +92,7 @@ function Login({setToken}) {
                      </p>
                   </div>
                   <div className="card-body">
-                     <form onSubmit={handleSubmit} className="login_form">
+                     <form className="login_form">
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
                            <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
@@ -96,7 +119,7 @@ function Login({setToken}) {
                               </a>
                            </div>
                         <div className="form-group login_btn_group mb-0">
-                           <button type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
+                           <button onClick={handleClick} type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
                               Login
                            </button>
                         </div>

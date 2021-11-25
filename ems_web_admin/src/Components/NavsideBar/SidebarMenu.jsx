@@ -79,11 +79,12 @@ function SidebarMenu(props){
             childMenu:"About Us",
             Link:"/about"
         },
-        // {
-        //     menuId:7,
-        //     childMenu:"Plan menu8 another7",
+        {
+            menuId:6,
+            childMenu:"Notification List",
+            Link:"/notification_list"
             
-        // },
+        },
         
         // {
         //     menuId:8,
@@ -117,7 +118,7 @@ function SidebarMenu(props){
     ///////////Open Side menu dropdown
     const [style, setStyle] = useState("none");
 	const openAccordion = (id) =>{
-		if(style=="none")
+		if(style==="none")
 			setStyle("block");
 		else{
 			setStyle("none");
@@ -129,7 +130,7 @@ function SidebarMenu(props){
             <ul className="dropdown-menu" id={`${props.menuId}`} style={{display:style}} >
 
                 {stockDataMenu.map((data, index) => {
-                    if(data.menuId==props.menuId){
+                    if(data.menuId===props.menuId){
                         
                         var subMenuData = <li><Link className="nav-link" to={data.Link}>{data.childMenu}</Link></li> ;
                     }

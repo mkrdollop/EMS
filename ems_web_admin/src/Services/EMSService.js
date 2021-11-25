@@ -7,8 +7,8 @@ class EMSService{
         return http.get("/get_admin_dashboard");
     }
 
-    get_admin_dashboard () {
-        return http.get("/get_admin_dashboard");
+    admin_login () {
+        return http.post("/");
     }
 
     render() {

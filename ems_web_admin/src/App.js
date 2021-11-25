@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Addplan from './Components/AddPlanes/Addplan';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Datatable from './Components/DataTables/Datatable';
@@ -23,16 +23,18 @@ import AboutPage from './Components/WebComponents/AboutUs/AboutPage';
 import FAQPages from './Components/WebComponents/FAQComponents/FAQPages';
 import PrivacyPages from './Components/WebComponents/PrivacyComponents/PrivacyPages';
 import TermsPages from './Components/WebComponents/TermsComponents/TermsPages';
+import NotificationList from './Components/Notification/NotificationList';
+// import './http-commen';
 // import useToken from './useToken';
 
 function App() {
-  const [token, setToken] = useState();
+  // const [token, setToken] = useState();
   // const { token, setToken } = useToken();
 
 
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
+  // if(!token) {
+  //   return <Login setToken={setToken} />
+  // }
 
   return (
     <>
@@ -40,7 +42,7 @@ function App() {
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/addplan" component={Addplan} />
     <Route path="/datatable" component={Datatable} />
-    {/* <Route exact path={["/","/login"]} component={Login} /> */}
+    <Route exact path={["/","/login"]} component={Login} />
 
     <Route path="/allplan" component={AllplanList} />
     <Route path="/addplanlist" component={AddplanList} />
@@ -61,6 +63,7 @@ function App() {
     <Route path="/faqpage" component={FAQPages} />
     <Route path="/privacypage" component={PrivacyPages} />
     <Route path="/termspage" component={TermsPages} />
+    <Route path="/notification_list" component={NotificationList} />
     </Switch>
     </>
   )
