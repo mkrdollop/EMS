@@ -34,7 +34,7 @@ var upload = multer({ storage: storage });
 
 
 module.exports.admin_login = (req, res) => {
-
+    console.log(req.body);
     var email = typeof req.body.email != 'undefined' ? req.body.email : "";
     var password = typeof req.body.password != 'undefined' ? req.body.password : "";
     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";    

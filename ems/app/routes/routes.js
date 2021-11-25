@@ -24,13 +24,13 @@ module.exports = app => {
     const AdminCommonController = require("../controller/Admin/AdminCommonController");
     const AdminDetailsControler = require("../controller/Admin/AdminDetailsControler");
     const NotificationController = require("../controller/Admin/NotificationController");
-    const UserDashboardController = require("../controller/Admin/UserDashboardController");
+    const AdminDashboardController = require("../controller/Admin/AdminDashboardController");
     const WebController = require("../controller/Admin/WebController.js");
+
 
     const AboutController = require("../controller/Admin/AboutController");
     const TermsAndCondtionController = require("../controller/Admin/TermsAndCondtionController");
-
-
+  
     /////////////Create Login Signup routes
     
     app.get("/get_all_country", LoginSignup.get_all_country);
@@ -55,6 +55,12 @@ module.exports = app => {
     // app.patch("/add_terms_condition", TermsAndCondtionController.admin_add_terms_condition);
     app.delete("/delete_terms_condition", TermsAndCondtionController.admin_delete_terms_condition);
     app.get("/get_terms_condition", TermsAndCondtionController.admin_get_all_terms_condition);
+
+
+
+
+    //.................AdminDashboardController ..........
+    app.get("/get_admin_dashboard", AdminDashboardController.get_admin_dashboard);
 
 
 
@@ -106,7 +112,7 @@ module.exports = app => {
     app.post("/add_punch", PunchingController.add_punch);
     app.put("/change_punch_status", PunchingController.change_punch_status);
     app.post("/punch_out", PunchingController.punch_out);
-    //app.get("/get_punch", PunchingController.get_punch);
+    app.get("/get_punch", PunchingController.get_punch);
     app.put("/add_overtime", PunchingController.add_overtime);
     app.put("/delete_punch", PunchingController.delete_punch);
 
@@ -117,7 +123,7 @@ module.exports = app => {
     
     /////////////////AttendanceController
     app.get("/get_attendance_type", AttendanceController.get_attendance_type);
-    app.get("/get_punch", AttendanceController.get_punch);
+    //app.get("/get_punch", AttendanceController.get_punch);
 
     //////////////////CalanderController
     app.get("/add_calander", CalanderController.add_calander);
@@ -168,8 +174,6 @@ module.exports = app => {
     app.post("/add_faq", FAQController.add_faq);
     app.post("/delete_faq", FAQController.delete_faq);
 
-    //.................UserDashboardController ..........
-    app.get("/get_admin_dashboard", UserDashboardController.get_admin_dashboard);
 
 
 };
