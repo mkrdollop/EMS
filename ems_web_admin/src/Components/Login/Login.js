@@ -4,11 +4,31 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 async function loginUser(credentials) {
-   return fetch('http://localhost:3002/admin_login', {
-     method: 'POST',
-     body: JSON.stringify(credentials)
-   })
-     .then(data => data.json())
+   console.log(JSON.stringify(credentials));
+   const data = {userEmail:"admin@gmail.com",userPassword:"123456"};
+   /* const data = new FormData();
+            data.append('email', "admin@gmail.com");
+            data.append('password', "123456"); */
+            
+   return await fetch('http://localhost:3001/admin_login', {
+   //return fetch('http://116.75.243.44:8080/poiesis_live/user_login', {
+      mode: 'no-cors',
+      method: 'POST',
+      headers: {
+         //'Accept': 'application/json, text/plain, */*',
+         'Content-Type': 'application/json'
+      },
+      
+      //body: data
+      body: JSON.stringify(data)
+   }) 
+     /* .then(function(response) {
+
+      console.log(response);
+
+      }).catch(err=>{
+         console.log("error : "+err);
+      }) */
   }
 
 function Login({setToken}) {
@@ -27,9 +47,11 @@ function Login({setToken}) {
          email,
          password
       });
-      setToken(token);
+      console.log(token);
+      //setToken(token);
     }
 
+    
     return (
    <Fragment>
    <div className="login_main_sec">
@@ -51,6 +73,7 @@ function Login({setToken}) {
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
                            <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
+                           {/* <input onChange={handleChange} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/> */}
                            <div className="invalid-feedback">
                               Please fill in your email
                            </div>
