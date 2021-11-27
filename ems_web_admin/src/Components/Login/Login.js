@@ -6,62 +6,109 @@ import './Login.css';
 
 
 
-// async function loginUser(credentials) {
-//    return fetch('http://localhost:3002/admin_login', {
-//      method: 'POST',
-//      body: JSON.stringify(credentials)
-//    })
-//      .then(data => data.json())
-//   }
-
-async function loginUser(credentials) {
-   console.log(JSON.stringify(credentials));
-   const data = {userEmail:"admin@gmail.com",userPassword:"123456"};
-   /* const data = new FormData();
-            data.append('email', "admin@gmail.com");
-            data.append('password', "123456"); */
-            
-   return await fetch('http://localhost:3001/admin_login', {
-   //return fetch('http://116.75.243.44:8080/poiesis_live/user_login', {
-      mode: 'no-cors',
-      method: 'POST',
-      headers: {
-         //'Accept': 'application/json, text/plain, */*',
-         'Content-Type': 'application/json'
-      },
-      
-      //body: data
-      body: JSON.stringify(data)
-   }) 
-     /* .then(function(response) {
-
-      console.log(response);
-
-      }).catch(err=>{
-         console.log("error : "+err);
-      }) */
-  }
 
 
 function Login({setToken}) {
    const history = useHistory();
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
+   const [error, setError] = useState();
 
    /////////Redirect page to addplan
    function handleClick(){
       history.push("/dashboard");
    }
 
+   //************ Login Validation ************* */
 
-   // const handleSubmit = async e => {
-   //    e.preventDefault();
-   //    const token = await loginUser({
-   //       email,
-   //       password
-   //    });
-   //    setToken(token);
-   //  }
+   const validateForm=()=> {
+
+      //let fields = this.state.fields;
+      let errors = {};
+      let formIsValid = true;
+
+      if (!email) {
+         formIsValid = false;
+         errors["email"] = "*Please enter your email-ID.";
+      }
+      
+      if (typeof email !== "undefined") {
+         //regular expression for email validation
+         var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+         if (!pattern.test(email)) {
+               formIsValid = false;
+               errors["email"] = "*Please enter valid email-ID.";
+         }
+      }
+
+      if (!password) {
+         formIsValid = false;
+         errors["password"] = "*Please enter your password.";
+      }
+      
+      if (typeof password !== "undefined") {
+         if (password.length < 6) {
+               formIsValid = false;
+               errors["password"] = "*Please enter minimum 6 character.";
+         } else if (password.length > 15) {
+               formIsValid = false;
+               errors["password"] = "*Please enter maximum 15 character.";
+         }
+      }
+
+      /*  if (typeof fields["password"] !== "undefined") {
+         //if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+         if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+               formIsValid = false;
+               errors["password"] = "*Please enter secure and strong password.";
+         }
+      } */
+
+      setError({
+         errors: errors
+      });
+      return formIsValid;
+
+
+   }
+
+
+
+   async function loginUser(credentials) {
+      
+      var details = {
+         'email': 'admin@gmail.com',
+         'password': '123456',
+     };
+     
+     var formBody = [];
+     for (var property in details) {
+       var encodedKey = encodeURIComponent(property);
+       var encodedValue = encodeURIComponent(details[property]);
+       formBody.push(encodedKey + "=" + encodedValue);
+     }
+     formBody = formBody.join("&");
+   return fetch('http://localhost:3001/admin_login', {
+      //mode: 'no-cors',
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+       },
+      
+      //body: 'title=hello&message=world'
+      body:formBody
+   }) 
+     .then(function(response) {
+
+      console.log(response.token);
+
+      }).catch(err=>{
+         console.log("error : "+err);
+      })
+  }
+
+
+
 
    const handleSubmit = async e => {
       e.preventDefault();
@@ -92,7 +139,7 @@ function Login({setToken}) {
                      </p>
                   </div>
                   <div className="card-body">
-                     <form className="login_form">
+                     <form className="login_form" onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
                            <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
