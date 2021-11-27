@@ -1,9 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './Login.css';
-
-
 
 
 // async function loginUser(credentials) {
@@ -23,7 +21,7 @@ async function loginUser(credentials) {
             
    return await fetch('http://localhost:3001/admin_login', {
    //return fetch('http://116.75.243.44:8080/poiesis_live/user_login', {
-      mode: 'no-cors',
+      // mode: 'no-cors',
       method: 'POST',
       headers: {
          //'Accept': 'application/json, text/plain, */*',
@@ -33,6 +31,7 @@ async function loginUser(credentials) {
       //body: data
       body: JSON.stringify(data)
    }) 
+
      /* .then(function(response) {
 
       console.log(response);
@@ -45,6 +44,7 @@ async function loginUser(credentials) {
 
 function Login({setToken}) {
    const history = useHistory();
+   // const [login,setLogin] = (useState);
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
 
@@ -56,6 +56,7 @@ function Login({setToken}) {
 
    // const handleSubmit = async e => {
    //    e.preventDefault();
+   //    setLogin({...login,[e.target.email]:e.target.value})
    //    const token = await loginUser({
    //       email,
    //       password
@@ -70,11 +71,10 @@ function Login({setToken}) {
          password
       });
       console.log(token);
-      //setToken(token);
+      // setToken(token);
     }
 
 
-    
     return (
    <Fragment>
    <div className="login_main_sec">
@@ -82,7 +82,7 @@ function Login({setToken}) {
          <div className="container-fluid mt-3 row w-100">
             <div className="col-sm-12 col-md-6 col-lg-6">
                <div className="d-inline-block login_logo_ctnr">
-                  <img style={{display:"block", margin:0, paddingBottom:35,height:"auto"}} src="./Image/logo_main.png" width="240" height="25"/>
+                  <img style={{display:"block", margin:0, paddingBottom:35,height:"auto"}} alt="logo_main.png" src="./Image/logo_main.png" width="240" height="25"/>
                </div>
                <div className="card card-primary card_login_fl">
                   <div className="card-header d-block">
@@ -92,7 +92,7 @@ function Login({setToken}) {
                      </p>
                   </div>
                   <div className="card-body">
-                     <form className="login_form">
+                     <form onClick={handleSubmit} className="login_form">
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
                            <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
@@ -114,9 +114,9 @@ function Login({setToken}) {
                                  <label className="form-check-label" for="checkRememberMe"></label>
                                  <span className="remember_check_btn ml-0 pl-2 font-14 font-500">Remember Me</span>
                            </div>
-                              <a href="#" style={{textDecoration:"underline"}}>
+                              <Link to="#" style={{textDecoration:"underline"}}>
                                  Forgot Password?
-                              </a>
+                              </Link>
                            </div>
                         <div className="form-group login_btn_group mb-0">
                            <button onClick={handleClick} type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
@@ -128,7 +128,7 @@ function Login({setToken}) {
                </div>
             </div>
             <div className="col-lg-6 p-5 text-center login_vec_img_sec">
-               <img className="img-fluid" src= "./Image/login_vec_img.png" style={{maxWidth: "75%"}}/>
+               <img alt="login_vec_img.png" src= "./Image/login_vec_img.png" style={{maxWidth: "75%"}}/>
             </div>
          </div>
       </section>

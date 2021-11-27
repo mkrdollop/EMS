@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 var expressSession = require('express-session');
 
+
 // app.use(session({
 //   secret: 'admin adda',
 //   resave: false,
@@ -31,9 +32,11 @@ var corsOptions = {
 //listen to specific rout
 app.use(cors(corsOptions));
 
-// app.use('/login', (req, res) => {
+// app.use('/admin_login', (req, res) => {
 //   res.send({
-//     token: 'test123'
+//     token:
+//      require('../ems/app/controller/Admin/AdminLogin')
+    
 //   });
 // });
 
@@ -46,7 +49,7 @@ app.get("/", (req, res) => {
 require("./app/routes/routes.js")(app);
 // set port, listen for requests
 
- //redirect dashboard
+//  redirect dashboard
 //  app.get("/admin_login", (req, res) => {
 //   console.log(res);
 //   // res.render("Dashboard");
