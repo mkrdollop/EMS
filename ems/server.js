@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 var expressSession = require('express-session');
 
-//app.use(cors())
+
 // app.use(session({
 //   secret: 'admin adda',
 //   resave: false,
@@ -35,6 +35,7 @@ app.use(cors(corsOptions));
 
 
 
+
 // NEW - Add CORS headers - see https://enable-cors.org/server_expressjs.html
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -46,6 +47,7 @@ app.use(function(req, res, next) {
 });
 
 
+
 // simple route
 app.get("/",cors(corsOptions), (req, res) => {
   //console.log(res);
@@ -54,7 +56,7 @@ app.get("/",cors(corsOptions), (req, res) => {
 require("./app/routes/routes.js")(app);
 // set port, listen for requests
 
- //redirect dashboard
+//  redirect dashboard
 //  app.get("/admin_login", (req, res) => {
 //   console.log(res);
 //   // res.render("Dashboard");
