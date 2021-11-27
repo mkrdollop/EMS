@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 var expressSession = require('express-session');
 
+//app.use(cors())
 // app.use(session({
 //   secret: 'admin adda',
 //   resave: false,
@@ -26,20 +27,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3001",
+  optionsSuccessStatus: 200
 };
 //listen to specific rout
 app.use(cors(corsOptions));
 
-// app.use('/login', (req, res) => {
-//   res.send({
-//     token: 'test123'
-//   });
-// });
+
+
+// NEW - Add CORS headers - see https://enable-cors.org/server_expressjs.html
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/",cors(corsOptions), (req, res) => {
   //console.log(res);
   res.json({ message: "Welcome to my application." });
 });
