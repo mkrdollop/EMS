@@ -20,6 +20,7 @@
     "chalk": "^4.1.1",
     "connect-multiparty": "^2.2.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "currency-codes": "^2.1.0",
     "date-and-time": "^2.0.0",
     "dotenv": "^10.0.0",
