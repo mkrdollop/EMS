@@ -14,9 +14,9 @@ function Login({setToken}) {
    const [error, setError] = useState();
 
    /////////Redirect page to addplan
-   function handleClick(){
+   /* function handleClick(){
       history.push("/dashboard");
-   }
+   } */
 
    //************ Login Validation ************* */
 
@@ -87,23 +87,26 @@ function Login({setToken}) {
        formBody.push(encodedKey + "=" + encodedValue);
      }
      formBody = formBody.join("&");
-   return fetch('http://localhost:3001/admin_login', {
-      //mode: 'no-cors',
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-       },
-      
-      //body: 'title=hello&message=world'
-      body:formBody
-   }) 
-     .then(function(response) {
-
-      console.log(response.token);
-
-      }).catch(err=>{
-         console.log("error : "+err);
-      })
+      const response = await fetch('http://localhost:3001/admin_login', {
+         //mode: 'no-cors',
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+         },
+         
+         //body: 'title=hello&message=world'
+         body:formBody
+      }) 
+      const jsonResponse = await response.json();
+      //console.log(jsonResponse);
+      /* if (response.status>=400){
+            //toast.error(jsonResponse.message);
+      }else{
+            //toast.success(jsonResponse.message);
+            localStorage.setItem('token', jsonResponse.token);
+            this.setState({ redirect: "/dashboard" });
+      } */
+     
   }
 
 
@@ -136,6 +139,7 @@ function Login({setToken}) {
                         Enter your email id or password to access your account.
                      </p>
                   </div>
+                  <div className="card-body">
                      <form className="login_form" onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
@@ -163,7 +167,7 @@ function Login({setToken}) {
                               </Link>
                            </div>
                         <div className="form-group login_btn_group mb-0">
-                           <button onClick={handleClick} type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
+                           <button  type="submit" className="login_btn mb-0 btn btn-primary btn-lg btn-block">
                               Login
                            </button>
                         </div>
