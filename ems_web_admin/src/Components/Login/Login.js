@@ -1,5 +1,8 @@
 import React, { Fragment, useState,useEffect } from 'react';
 import { Link, useHistory,Redirect } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+ 
 import PropTypes from 'prop-types';
 import './Login.css';
 
@@ -11,11 +14,12 @@ function Login() {
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
    const [error, setError] = useState();
-
+   const [emailError, setEmailError] = useState();
+   const [passwordError, setPasswordError] = useState();
+   let errors = {};
     useEffect(() => {
 
         const token = localStorage.getItem("token");
-        console.log(token);
         if (token != null ) {
             console.log(token);
             history.push({
@@ -34,12 +38,14 @@ function Login() {
    const validateForm=()=> {
 
       //let fields = this.state.fields;
-      let errors = {};
+      
       let formIsValid = true;
-
+      errors["email"]="";
+      errors["password"]="";
       if (!email) {
          formIsValid = false;
-         errors["email"] = "*Please enter your email-ID.";
+         //errors["email"] = "*Please enter your email-ID.";
+         setEmailError("*Please enter your email-ID.");
       }
       
       if (typeof email !== "undefined") {
@@ -47,22 +53,26 @@ function Login() {
          var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
          if (!pattern.test(email)) {
                formIsValid = false;
-               errors["email"] = "*Please enter valid email-ID.";
+               //errors["email"] = "*Please enter valid email-ID.";
+               setEmailError("*Please enter valid email-ID.");
          }
       }
 
       if (!password) {
          formIsValid = false;
-         errors["password"] = "*Please enter your password.";
+         //errors["password"] = "*Please enter your password.";
+         setPasswordError("*Please enter your password.");
       }
       
       if (typeof password !== "undefined") {
          if (password.length < 6) {
                formIsValid = false;
-               errors["password"] = "*Please enter minimum 6 character.";
+               //errors["password"] = "*Please enter minimum 6 character.";
+               setPasswordError("*Please enter minimum 6 character.");
          } else if (password.length > 15) {
                formIsValid = false;
-               errors["password"] = "*Please enter maximum 15 character.";
+               //errors["password"] = "*Please enter maximum 15 character.";
+               setPasswordError("*Please enter maximum 15 character.");
          }
       }
 
@@ -73,10 +83,11 @@ function Login() {
                errors["password"] = "*Please enter secure and strong password.";
          }
       } */
-
+      //console.log(errors);
       setError({
-         errors: errors
+         error: errors
       });
+      
       return formIsValid;
 
 
@@ -86,39 +97,43 @@ function Login() {
 
    async function loginUser(credentials) {
    //   console.log(credentials);
-      var details = {
-         'email': credentials.email,
-         'password': credentials.password,
-     };
-     
-     var formBody = [];
-     for (var property in details) {
-       var encodedKey = encodeURIComponent(property);
-       var encodedValue = encodeURIComponent(details[property]);
-       formBody.push(encodedKey + "=" + encodedValue);
-     }
-     formBody = formBody.join("&");
-      const response = await fetch('http://localhost:3001/admin_login', {
-         //mode: 'no-cors',
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-         },
-         
-         body:formBody
-      }) 
-      const jsonResponse = await response.json();
-      //console.log(jsonResponse);
-      if (response.status>=400){
-
-            //toast.error(jsonResponse.message);
-      }else{
-            //toast.success(jsonResponse.message);
-            localStorage.setItem('token', jsonResponse.token);
-            return <Redirect to="/dashboard" />
+      console.log(error);
+      if(validateForm()){
+         var details = {
+            'email': credentials.email,
+            'password': credentials.password,
+         };
+      
+         var formBody = [];
+         for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+         }
+         formBody = formBody.join("&");
+         const response = await fetch('http://localhost:3001/admin_login', {
+            //mode: 'no-cors',
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            },
             
-      }
-     
+            body:formBody
+         }) 
+         const jsonResponse = await response.json();
+         //console.log(jsonResponse);
+         if (response.status>=400){
+
+               toast.error(jsonResponse.message);
+         }else{
+               toast.success(jsonResponse.message);
+               localStorage.setItem('token', jsonResponse.token);
+               history.push({
+                  pathname:  "/dashboard",
+               });
+               
+         }
+      } 
   }
 
 
@@ -126,17 +141,17 @@ function Login() {
 
    const handleSubmit = async e => {;
       e.preventDefault();
-      const token = await loginUser({
+      loginUser({
          email,
          password
       });
-      console.log(token);
-      // setToken(token);
+      
     }
 
 
     return (
    <Fragment>
+   <ToastContainer />
    <div className="login_main_sec">
       <section className="section admin-login-page">
          <div className="container-fluid mt-3 row w-100">
@@ -156,16 +171,17 @@ function Login() {
                         <div className="form-group mb-4">
                            <label for="email">Email</label>
                            <input onChange={e => setEmail(e.target.value)} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/>
-                           {/* <input onChange={handleChange} id="email" type="email" className="form-control" name="email" placeholder="Enter Your Email-ID"/> */}
-                           <div className="invalid-feedback">
-                              Please fill in your email
+                           
+                           <div >
+                              {emailError}
+                              
                            </div>
                         </div>
                         <div className="form-group">
                            <label for="password">Password</label>
                            <input onChange={e => setPassword(e.target.value)} id="password" type="password" className="form-control" name="password" placeholder="Enter Your Password"/>
-                           <div className="invalid-feedback">
-                              please fill in your password
+                           <div >
+                              {passwordError}
                            </div>
                         </div>
                         <div className="form-group form-check mt-4 mb-0 d-flex align-items-center justify-content-between">
