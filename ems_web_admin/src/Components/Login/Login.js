@@ -108,7 +108,6 @@ function Login() {
          body:formBody
       }) 
       const jsonResponse = await response.json();
-
       //console.log(jsonResponse);
       if (response.status>=400){
 
