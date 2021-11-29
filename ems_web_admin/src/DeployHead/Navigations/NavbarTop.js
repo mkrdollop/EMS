@@ -1,5 +1,5 @@
 import React, { Fragment,useState } from 'react';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import '../../assets/css/style.css';
 import { IoMdSettings } from "react-icons/io";
 import { FaBell } from "react-icons/fa";
@@ -31,9 +31,8 @@ function NavbarTop() {
 
 	//^^^^^^^^^^ logout ^^^^^^^^^^^^
 	const history = useHistory();
-	const logout = ()=>{
-		alert("hello");
-        localStorage.clear();
+	const logout = () => {
+		localStorage.clear();
         console.log(localStorage);
         history.push({
 			pathname:  "/",
@@ -61,7 +60,7 @@ function NavbarTop() {
 									</a>
 								</li>
 								<li>
-									<a onClick={logout} className="nav-link nav-link-lg fullscreen-btn">
+									<a href="#" className="nav-link nav-link-lg fullscreen-btn">
 										<i data-feather="maximize"></i>
 									</a>
 								</li>
@@ -98,7 +97,7 @@ function NavbarTop() {
 										<a href="admin_change_password" className="dropdown-item has-icon"> <i><FaUser/></i> Chnage Password</a>
 										<a href="admin_setting" className="dropdown-item has-icon"> <i><IoMdSettings/></i> Setting</a>
 									<div className="dropdown-divider"></div>
-										<a href="#" className="dropdown-item has-icon text-danger"> <i><FaSignOutAlt/></i> Logout</a>
+										<a onClick={logout} className="dropdown-item has-icon text-danger"> <i><FaSignOutAlt/></i> Logout</a>
 								</div>
 							</li>
 						</ul>

@@ -27,20 +27,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var corsOptions = {
-  origin: "http://localhost:3001"
+  origin: "*"
 };
 //listen to specific rout
 app.use(cors(corsOptions));
 
-// app.use('/admin_login', (req, res) => {
-//   res.send({
-//     token:
-//      require('../ems/app/controller/Admin/AdminLogin')
-    
-//   });
-// });
 
-
+// NEW - Add CORS headers - see https://enable-cors.org/server_expressjs.html
+/* app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+ */
 // simple route
 app.get("/", (req, res) => {
   //console.log(res);
@@ -48,15 +50,6 @@ app.get("/", (req, res) => {
 });
 require("./app/routes/routes.js")(app);
 // set port, listen for requests
-
-//  redirect dashboard
-//  app.get("/admin_login", (req, res) => {
-//   console.log(res);
-//   // res.render("Dashboard");
-//   res.send("Dashboard");
-// });
-
-
 
 
 // const token = createJwtToken.createJwtToken('677687');

@@ -9,7 +9,7 @@ import AddplanList from './Components/AddPlanes/AddplanList';
 import AllUserList from './Components/ListingData/AllUserList';
 import AllTransactions from './Components/TransactionHistory/AllTransactions';
 import PaymentMethode from './Components/TransactionHistory/PaymentMethode';
-import { Route, Switch  } from 'react-router-dom';
+import { Route, Switch,Redirect,useHistory  } from 'react-router-dom';
 import AboutUs from './Components/WebComponents/AboutUs/AboutUs';
 import FAQ from './Components/WebComponents/FAQComponents/FAQ';
 import TermsAndConditions from './Components/WebComponents/TermsComponents/TermsAndConditions';
@@ -34,10 +34,15 @@ function App() {
    //const [token, setToken] = useState();
    //const { token, setToken } = useToken();
   const token = localStorage.getItem("token");
-
+  const history = useHistory();
 
   if(!token) {
-    return <Login  />
+   //return <Login  />
+   //return <Redirect to="/" />
+   //return <Route exact path={["/","/login"]} component={Login} />
+    history.push({
+               pathname:  "/",
+            });
   }
 
   return (
