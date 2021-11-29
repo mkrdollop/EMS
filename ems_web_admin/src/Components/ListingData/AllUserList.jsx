@@ -1,27 +1,113 @@
-import React from 'react';
+import React,{ useState,useEffect } from 'react';
 import '../../assets/css/style.css';
 import ShowUserData from '../ListingData/ShowUserData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../http-commen';
+// import Axios from 'axios';
+// console.log(BASE_URL+"/admin_get_user_list");
 
-function AllUserList() {
-    const stockVeiwMenu=[
+function AllUserList(props) {
+    // const [userList, setUserList] = useState([]);
+    const stockVeiwMenu=
+    [
 		{
 			view:"Veiw",
 			edit:"Edit",
 			delete:"Delete",
-
 		},
-	
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
+       
 	
 	]
+    
+    // const [loading, setLoading] = useState(false);
+    const  [userList, setUserList] = useState();
+    console.log(userList);
+
+    useEffect(() => {
+
+        const token = localStorage.getItem("token");
+        console.log(token);
+
+       
+        if(token){
+             fetch(BASE_URL+"/admin_get_user_list",{
+                    method: 'GET',
+                    headers: {
+                       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                       'Authorization': token
+                    },
+                    // body:'users'
+                    // query:'users'
+
+                })
+            .then(res => res.json())
+            .then((result) => {
+            //   setUserList(result);
+              console.log(result);
+              
+            },[])
+            // .catch(error => {
+            //     console.error('Error:', error);
+            //   });
+        
+        }
+    
+        
+     });
+    //  async function loginUser(credentials) {
+        // //   console.log(credentials.userList);
+        //    var details = [credentials.userList];
+      
+    //  var UserData=[];
+    //  UserData = UserData.join("&");
+    //  const response = fetch(BASE_URL+"/admin_get_user_list", {
+    //     method: 'GET',
+    //     headers: {
+    //        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    //     },
+    //     body:UserData
+    //  })
+    //  console.log("response");
+
+    //  response.then(res=>{
+    //      if(res.status===200){
+    //          setUserList(res);
+    //          console.log(res);
+    //      } 
+    //     });
+        // else{
+    //     user_List=
+    //     userList.map(()=>{
+    //         return(
+    //             <tr>hello</tr>
+    //         )
+    //     })
+
+    //     }
+    // }
+    
+    //  }   
+
+
+    
+   
+   
+    // if(loading){
+    //     alert("hy");
+    // }
+    // else{
+    //     user_List=
+    //     userList.map(()=>{
+    //         return(
+    //             <tr>hello</tr>
+    //         )
+    //     })
+
+    //     }
+    // }
+
     return (
         <>
         <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -68,22 +154,35 @@ function AllUserList() {
                                             <table id="ShowPlan" class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Company Name</th>
-                                                        <th>Company Owner </th>
-                                                        <th>Contact Number </th>
-                                                        <th>Email Address </th>
-                                                        <th>Country </th>
-                                                        <th>Employee Strength</th>
+                                                        <th>Id</th>
+                                                        <th>Company_Name</th>
+                                                        <th>Company_Owner </th>
+                                                        <th>Mobile</th>
+                                                        <th>Email</th>
+                                                        <th>Country</th>
+                                                        <th>Employee_Strength</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="ShowPlan_tbody">
-
+                                                {/* {stockVeiwMenu.map((data, index) => { */}
+                                                {/* {userList.map(item => {  */}
                                                 {stockVeiwMenu.map((data, index) => {
                                                     return (
                                                         <>
-                                                        <tr>
-                                                        <td>ID</td>
+                                                        <tr key={index.Id}>
+                                                        {/* <td>{item.Company_Name}</td>   */}
+                                                            
+                                                                {/* <td>{item.Company_Name}</td>  
+                                                                <td>{item.Company_Owner}</td>  
+                                                                <td>{item.Mobile}</td>  
+                                                                <td>{item.Email}</td>  
+                                                                <td>{item.Country}</td>  
+                                                                <td>{item.Employee_Strength}</td>   */}
+                                                            
+                                                       
+                                                        <td>id</td>
+                                                        <td>lorem</td>
                                                         <td>lorem</td>
                                                         <td>lorem</td>
                                                         <td>lorem Type</td>
@@ -96,6 +195,7 @@ function AllUserList() {
                                                             </>
                                                         );
                                                         })}
+                                                    {/* // } )}          */}
                                                 </tbody>
                                             </table>
                                             </div>
