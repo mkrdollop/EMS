@@ -1,4 +1,5 @@
 import React, { Fragment,useState } from 'react';
+import {useHistory} from "react-router-dom";
 import '../../assets/css/style.css';
 import { IoMdSettings } from "react-icons/io";
 import { FaBell } from "react-icons/fa";
@@ -27,6 +28,18 @@ function NavbarTop() {
 			setNotifi("");
 		}
 	}
+
+	//^^^^^^^^^^ logout ^^^^^^^^^^^^
+	const history = useHistory();
+	const logout = ()=>{
+		alert("hello");
+        localStorage.clear();
+        console.log(localStorage);
+        history.push({
+			pathname:  "/",
+			
+		});
+    }
     return (
     <Fragment>
         {/* <div class="ems-dashboard dark dark-sidebar theme-black sidebar-mini"> */}
@@ -48,7 +61,7 @@ function NavbarTop() {
 									</a>
 								</li>
 								<li>
-									<a href="#" className="nav-link nav-link-lg fullscreen-btn">
+									<a onClick={logout} className="nav-link nav-link-lg fullscreen-btn">
 										<i data-feather="maximize"></i>
 									</a>
 								</li>
