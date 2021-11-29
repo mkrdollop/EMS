@@ -1,20 +1,33 @@
-import React, { Fragment, useState } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import React, { Fragment, useState,useEffect } from 'react';
+import { Link, useHistory,Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './Login.css';
 
 
-function Login({setToken}) {
+function Login() {
+
    const history = useHistory();
    // const [login,setLogin] = (useState);
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
    const [error, setError] = useState();
 
-   /////////Redirect page to addplan
-   /* function handleClick(){
-      history.push("/dashboard");
-   } */
+    useEffect(() => {
+
+        const token = localStorage.getItem("token");
+        console.log(token);
+        if (token != null ) {
+            console.log(token);
+            history.push({
+               pathname:  "/dashboard",
+               /* state: {
+                  response: "messageFromServer" 
+               }  */
+            });
+            
+        }
+        
+    });
 
    //************ Login Validation ************* */
 
@@ -74,8 +87,8 @@ function Login({setToken}) {
    async function loginUser(credentials) {
    //   console.log(credentials);
       var details = {
-         'email': 'admin@gmail.com',
-         'password': '123456',
+         'email': credentials.email,
+         'password': credentials.password,
      };
      
      var formBody = [];
@@ -92,18 +105,20 @@ function Login({setToken}) {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
          },
          
-         //body: 'title=hello&message=world'
          body:formBody
       }) 
       const jsonResponse = await response.json();
-      // console.log(jsonResponse);
-      /* if (response.status>=400){
+
+      //console.log(jsonResponse);
+      if (response.status>=400){
+
             //toast.error(jsonResponse.message);
       }else{
             //toast.success(jsonResponse.message);
             localStorage.setItem('token', jsonResponse.token);
-            this.setState({ redirect: "/dashboard" });
-      } */
+            return <Redirect to="/dashboard" />
+            
+      }
      
   }
 
