@@ -30,24 +30,15 @@ import NotificationList from './Components/Notification/NotificationList';
 
 function App() {
 
-<<<<<<< HEAD
-  //  const [token, setToken] = useState();
-=======
+
    //const [token, setToken] = useState();
->>>>>>> bf45d7442ff2f4a7f38c12cde1b8cd146c97de7d
    //const { token, setToken } = useToken();
   const token = localStorage.getItem("token");
 
 
-<<<<<<< HEAD
-  // if(!token) {
-  //   return <Login setToken={setToken} />
-  // }
-=======
   if(!token) {
     return <Login  />
   }
->>>>>>> bf45d7442ff2f4a7f38c12cde1b8cd146c97de7d
 
   return (
     <>
