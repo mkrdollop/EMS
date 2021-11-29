@@ -27,29 +27,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var corsOptions = {
-  origin: "http://localhost:3001",
-  optionsSuccessStatus: 200
+  origin: "http://localhost:3001"
 };
 //listen to specific rout
 app.use(cors(corsOptions));
 
-
-
-
-// NEW - Add CORS headers - see https://enable-cors.org/server_expressjs.html
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
+// app.use('/admin_login', (req, res) => {
+//   res.send({
+//     token:
+//      require('../ems/app/controller/Admin/AdminLogin')
+    
+//   });
+// });
 
 
 // simple route
-app.get("/",cors(corsOptions), (req, res) => {
+app.get("/", (req, res) => {
   //console.log(res);
   res.json({ message: "Welcome to my application." });
 });

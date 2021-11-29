@@ -25,19 +25,23 @@ import FAQPages from './Components/WebComponents/FAQComponents/FAQPages';
 import PrivacyPages from './Components/WebComponents/PrivacyComponents/PrivacyPages';
 import TermsPages from './Components/WebComponents/TermsComponents/TermsPages';
 import NotificationList from './Components/Notification/NotificationList';
-// import './http-commen';
+// import './http-commen/EMSService';
 // import useToken from './useToken';
 
 function App() {
 
+
    //const [token, setToken] = useState();
+
    //const { token, setToken } = useToken();
   const token = localStorage.getItem("token");
+
 
 
   if(!token) {
     return <Login  />
   }
+
 
   return (
     <>
