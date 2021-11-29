@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 
-
-
 function Login({setToken}) {
    const history = useHistory();
    // const [login,setLogin] = (useState);
@@ -74,7 +72,7 @@ function Login({setToken}) {
 
 
    async function loginUser(credentials) {
-      
+   //   console.log(credentials);
       var details = {
          'email': 'admin@gmail.com',
          'password': '123456',
@@ -98,7 +96,7 @@ function Login({setToken}) {
          body:formBody
       }) 
       const jsonResponse = await response.json();
-      //console.log(jsonResponse);
+      // console.log(jsonResponse);
       /* if (response.status>=400){
             //toast.error(jsonResponse.message);
       }else{
@@ -112,7 +110,7 @@ function Login({setToken}) {
 
 
 
-   const handleSubmit = async e => {
+   const handleSubmit = async e => {;
       e.preventDefault();
       const token = await loginUser({
          email,
