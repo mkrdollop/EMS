@@ -22,17 +22,35 @@ function AllUserList(props) {
 	]
     
     // const [loading, setLoading] = useState(false);
-    const  [userList, setUserList] = useState();
+    const  [userList, setUserList] = useState([]);
     console.log(userList);
 
+    //{userList.map(item => {  
+    
+    // let   adminUserList=[];
+    // userList.map(item=>{
+    //     return(
+    //         <tr>
+    //         <td>{item.Company_Name}</td>   
+    //         <td>{item.Company_Name}</td>  
+    //         <td>{item.Company_Owner}</td>  
+    //         <td>{item.Mobile}</td>  
+    //         <td>{item.Email}</td>  
+    //         <td>{item.Country}</td>  
+    //         <td>{item.Employee_Strength}</td>
+    //         </tr>
+    //     )
+    // });
+   
+    // console.log(adminUserList);
     useEffect(() => {
 
         const token = localStorage.getItem("token");
         console.log(token);
 
        
-        if(token){
-             fetch(BASE_URL+"/admin_get_user_list",{
+        async function UserList (){
+                var responseData = await fetch(BASE_URL+"/admin_get_user_list",{
                     method: 'GET',
                     headers: {
                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -44,18 +62,19 @@ function AllUserList(props) {
                 })
             .then(res => res.json())
             .then((result) => {
-            //   setUserList(result);
-              console.log(result);
+              setUserList(result);
+            //   console.log(result);
               
             },[])
-            // .catch(error => {
-            //     console.error('Error:', error);
-            //   });
-        
+            
+        // console.log(responseData);
         }
+        // console.log(UserList ());
+        
     
         
      });
+    
     //  async function loginUser(credentials) {
         // //   console.log(credentials.userList);
         //    var details = [credentials.userList];
