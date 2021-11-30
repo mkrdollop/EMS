@@ -132,13 +132,13 @@ module.exports.admin_get_all_plan = (req, res) => {
                 db.Plan.findOne({ where: { plan_id: plan_id } }).then(plan => {
 
                     if (plan) {
-                        res.status(400).json({
+                        res.status(200).json({
                             message: lang.SUCCESS,
                             plan: plan
                         });
                     }
                     else {
-                        res.status(200).json({
+                        res.status(400).json({
                             message: lang.FAILED,
                             plan: {}
                         });
@@ -149,13 +149,13 @@ module.exports.admin_get_all_plan = (req, res) => {
             else {
                 db.Plan.findAll({ where: { is_deleted: 1,is_active: 1 } }).then(plan => {
                     if (plan) {
-                        res.status(400).json({
+                        res.status(200).json({
                             message: lang.SUCCESS,
                             plan: plan
                         });
                     }
                     else {
-                        res.status(200).json({
+                        res.status(400).json({
                             message: lang.FAILED,
                             plan: {}
                         });

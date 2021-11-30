@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var corsOptions = {
-  origin: "http://localhost:3001"
+  origin: "*"
 };
 //listen to specific rout
 app.use(cors(corsOptions));
