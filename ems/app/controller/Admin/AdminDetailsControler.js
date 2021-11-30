@@ -41,23 +41,22 @@ module.exports.get_admin_profile = (req, res) => {
     if (header) {
         var data = token_helper.verifyJwtToken(header);
         if (data) {
-            var admin_id = typeof req.body.admin_id != 'undefined' ? req.body.admin_id : "";
-             var admin_id = data.user_id ;
-                console.log(admin_id);
-                    db.Admin.findOne({where:{ admin_id: admin_id }}).then(user =>  {
-                    if (user) {
+            var admin_id = data.user_id ;
+                
+            db.Admin.findOne({where:{ admin_id: admin_id }}).then(user =>  {
+                if (user) {
 
-                        return res.status(200).json({
-                            message: lang.SUCCESS,
-                            userData: user
-                        });
+                    return res.status(200).json({
+                        message: lang.SUCCESS,
+                        userData: user
+                    });
 
-                    } else {
-                        res.status(400).json({
-                            message: lang.NOT_FOUND,
-                        });
-                    }
-                });
+                } else {
+                    res.status(400).json({
+                        message: lang.NOT_FOUND,
+                    });
+                }
+            });
         }
         else {
             res.status(400).json({

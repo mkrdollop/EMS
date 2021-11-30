@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from 'react';
+import React, { Fragment,useState,useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import '../../assets/css/style.css';
 import { IoMdSettings } from "react-icons/io";
@@ -6,11 +6,14 @@ import { FaBell } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { FaUser} from "react-icons/fa";
 import { FaSignOutAlt} from "react-icons/fa";
+import {BASE_URL} from '../../http-commen';
 
 function NavbarTop() {
+	const token = localStorage.getItem("token");
 
 	/////////Open Profile dropdown
     const [topDropdown, setTopDropdown] = useState("");
+    const [detail, setDetail] = useState("");
 	const handleTopDropdown=()=>{
 		if(topDropdown===""){
 			setTopDropdown("show");
@@ -33,12 +36,30 @@ function NavbarTop() {
 	const history = useHistory();
 	const logout = () => {
 		localStorage.clear();
-        console.log(localStorage);
         history.push({
 			pathname:  "/",
 			
 		});
     }
+
+	useEffect(() => adminDetail(), []);
+	console.log(detail);
+	//<<<<<<<<<<<<<<<<< get admin detail >>>>>>>>>>>>>>>
+	async function adminDetail (){
+        var responseData = await fetch(BASE_URL+"/get_admin_profile",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            
+        })
+		.then(res => res.json())
+		.then((result) => {
+		setDetail(result.userData);
+		
+		},[])
+	}
     return (
     <Fragment>
         {/* <div class="ems-dashboard dark dark-sidebar theme-black sidebar-mini"> */}
@@ -89,11 +110,11 @@ function NavbarTop() {
 										<i><FaUser/></i>
 									</span>
 									<span className="ml-2">
-										Kamal Gupta
+										{detail.name}
 									</span>
 								</a>
 								<div className={`dropdown-menu dropdown-menu-right pullDown ${topDropdown}`} >
-									<div className="dropdown-title">Hello Kamal Narayan Gupta</div>
+									<div className="dropdown-title">Hello {detail.name}</div>
 										<a href="admin_change_password" className="dropdown-item has-icon"> <i><FaUser/></i> Chnage Password</a>
 										<a href="admin_setting" className="dropdown-item has-icon"> <i><IoMdSettings/></i> Setting</a>
 									<div className="dropdown-divider"></div>
