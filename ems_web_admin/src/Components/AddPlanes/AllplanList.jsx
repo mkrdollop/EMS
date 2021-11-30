@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 import '../../assets/css/style.css';
 import ShowData from '../DataTables/ShowData';
 import Navside from '../NavsideBar/Navside';
@@ -6,52 +6,33 @@ import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import { Link } from 'react-router-dom';
 
 function AllplanList() {
-    const stockVeiwMenu=[
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-	
-	]
+    const [plan, setPlan] = useState([]);
     
+
+    useEffect(() => {
+
+        fetch('http://localhost:3001/admin_get_all_plan',{
+        headers: {
+            //  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+              'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJyb2xlX3R5cGUiOiJBZG1pbl9Vc2VyIiwiaWF0IjoxNjM1MTY5MDkxLCJleHAiOjE2NDAzNTMwOTF9.4UvFoSsIoREp8F89b7Gb56p_HDSx9n9VB5qPNo-WAz4'
+          }
+        },)
+            .then(res => {
+                console.log(res.json());
+               
+                 return res.json();
+
+                    // setPlan(res.json());
+            })
+            .then(json => console.log(json));
+
+            // .catch(data => {
+            //     console.log(data); 
+
+            // })
+    }, [] );
+
     return (
         <>
         <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -110,11 +91,12 @@ function AllplanList() {
                                                 </thead>
                                                 <tbody className="ShowPlan_tbody">
 
-                                                {stockVeiwMenu.map((data, index) => {
+                                                {
+                                                    plan.map((data, index) => {
                                                     return (
                                                         <>
                                                         <tr>
-                                                        <td>ID</td>
+                                                        {/* <td key={data.plan_id}>{data.plan_id}</td> */}
                                                         <td>lorem</td>
                                                         <td>lorem</td>
                                                         <td>lorem Type</td>
