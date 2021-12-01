@@ -1,23 +1,50 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState,useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { RiFocusLine } from "react-icons/ri";
 import { RiAlignLeft } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
+import {BASE_URL} from '../../http-commen';
 
 function ShowUserData(props) {
     const history= useHistory();
+    const  [isEdit, setisEdit] = useState([]);
+    console.log(userList);
+
+
+    const token = localStorage.getItem("token");
+    console.log(token);
     
+    useEffect(() => AddUser(), []);
+
+    async function AddUser (){
+        await fetch(BASE_URL+"/admin_get_user_list",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            query: JSON.stringify({
+                user_type: 'Admin_User',
+            })
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setUserList(result.users);
+        //  console.log(result);
+        
+        },[])
+    }
+    // this.props.match.params.id
+
     ///////////Redirect page
     const showUser = () => history.push('/showuser');
     
-
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
     const handleShow = ()=>{setShow("block")}
     const closeModal=()=>{setShow("none")}
-
 
     ///////////Click function for visible the data table three dots
     const [open, setopen] = useState("");
@@ -81,7 +108,8 @@ function ShowUserData(props) {
                                             </span>
                                             <b>E-mail</b>
                                         </span>
-                                        <span className="right-dt mt-2 font-16">Ramchandra@12</span>
+                                        <span class="right-dt mt-2 font-16">{userList.email}</span>
+
                                     </div>
                                     <div className="shopowner-dt-list">
                                         <span className="left-dt">

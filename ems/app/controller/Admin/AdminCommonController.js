@@ -15,6 +15,7 @@ var multipart = require('connect-multiparty');
 var path = require('path');
 var current_date = new Date();
 var FormData = require('form-data');
+const { query } = require('express');
 var form = new FormData();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,17 +33,33 @@ module.exports.admin_get_user_list = (req, res) => {
 
     var authheader = req.headers.authorization;
     var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
+    var user_type = typeof req.query.user_type != 'undefined' ? req.query.user_type : "";
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
+        // console.log(user_type);
         console.log(data);
         if (data) {
-            db.User.findAll({
-                where: {
-                    is_register: 1,                   
-                    is_deleted: 1
-                }
-            }).then(function (users) {
+            
+            var query = `SELECT user.*,country.name AS country_name,emp_strength.strength AS emp_strength FROM user 
+                        LEFT JOIN country ON (country.id = user.country_id)
+                        LEFT JOIN emp_strength ON (emp_strength.id = user.emp_strength_id)
+            WHERE is_register= 1 AND is_deleted=1 `;
+
+            // if(typeof user_id!=""){
+            //     query +=` AND user_id ="` + user_id + `" `;
+
+            //     }
+
+            if(user_type!=""){
+                query +=` AND role_type ="` + user_type + `" `;
+
+            }
+            query +=` ORDER BY created_at ASC`;
+            
+            db.connection.query(query, { type: db.Sequelize.QueryTypes.SELECT })
+            
+            .then(function (users) {
                 if (users.length != 0) {
                     return res.status(200).json({
                         message: lang.SUCCESS,

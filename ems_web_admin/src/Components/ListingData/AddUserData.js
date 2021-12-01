@@ -1,11 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment ,useState} from 'react';
 import '../../assets/css/style.css';
 import { Link } from 'react-router-dom';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
 import Navside from '../NavsideBar/Navside';
 
-function AddUserData() {
+function AddUserData(props) {
+	console.log(props);
+	const [addUser, setAddUser] = useState();
+	// const {company,email,mobile,role_type,shift} = props;
+
     return (
         <Fragment>
 		<div className="ems-dashboard dark dark-sidebar theme-black">    
@@ -35,7 +39,7 @@ function AddUserData() {
 												<div className="row">
 													<div className="col-md-6"> 
 														<div className="form-group">
-															<label>Employee Name</label>                                   
+															<label>Company Name</label>                                   
 															{/* <input type="hidden" name="plan_id" value=""/> */}
 															<input type="text" className="form-control" id="plan_title" name="plan_title" required="" />
 														</div>

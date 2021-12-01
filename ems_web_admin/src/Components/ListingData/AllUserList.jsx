@@ -3,130 +3,56 @@ import '../../assets/css/style.css';
 import ShowUserData from '../ListingData/ShowUserData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../http-commen';
 // import Axios from 'axios';
 // console.log(BASE_URL+"/admin_get_user_list");
 
 function AllUserList(props) {
-    // const [userList, setUserList] = useState([]);
-    const stockVeiwMenu=
-    [
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-		},
-       
-	
-	]
-    
-    // const [loading, setLoading] = useState(false);
     const  [userList, setUserList] = useState([]);
-    console.log(userList);
-
-    //{userList.map(item => {  
-    
-    // let   adminUserList=[];
-    // userList.map(item=>{
-    //     return(
-    //         <tr>
-    //         <td>{item.Company_Name}</td>   
-    //         <td>{item.Company_Name}</td>  
-    //         <td>{item.Company_Owner}</td>  
-    //         <td>{item.Mobile}</td>  
-    //         <td>{item.Email}</td>  
-    //         <td>{item.Country}</td>  
-    //         <td>{item.Employee_Strength}</td>
-    //         </tr>
-    //     )
-    // });
-   
-    // console.log(adminUserList);
-    useEffect(() => {
-
-        const token = localStorage.getItem("token");
-        console.log(token);
-
-       
-        async function UserList (){
-                var responseData = await fetch(BASE_URL+"/admin_get_user_list",{
-                    method: 'GET',
-                    headers: {
-                       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                       'Authorization': token
-                    },
-                    // body:'users'
-                    // query:'users'
-
-                })
-            .then(res => res.json())
-            .then((result) => {
-              setUserList(result);
-            //   console.log(result);
-              
-            },[])
+    // console.log(userList);
+    const data = userList.map(user=>{
+        return(
+            <tr>
+                <td>{user.user_id}</td>
+                <td>{user.company_name}</td>   
+                <td>{user.first_name}</td>  
+                <td>{user.mobile}</td>  
+                <td>{user.email}</td>  
+                <td>{user.country_name}</td>  
+                <td>{user.emp_strength}</td>
+                <td>
+                    <ShowUserData key={user.user_id} view="View" edit="Edit" delete="Delete" />
+                </td>
+            </tr>
             
-        // console.log(responseData);
-        }
-        // console.log(UserList ());
+        )
+    });
+    
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    useEffect(() => UserList(), []);
+
+    async function UserList (){
+        await fetch(BASE_URL+"/admin_get_user_list",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            query: JSON.stringify({
+                user_type: 'Admin_User',
+            })
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setUserList(result.users);
+        //  console.log(result);
         
+        },[])
+    }
     
-        
-     });
-    
-    //  async function loginUser(credentials) {
-        // //   console.log(credentials.userList);
-        //    var details = [credentials.userList];
-      
-    //  var UserData=[];
-    //  UserData = UserData.join("&");
-    //  const response = fetch(BASE_URL+"/admin_get_user_list", {
-    //     method: 'GET',
-    //     headers: {
-    //        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    //     },
-    //     body:UserData
-    //  })
-    //  console.log("response");
-
-    //  response.then(res=>{
-    //      if(res.status===200){
-    //          setUserList(res);
-    //          console.log(res);
-    //      } 
-    //     });
-        // else{
-    //     user_List=
-    //     userList.map(()=>{
-    //         return(
-    //             <tr>hello</tr>
-    //         )
-    //     })
-
-    //     }
-    // }
-    
-    //  }   
-
-
-    
-   
-   
-    // if(loading){
-    //     alert("hy");
-    // }
-    // else{
-    //     user_List=
-    //     userList.map(()=>{
-    //         return(
-    //             <tr>hello</tr>
-    //         )
-    //     })
-
-    //     }
-    // }
-
     return (
         <>
         <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -141,10 +67,10 @@ function AllUserList(props) {
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h4>All Users</h4>
-                                    <Link to="/showuser" className="px-4 btn btn-primary ad_btn_on_dtble">
+                                    {/* <Link to="/showuser" className="px-4 btn btn-primary ad_btn_on_dtble">
                                         <span className="font-600 font-16">+</span>
                                         Add
-                                    </Link>
+                                    </Link> */}
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -184,37 +110,16 @@ function AllUserList(props) {
                                                     </tr>
                                                 </thead>
                                                 <tbody class="ShowPlan_tbody">
-                                                {/* {stockVeiwMenu.map((data, index) => { */}
-                                                {/* {userList.map(item => {  */}
-                                                {stockVeiwMenu.map((data, index) => {
+                                                   {data}
+                                                {/* {stockVeiwMenu.map((data, index) => {
                                                     return (
                                                         <>
-                                                        <tr key={index.Id}>
-                                                        {/* <td>{item.Company_Name}</td>   */}
-                                                            
-                                                                {/* <td>{item.Company_Name}</td>  
-                                                                <td>{item.Company_Owner}</td>  
-                                                                <td>{item.Mobile}</td>  
-                                                                <td>{item.Email}</td>  
-                                                                <td>{item.Country}</td>  
-                                                                <td>{item.Employee_Strength}</td>   */}
-                                                            
-                                                       
-                                                        <td>id</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem Type</td>
-                                                        <td>Active usha</td>
-                                                        <td>Active usha</td>
                                                         <td>
                                                             <ShowUserData key={index} view={data.view} edit={data.edit} delete={data.delete} />
                                                         </td>
-                                                        </tr>
                                                             </>
                                                         );
-                                                        })}
-                                                    {/* // } )}          */}
+                                                })} */}
                                                 </tbody>
                                             </table>
                                             </div>
