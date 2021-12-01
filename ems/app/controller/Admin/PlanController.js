@@ -179,7 +179,7 @@ module.exports.admin_get_all_plan = (req, res) => {
 }
 
 
-module.exports.get_admin_plan_by_user=(req,res)=>
+module.exports.get_admin_plan_by_planId=(req,res)=>
 {
     var authheader = req.headers.authorization;
     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
