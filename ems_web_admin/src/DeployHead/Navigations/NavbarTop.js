@@ -90,18 +90,18 @@ function NavbarTop() {
 						<ul className="navbar-nav navbar-right">
 							<li className={`nav-item dropdown notification_dropdown pr-3 ${Notifi}`}>
 
-								{/* <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
+								<a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
 								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								  href="#" onClick={"updateStatus() showNotification();"} >
-								 */}
+								
 
 								 {/* <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
 								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								  href="#" onClick={() => {updateStatus(); showNotification()} }>
 								 */}
-								 <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
+								 {/* <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
 								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
-								  href="#" >
+								  href="#" > */}
 								
 
 

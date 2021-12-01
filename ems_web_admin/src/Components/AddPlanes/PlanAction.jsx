@@ -7,9 +7,9 @@ import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import {BASE_URL} from '../../http-commen';
 
-function ShowUserData(props) {
+function PlanAction(props) {
     const history= useHistory();
-    const  [isEdit, setisEdit] = useState([]);
+    // const  [isEdit, setisEdit] = useState([]);
     // console.log(userList);
 
 
@@ -43,7 +43,29 @@ function ShowUserData(props) {
     
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
-    const handleShow = ()=>{setShow("block")}
+    const handleShow = ()=>{
+        
+      async function PlanList (){
+        var responseData = await fetch(BASE_URL+"/get_admin_plan_by_planId",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            // body:'users'
+            // query:'users'
+        })
+    .then(res => res.json())
+    .then((result) => {
+      setPlanList(result.plan);
+      console.log(result);
+      
+    },[])
+    
+    }
+
+        
+        setShow("block")}
     const closeModal=()=>{setShow("none")}
 
     ///////////Click function for visible the data table three dots
@@ -162,4 +184,4 @@ function ShowUserData(props) {
     )
 }
 
-export default ShowUserData;
+export default PlanAction;

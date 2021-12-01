@@ -5,7 +5,8 @@ import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../http-commen';
-import ShowUserData from '../ListingData/ShowUserData';
+// import ShowUserData from '../ListingData/ShowUserData';
+import PlanAction from '../AddPlanes/PlanAction';
 
 function AllplanList() {
 
@@ -28,7 +29,7 @@ function AllplanList() {
                 <td>{}</td> 
                 <td>{plan.plan_type}</td>           
                 <td>
-                    <ShowUserData key={plan.plan_id} view="View" edit="Edit" delete="Delete" />
+                    <PlanAction key={plan.plan_id} view="View" edit="Edit" delete="Delete" />
                 </td>
             </tr>
         )
