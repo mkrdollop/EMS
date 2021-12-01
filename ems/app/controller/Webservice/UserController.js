@@ -436,7 +436,7 @@ module.exports.delete_suspend_user = (req, res) => {
         var data = token_helper.verifyJwtToken(header);
         if (data) {
             if (is_deleted == "Deleted") {
-                $sql = `Delete from bank_detail where user_id = '` + user_id + `';
+                querys = `Delete from bank_detail where user_id = '` + user_id + `';
                         Delete from user_department_branch where user_id = '`+ user_id + `';
                         Delete from holiday_year where user_id = '`+ user_id + `';
                         Delete from holidays where user_id = '`+ user_id + `';
@@ -449,7 +449,7 @@ module.exports.delete_suspend_user = (req, res) => {
                     }
                     );
             }
-            var updateValues = { is_deleted: is_deleted, updated_at: current_date.toISOString() };
+            var updateValues = { is_deleted: is_deleted, updated_at: current_date};
             db.User.update(updateValues,
                 {
                     where:
@@ -460,6 +460,7 @@ module.exports.delete_suspend_user = (req, res) => {
 
                     return res.status(200).json({
                         message: lang.SUCCESS,
+                        result:user_id
                     });
 
                 });
