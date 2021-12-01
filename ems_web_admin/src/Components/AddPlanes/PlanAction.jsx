@@ -57,7 +57,7 @@ function PlanAction(props) {
         })
     .then(res => res.json())
     .then((result) => {
-      setPlanList(result.plan);
+    //   setPlanList(result.plan);
       console.log(result);
       
     },[])
