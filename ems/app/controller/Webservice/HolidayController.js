@@ -18,7 +18,7 @@ module.exports.get_holiday = (req, res) => {
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
-        console.log(data);
+        console.log(year);
         if (data) {           
             if(year !="")
             {
