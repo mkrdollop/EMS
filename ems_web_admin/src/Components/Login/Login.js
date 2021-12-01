@@ -2,7 +2,7 @@ import React, { Fragment, useState,useEffect } from 'react';
 import { Link, useHistory,Redirect } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
+import {BASE_URL} from '../../http-commen';
 import PropTypes from 'prop-types';
 import './Login.css';
 
@@ -111,7 +111,7 @@ function Login() {
             formBody.push(encodedKey + "=" + encodedValue);
          }
          formBody = formBody.join("&");
-         const response = await fetch('http://localhost:3001/admin_login', {
+         const response = await fetch(BASE_URL+'/admin_login', {
             //mode: 'no-cors',
             method: 'POST',
             headers: {

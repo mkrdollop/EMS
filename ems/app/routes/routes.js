@@ -159,7 +159,7 @@ module.exports = app => {
     app.put("/admin_change_forgot_password", AdminLogin.admin_change_forgot_password);
 
     //.....................AdminDetailsControler.................
-    app.post("/get_admin_profile",AdminDetailsControler.get_admin_profile);
+    app.get("/get_admin_profile",AdminDetailsControler.get_admin_profile);
     app.put("/update_admin_profile",AdminDetailsControler.update_admin_profile);
 
     //...................NotificationController....................

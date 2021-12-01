@@ -1,37 +1,57 @@
 import React , {useEffect, useState} from 'react';
 import '../../assets/css/style.css';
-import ShowData from '../DataTables/ShowData';
+// import ShowData from '../DataTables/ShowData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../http-commen';
+import ShowUserData from '../ListingData/ShowUserData';
 
 function AllplanList() {
 
-    const [plan, setPlan] = useState([]);
+    const [planList, setPlanList] = useState([]);
     
+    const token = localStorage.getItem("token");
+    console.log(planList);
 
-    useEffect(() => {
-
-        fetch('http://localhost:3001/admin_get_all_plan',{
-        headers: {
-            //  'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-              'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJyb2xlX3R5cGUiOiJBZG1pbl9Vc2VyIiwiaWF0IjoxNjM1MTY5MDkxLCJleHAiOjE2NDAzNTMwOTF9.4UvFoSsIoREp8F89b7Gb56p_HDSx9n9VB5qPNo-WAz4'
-          }
-        },)
-            .then(res => {
-                console.log(res.json());
-               
-                 return res.json();
-
-                    // setPlan(res.json());
-            })
-            .then(json => console.log(json));
-
-            // .catch(data => {
-            //     console.log(data); 
-
-            // })
-    }, [] );
+    useEffect(() =>  PlanList(), [] );
+   
+    const plan = planList.map(plan=>{
+        return(
+            <tr key={plan.plan_id}>
+                <td>{plan.plan_id}</td>
+                <td>{plan.plan_name}</td> 
+                <td>{plan.plan_description}</td>  
+                <td>{plan.plan_amount}</td>  
+                <td>{plan.plan_created_at}</td>  
+                <td>{plan.updated_at}</td>  
+                <td>{}</td> 
+                <td>{plan.plan_type}</td>           
+                <td>
+                    <ShowUserData key={plan.plan_id} view="View" edit="Edit" delete="Delete" />
+                </td>
+            </tr>
+        )
+    });
+  
+      async function PlanList (){
+        var responseData = await fetch(BASE_URL+"/admin_get_all_plan",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            // body:'users'
+            // query:'users'
+        })
+    .then(res => res.json())
+    .then((result) => {
+      setPlanList(result.plan);
+      console.log(result);
+      
+    },[])
+    
+    }
 
     return (
         <>
@@ -77,8 +97,10 @@ function AllplanList() {
                                             </div>
                                             <div className="row">
                                             <table id="ShowPlan" className="table table-striped table-hover">
+
                                                 <thead>
                                                     <tr>
+                                                        <th>S.No</th>
                                                         <th>Plan Name</th>
                                                         <th>Plan Description</th>
                                                         <th>Plan Cost</th>
@@ -89,29 +111,13 @@ function AllplanList() {
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="ShowPlan_tbody">
 
-                                                {
-                                                    plan.map((data, index) => {
-                                                    return (
-                                                        <>
-                                                        <tr>
-                                                        {/* <td key={data.plan_id}>{data.plan_id}</td> */}
-                                                        <td>lorem</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem Type</td>
-                                                        <td>Active</td>
-                                                        <td>Active</td>
-                                                        <td>Active</td>
-                                                        <td>
-                                                            <ShowData key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                        </td>
-                                                        </tr>
-                                                            </>
-                                                        );
-                                                        })}
+                                                <tbody className="ShowPlan_tbody">
+                                                 {plan}                                                               
                                                 </tbody>
+
                                             </table>
+                                            
                                             </div>
                                             <div className="row">
                                                     <div className="col-sm-12 col-md-5">
@@ -121,13 +127,13 @@ function AllplanList() {
                                                         <div className="dataTables_paginate paging_simple_numbers" id="ShowPlan_paginate">
                                                             <ul className="pagination">
                                                                 <li className="paginate_button page-item previous disabled" id="ShowPlan_previous">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="0" tabindex="0" className="page-link">Previous</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
                                                                 </li>
                                                                 <li className="paginate_button page-item active">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="1" tabindex="0" className="page-link">1</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
                                                                 </li>
                                                                 <li className="paginate_button page-item next disabled" id="ShowPlan_next">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="2" tabindex="0" className="page-link">Next</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="2" tabIndex="0" className="page-link">Next</a>
                                                                 </li>
                                                             </ul>
                                                         </div>

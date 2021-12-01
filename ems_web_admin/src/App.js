@@ -48,6 +48,7 @@ function App() {
   return (
     <>
     <Switch>
+
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/addplan" component={Addplan} />
     <Route path="/datatable" component={Datatable} />
@@ -73,6 +74,7 @@ function App() {
     <Route path="/privacypage" component={PrivacyPages} />
     <Route path="/termspage" component={TermsPages} />
     <Route path="/notification_list" component={NotificationList} />
+    
     </Switch>
     </>
   )
