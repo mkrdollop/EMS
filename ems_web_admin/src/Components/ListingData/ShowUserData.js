@@ -49,74 +49,74 @@ function ShowUserData(props) {
         </div>
 
     {/* Modal show */}
-    <div class="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card card-static-2">
-                        <div class="card-body-table" id="showDetail">
-                            <div class="shopowner-content-left pd-20 modalId pd-user_popup">
-                            <div class="shopowner-dt-left">
-                                <h4 class="font-bold mb-0 text-left p-2">View Employee</h4>
-                                    <button  onClick={closeModal} type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div className="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
+    <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+            <div className="modal-body">
+                <div className="row">
+                <div className="col-lg-12 col-md-12">
+                    <div className="card card-static-2">
+                        <div className="card-body-table" id="showDetail">
+                            <div className="shopowner-content-left pd-20 modalId pd-user_popup">
+                            <div className="shopowner-dt-left">
+                                <h4 className="font-bold mb-0 text-left p-2">View Employee</h4>
+                                    <button  onClick={closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                             </div>
-                            <div class="shopowner-dts">
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
+                            <div className="shopowner-dts">
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
                                                 <i><FaTags/></i>
                                             </span>
                                             <b>Employee Name</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Ramchandra</span>
+                                        <span className="right-dt mt-2 font-16">Ramchandra</span>
                                     </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
                                                 <i><FaRegUser/></i>
                                             </span>
                                             <b>E-mail</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Ramchandra@12</span>
+                                        <span className="right-dt mt-2 font-16">Ramchandra@12</span>
                                     </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
                                                 <i><RiAlignLeft/></i>
                                             </span>
                                             <b>Role Type</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Employee</span>
+                                        <span className="right-dt mt-2 font-16">Employee</span>
                                     </div> 
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
                                                 <i><RiAlignLeft/></i>
                                             </span>
                                             <b>Mobile</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">12333333</span>
+                                        <span className="right-dt mt-2 font-16">12333333</span>
                                     </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
                                                 <i><FaUserTag/></i>
                                             </span>
                                             <b>Shift</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Day Time</span>
+                                        <span className="right-dt mt-2 font-16">Day Time</span>
                                     </div>
-                                    <div class="shopowner-dt-list">
-                                        <span class="left-dt">
-                                            <span class="dp_icon">
-                                                <i class="far fa-dot-circle"><RiFocusLine/></i>
+                                    <div className="shopowner-dt-list">
+                                        <span className="left-dt">
+                                            <span className="dp_icon">
+                                                <i className="far fa-dot-circle"><RiFocusLine/></i>
                                             </span><b>Salary</b>
                                         </span>
-                                    <span class="right-dt mt-2 font-16">12k</span>
+                                    <span className="right-dt mt-2 font-16">12k</span>
                                     </div>
                                 </div>
                             </div>

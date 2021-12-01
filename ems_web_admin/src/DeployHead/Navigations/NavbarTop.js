@@ -89,7 +89,23 @@ function NavbarTop() {
 						</div>
 						<ul className="navbar-nav navbar-right">
 							<li className={`nav-item dropdown notification_dropdown pr-3 ${Notifi}`}>
-								<a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown" dataToggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" onclick="updateStatus(); showNotification();">
+
+								{/* <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
+								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								  href="#" onClick={"updateStatus() showNotification();"} >
+								 */}
+
+								 {/* <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
+								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								  href="#" onClick={() => {updateStatus(); showNotification()} }>
+								 */}
+								 <a className="nav-link h_link notification notificationActive dropdown-toggle" id="notificactionDropdown"
+								 datatoggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								  href="#" >
+								
+
+
+
 									<span className="icons mr-0">
 										<i onClick={handleTopNotifi}><FaBell/></i>
 									</span>
@@ -105,7 +121,7 @@ function NavbarTop() {
 								</div>
 							</li>
 							<li className="dropdown profile_dropdown">
-								<a href="#" dataToggle="dropdown" className="nav-link dropdown-toggle nav-link-lg nav-link-user" onClick={handleTopDropdown} style={{padding:"1rem !important" ,borderRadius:"7px"}}> 
+								<a href="#" datatoggle="dropdown" className="nav-link dropdown-toggle nav-link-lg nav-link-user" onClick={handleTopDropdown} style={{padding:"1rem !important" ,borderRadius:"7px"}}> 
 									<span className="icons mr-0">
 										<i><FaUser/></i>
 									</span>
