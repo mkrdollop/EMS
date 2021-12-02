@@ -7,6 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import { FaUser} from "react-icons/fa";
 import { FaSignOutAlt} from "react-icons/fa";
 import {BASE_URL} from '../../http-commen';
+import { Link } from 'react-router-dom';
 
 function NavbarTop() {
 	const token = localStorage.getItem("token");
@@ -131,7 +132,13 @@ function NavbarTop() {
 								</a>
 								<div className={`dropdown-menu dropdown-menu-right pullDown ${topDropdown}`} >
 									<div className="dropdown-title">Hello {detail.name}</div>
-										<a href="admin_change_password" className="dropdown-item has-icon"> <i><FaUser/></i> Chnage Password</a>
+										{/* <a href="admin_change_password" className="dropdown-item has-icon"> <i><FaUser/></i> Change Password</a> */}
+										{/* changepassword */}
+										
+										<Link to="/changepassword" className="dropdown-item has-icon"> <i><FaUser/></i> Change Password</Link>
+									
+										
+										
 										<a href="admin_setting" className="dropdown-item has-icon"> <i><IoMdSettings/></i> Setting</a>
 									<div className="dropdown-divider"></div>
 										<a onClick={logout} className="dropdown-item has-icon text-danger"> <i><FaSignOutAlt/></i> Logout</a>

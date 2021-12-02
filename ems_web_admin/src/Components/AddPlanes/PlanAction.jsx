@@ -33,13 +33,15 @@ function PlanAction(props) {
                'Authorization': token
             },
         })
-        .then(res => res.json())
-        .then((result) => {
-            setPlan(result.plan);
-            //return result.plan;
-           //console.log(result.plan); 
-        },[]);
-        
+
+    .then(res => res.json())
+    .then((result) => {
+    //   setPlanList(result.plan);
+      console.log(result);
+      
+    },[])
+    
+
     }
 
         
