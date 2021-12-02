@@ -210,3 +210,77 @@ module.exports.admin_change_forgot_password = (req, res) => {
         });
     }
 }
+
+
+
+
+module.exports.admin_change_password = (req, res) => {
+
+    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
+    var new_password = typeof req.body.new_password != 'undefined' ? req.body.new_password : "";
+    var old_password = typeof req.body.old_password != 'undefined' ? req.body.old_password : "";
+    var lang = language_helper.load_language(language);
+    var header = req.headers.authorization;
+    var adminData = {
+        new_password: new_password,
+        old_password: old_password,
+        language: language
+    }
+    
+     
+    if (language != "" && new_password != "" && old_password != "") {
+        if (header) {
+            var data = token_helper.verifyJwtToken(header);
+
+            if (data) {
+                console.log(data);
+                db.Admin.findOne({ where: { admin_id: data.user_id, password: md5(old_password) } }).then(admin => {
+                    // console.log(admin);
+
+                    if (admin) {
+
+                        var updateValues = { password: md5(new_password), updated_at: current_date };
+                        db.Admin.update(updateValues,
+                            {
+                                where:
+                                {
+                                    admin_id: data.user_id
+                                }
+                            }).then((result) => {
+
+                                return res.status(200).json({
+                                    message: lang.SUCCESS,
+                                });
+
+                            });
+                    } else {
+                        res.status(400).json({
+                            message: lang.WRONG_PASSWORD,
+                            
+                        });
+                    }
+
+                });
+            }
+            else {
+                res.status(400).json({
+                    message: lang.INVALID_TOKEN
+                });
+            }
+        }
+        else {
+            res.status(400).json({
+                message: lang.TOKEN_REQUIRED
+            });
+        }
+    }
+    else {
+        res.status(400).json({
+            message: lang.ALL_REQUIRED,
+            adminData: adminData
+
+
+        });
+    }
+
+}

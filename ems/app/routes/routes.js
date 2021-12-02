@@ -28,6 +28,8 @@ module.exports = app => {
     const WebController = require("../controller/Admin/WebController.js");
 
 
+
+
     const AboutController = require("../controller/Admin/AboutController");
     const TermsAndCondtionController = require("../controller/Admin/TermsAndCondtionController");
   
@@ -157,6 +159,10 @@ module.exports = app => {
     app.put("/admin_forgot_password", AdminLogin.admin_forgot_password);
     app.put("/admin_match_otp", AdminLogin.admin_match_otp);
     app.put("/admin_change_forgot_password", AdminLogin.admin_change_forgot_password);
+    app.put("/admin_change_password",AdminLogin.admin_change_password);
+
+
+
 
     //.....................AdminDetailsControler.................
     app.get("/get_admin_profile",AdminDetailsControler.get_admin_profile);
