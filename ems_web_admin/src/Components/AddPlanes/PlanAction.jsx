@@ -44,6 +44,7 @@ function PlanAction(props) {
                'Authorization': token
             },
         })
+
         .then(res => res.json())
         .then((result) => {
             if(result.plan.is_active==1){

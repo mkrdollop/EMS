@@ -150,7 +150,7 @@ module.exports = app => {
 
     //////////////////////////AdminCommonController
     app.get("/admin_get_user_list",AdminCommonController.admin_get_user_list);
-    //  app.put("/update_user_by_admin",AdminCommonController.update_user_by_admin);
+     app.put("/update_user_by_admin",AdminCommonController.update_user_by_admin);
 
     // .......................login web supper admin routes.........
     app.post("/admin_login", AdminLogin.admin_login);
