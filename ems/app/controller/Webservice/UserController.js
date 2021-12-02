@@ -100,6 +100,7 @@ module.exports.change_user_password = (req, res) => {
     var new_password = typeof req.body.new_password != 'undefined' ? req.body.new_password : "";
     var old_password = typeof req.body.old_password != 'undefined' ? req.body.old_password : "";
     var lang = language_helper.load_language(language);
+    
     var header = req.headers.authorization;
     var userData = {
         new_password: new_password,

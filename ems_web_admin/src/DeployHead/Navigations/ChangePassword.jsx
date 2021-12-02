@@ -5,17 +5,24 @@ import NavbarTop from './NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
 // import Navside from '../NavsideBar/Navside';
 import Navside from '../../Components/NavsideBar/Navside';
-
+import {BASE_URL} from '../../http-commen';
 
 
 
 function ChangePassword() {
 	const [title, setTitle] = useState();
-	// const [description, setDescription] = useState();
-	const [password, setPassword] = useState();
-	const [error, setError] = useState();
-	const [passwordError, setPasswordError] = useState();
-	let errors = {};	
+	const [oldpassword, setOldPassword] = useState();
+	const [newpassword, setNewPassword] = useState();
+	const [cpassword, setCPassword] = useState();
+	// const [error, setError] = useState();
+	const [opasswordError, setOPasswordError] = useState();
+	const [npasswordError, setNPasswordError] = useState();
+	const [cpasswordError, setCPasswordError] = useState();
+
+
+	const token = localStorage.getItem("token");
+
+	// let errors = {};	
 
 
 	const validateForm=()=> {
@@ -23,36 +30,83 @@ function ChangePassword() {
 		//let fields = this.state.fields;
 		
 		let formIsValid = true;
-		errors["email"]="";
-		errors["password"]="";
+		// errors["password"]="";
 
-		if (!password) {
+		console.log(oldpassword);
+		if (!oldpassword && newpassword) {
 		   formIsValid = false;
 		   //errors["password"] = "*Please enter your password.";
-		   setPasswordError("*Please enter your password.");
+		   setOPasswordError("*Please enter your password.");
 		}
 		
-		if (typeof password !== "undefined") {
-		   if (password.length < 6) {
+		if (typeof oldpassword !== "undefined" && typeof newpassword !== "undefined") {
+		   if (oldpassword.length < 6) {
 				 formIsValid = false;
 				 //errors["password"] = "*Please enter minimum 6 character.";
-				 setPasswordError("*Please enter minimum 6 character.");
-		   } else if (password.length > 15) {
+				 setOPasswordError("*Please enter minimum 6 character.");
+		   } else if (oldpassword.length > 15) {
 				 formIsValid = false;
 				 //errors["password"] = "*Please enter maximum 15 character.";
-				 setPasswordError("*Please enter maximum 15 character.");
+				 setOPasswordError("*Please enter maximum 15 character.");
 		   }
 		}
   
-		//console.log(errors);
-		setError({
-		   error: errors
-		});
 		
 		return formIsValid;
   
   
 	 }
+
+
+
+	 const handleSubmit = async e => {;
+		e.preventDefault();
+		
+		if(validateForm()){
+			changePassword({
+				oldpassword,
+				newpassword
+			  });
+			alert("success");
+		}
+		
+		
+	  }
+
+
+	  async function changePassword(param){
+		  console.log(param);
+
+		  var details = {
+			"old_password":param.oldpassword, 
+			"new_password":param.newpassword
+         };
+      
+         var formBody = [];
+         for (var property in details) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+         }
+         formBody = formBody.join("&");
+
+        var responseData = await fetch(BASE_URL+"/admin_change_password",{
+            method: 'PUT',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            body:formBody
+            // query:'users'
+        })
+    .then(res => res.json())
+    .then((result) => {
+    //   setPlanList(result.plan);
+      console.log(result);
+      
+    },[])
+    
+    }
   
 
     return (
@@ -76,7 +130,7 @@ function ChangePassword() {
 							<div className="row">
 								<div className="col-12 col-md-10 col-lg-8 mx-auto">
 									<div className="card">
-										<form className="needs-validation" name="planForm" id="plan" novalidate="">
+										<form className="needs-validation" name="planForm" id="plan" onSubmit={handleSubmit} novalidate="">
 
 									
 											<div className="card-body">
@@ -86,7 +140,8 @@ function ChangePassword() {
 														<div className="form-group">
 															<label>Old Password</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input onChange={e => setTitle(e.target.value)} type="text" className="form-control" id="plan_title" name="plan_title" required=""/>
+															<input onChange={e => setOldPassword(e.target.value)} type="text"  placeholder="Enter Old Password" className="form-control" id="plan_title" name="old_password" required=""/>
+															<div>{opasswordError}</div>
 														</div>
 													</div>
 
@@ -96,7 +151,8 @@ function ChangePassword() {
 														<div className="form-group">
 															<label>New Password</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input onChange={e => setTitle(e.target.value)} type="text" className="form-control" id="plan_title" name="plan_title" required=""/>
+															<input onChange={e => setNewPassword(e.target.value)} type="text"  placeholder="Enter New Password" className="form-control" id="plan_title" name="new_password" required=""/>
+															<div>{npasswordError}</div>
 														</div>
 													</div>
 
@@ -104,8 +160,9 @@ function ChangePassword() {
 													<div className="col-md-6"> 
 														<div className="form-group">
 															<label>Confirm Password</label>                                   
-															<input type="hidden" name="plan_id" value=""/>
-															<input onChange={e => setTitle(e.target.value)} type="text" className="form-control" id="plan_title" name="plan_title" required=""/>
+															<input type="hidden" name="plan_id"   value=""/>
+															<input onChange={e => setCPassword(e.target.value)} type="text" placeholder="Confirm Password" className="form-control" id="plan_title" name="confirm_password" required=""/>
+															<div>{cpasswordError}</div>
 														</div>
 													</div>
 
@@ -113,8 +170,9 @@ function ChangePassword() {
 								
 
 											<div className="card-footer text-right">
-											<Link to="/addplanlist"><button type="submit" className="btn btn-primary" id="submitBtn">Submit</button></Link>
+												<button type="submit" className="btn btn-primary" id="submitBtn">Submit</button>
 											</div>
+
 										</form>
 									</div>
 								</div>
