@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState,useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { RiFocusLine } from "react-icons/ri";
 import { RiAlignLeft } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
+import {BASE_URL} from '../../http-commen';
 
 function ShowUserData(props) {
     const history= useHistory();

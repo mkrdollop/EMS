@@ -35,15 +35,15 @@ function AllUserList(props) {
     useEffect(() => UserList(), []);
 
     async function UserList (){
-        await fetch(BASE_URL+"/admin_get_user_list",{
+        await fetch(BASE_URL+"/admin_get_user_list?user_type=Admin_User",{
             method: 'GET',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            query: JSON.stringify({
+            /* query: JSON.stringify({
                 user_type: 'Admin_User',
-            })
+            }) */
         })
         .then(res => res.json())
         .then((result) => {

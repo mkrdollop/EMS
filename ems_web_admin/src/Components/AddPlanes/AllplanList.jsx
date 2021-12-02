@@ -29,7 +29,7 @@ function AllplanList() {
                 <td>{}</td> 
                 <td>{plan.plan_type}</td>           
                 <td>
-                    <PlanAction key={plan.plan_id} view="View" edit="Edit" delete="Delete" />
+                    <PlanAction key={plan.plan_id} plan_id ={plan.plan_id} view="View" edit="Edit" delete="Delete" />
                 </td>
             </tr>
         )
