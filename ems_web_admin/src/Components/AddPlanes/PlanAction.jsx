@@ -9,63 +9,41 @@ import {BASE_URL} from '../../http-commen';
 
 function PlanAction(props) {
     const history= useHistory();
-    // const  [isEdit, setisEdit] = useState([]);
-    // console.log(userList);
-
-
     const token = localStorage.getItem("token");
-    console.log(token);
     
-    useEffect(() => AddUser(), []);
-
-    async function AddUser (){
-        await fetch(BASE_URL+"/admin_get_user_list",{
-            method: 'GET',
-            headers: {
-               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-               'Authorization': token
-            },
-            query: JSON.stringify({
-                user_type: 'Admin_User',
-            })
-        })
-        .then(res => res.json())
-        .then((result) => {
-            // setUserList(result.users);
-        //  console.log(result);
-        
-        },[])
-    }
-    // this.props.match.params.id
-
+    
     ///////////Redirect page
-    const showUser = () => history.push('/showuser');
+    const editplan = () => history.push('/addplan');
     
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
+    const [showPlan, setPlan] = useState();
+    
     const handleShow = ()=>{
+        setShow("block");
+        PlanDetail()
+        console.log(PlanDetail());
         
-      async function PlanList (){
-        var responseData = await fetch(BASE_URL+"/get_admin_plan_by_planId",{
+    }
+    async function PlanDetail (){
+        await fetch(BASE_URL+"/admin_get_all_plan?plan_id="+props.plan_id,{
             method: 'GET',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            // body:'users'
-            // query:'users'
         })
-    .then(res => res.json())
-    .then((result) => {
-      setPlanList(result.plan);
-      console.log(result);
-      
-    },[])
-    
+        .then(res => res.json())
+        .then((result) => {
+            setPlan(result.plan);
+            //return result.plan;
+           //console.log(result.plan); 
+        },[]);
+        
     }
 
         
-        setShow("block")}
+        
     const closeModal=()=>{setShow("none")}
 
     ///////////Click function for visible the data table three dots
@@ -88,7 +66,7 @@ function PlanAction(props) {
                         <span className="material-icons">visibility</span>{props.view}
                         
                     </a>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={showUser}>
+                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={editplan}>
                         <span className="material-icons">edit</span>{props.edit}
                     </a>
                     <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#">
@@ -108,7 +86,7 @@ function PlanAction(props) {
                         <div className="card-body-table" id="showDetail">
                             <div className="shopowner-content-left pd-20 modalId pd-user_popup">
                             <div className="shopowner-dt-left">
-                                <h4 className="font-bold mb-0 text-left p-2">View Employee</h4>
+                                <h4 className="font-bold mb-0 text-left p-2">View Plan</h4>
                                     <button  onClick={closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -119,16 +97,16 @@ function PlanAction(props) {
                                             <span className="dp_icon">
                                                 <i><FaTags/></i>
                                             </span>
-                                            <b>Employee Name</b>
+                                            <b>Plan Name</b>
                                         </span>
-                                        <span className="right-dt mt-2 font-16">Ramchandra</span>
+                                        <span className="right-dt mt-2 font-16">{/* {showPlan.plan_name} */}</span>
                                     </div>
                                     <div className="shopowner-dt-list">
                                         <span className="left-dt">
                                             <span className="dp_icon">
                                                 <i><FaRegUser/></i>
                                             </span>
-                                            <b>E-mail</b>
+                                            <b>Plan Type</b>
                                         </span>
                                         <span class="right-dt mt-2 font-16">
                                         {/* {userList.email} */}
@@ -140,7 +118,7 @@ function PlanAction(props) {
                                             <span className="dp_icon">
                                                 <i><RiAlignLeft/></i>
                                             </span>
-                                            <b>Role Type</b>
+                                            <b>Plan Feature</b>
                                         </span>
                                         <span className="right-dt mt-2 font-16">Employee</span>
                                     </div> 
@@ -149,7 +127,7 @@ function PlanAction(props) {
                                             <span className="dp_icon">
                                                 <i><RiAlignLeft/></i>
                                             </span>
-                                            <b>Mobile</b>
+                                            <b>Plan Amount</b>
                                         </span>
                                         <span className="right-dt mt-2 font-16">12333333</span>
                                     </div>
@@ -158,7 +136,7 @@ function PlanAction(props) {
                                             <span className="dp_icon">
                                                 <i><FaUserTag/></i>
                                             </span>
-                                            <b>Shift</b>
+                                            <b>Plan Description</b>
                                         </span>
                                         <span className="right-dt mt-2 font-16">Day Time</span>
                                     </div>
@@ -166,7 +144,7 @@ function PlanAction(props) {
                                         <span className="left-dt">
                                             <span className="dp_icon">
                                                 <i className="far fa-dot-circle"><RiFocusLine/></i>
-                                            </span><b>Salary</b>
+                                            </span><b>Status</b>
                                         </span>
                                     <span className="right-dt mt-2 font-16">12k</span>
                                     </div>

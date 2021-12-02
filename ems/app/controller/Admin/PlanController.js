@@ -120,8 +120,8 @@ module.exports.admin_add_plan = (req, res) => {
 module.exports.admin_get_all_plan = (req, res) => {
 
     var authheader = req.headers.authorization;
-    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
-    var plan_id = typeof req.body.plan_id != 'undefined' ? req.body.plan_id : "";
+    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
+    var plan_id = typeof req.query.plan_id != 'undefined' ? req.query.plan_id : "";
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
@@ -192,13 +192,13 @@ module.exports.get_admin_plan_by_planId=(req,res)=>
                 db.Plan.findOne({ where: { plan_id: plan_id } }).then(plan => {
 
                     if (plan) {
-                        res.status(400).json({
+                        res.status(200).json({
                             message: lang.SUCCESS,
                             plan: plan
                         });
                     }
                     else {
-                        res.status(200).json({
+                        res.status(400).json({
                             message: lang.FAILED,
                             plan: {}
                         });
