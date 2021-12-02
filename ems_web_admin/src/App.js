@@ -25,6 +25,8 @@ import FAQPages from './Components/WebComponents/FAQComponents/FAQPages';
 import PrivacyPages from './Components/WebComponents/PrivacyComponents/PrivacyPages';
 import TermsPages from './Components/WebComponents/TermsComponents/TermsPages';
 import NotificationList from './Components/Notification/NotificationList';
+import ChangePassword from './DeployHead/Navigations/ChangePassword';
+
 // import './http-commen/EMSService';
 // import useToken from './useToken';
 
@@ -73,7 +75,8 @@ function App() {
     <Route path="/privacypage" component={PrivacyPages} />
     <Route path="/termspage" component={TermsPages} />
     <Route path="/notification_list" component={NotificationList} />
-    
+
+    <Route path= "/changepassword"  component={ChangePassword}  />
     </Switch>
     </>
   )
