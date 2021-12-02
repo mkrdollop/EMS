@@ -179,7 +179,7 @@ module.exports.admin_get_all_plan = (req, res) => {
 }
 
 
-module.exports.get_admin_plan_by_planId=(req,res)=>
+/* module.exports.get_admin_plan_by_planId=(req,res)=>
 {
     var authheader = req.headers.authorization;
     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
@@ -236,17 +236,17 @@ module.exports.get_admin_plan_by_planId=(req,res)=>
             message: lang.TOKEN_REQUIRED
         });
     } 
-}
+} */
 
 module.exports.delete_plan = (req, res) => {
-    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
+    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
     var lang = language_helper.load_language(language);
     var authheader = req.headers.authorization;
 
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
         if (data) {
-            var plan_id = typeof req.body.plan_id != 'undefined' ? req.body.plan_id : "";
+            var plan_id = typeof req.query.plan_id != 'undefined' ? req.query.plan_id : "";
                 if (plan_id != "") {
 
                     var updateValues = {is_deleted:0 ,updated_at: current_date};
