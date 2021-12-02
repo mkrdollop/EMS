@@ -6,35 +6,44 @@ import { FaRegUser } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import {BASE_URL} from '../../http-commen';
+import axios from 'axios';
 
 function ShowUserData(props) {
+    console.log(props);
     const history= useHistory();
 
-    const  [isEdit, setisEdit] = useState([]);
-    // console.log(userList);
-
-
     const token = localStorage.getItem("token");
-    console.log(token);
-    
-    useEffect(() => AddUser(), []);
+    const  [isEdit, setIsEdit] = useState([]);
+    const  [isDelete, setIsDelete] = useState([]);
+
+    // console.log(isDelete);
+    // console.log(isEdit.admin_id);
+    // function handleRemove(id) {
+        // console.log(id);
+        // const newList = isEdit.filter((item) => isEdit.admin_id !== id);
+        // setIsDelete({ type: 'deleted', id });
+        // console.log(newList);
+        // setIsEdit(newList);
+    //   }
+
+
+    useEffect(() => deleteHandler(), []);
+    useEffect(() => AddUser (), []);
 
     async function AddUser (){
-        await fetch(BASE_URL+"/admin_get_user_list",{
+        const Response= await fetch(BASE_URL+"/get_admin_profile",{
             method: 'GET',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            query: JSON.stringify({
-                user_type: 'Admin_User',
-            })
         })
         .then(res => res.json())
         .then((result) => {
-            // setUserList(result.users);
-        //  console.log(result);
-        
+
+            setIsEdit(result.userData);
+            // console.log(result.userData);
+
         },[])
     }
     // this.props.match.params.id
@@ -42,12 +51,45 @@ function ShowUserData(props) {
 
     ///////////Redirect page
     const showUser = () => history.push('/showuser');
+    // const deleteUser = () => history.location.key(id);
+
+    // const handleRemove = () => history.push('/alluserlist');
+    
+    // <button type="button" class="btn btn-danger" onClick={() => setIsEdit(isEdit - 1)}>Delete</button>
+    // axios.delete(BASE_URL+"/update_user_by_admin", {
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    //         'Authorization': token
+    //     },
+    //     body: JSON.stringify({
+    //         is_deleted: "delete",
+    //     })
+    //   });
+    async function deleteHandler(id) {
+        console.log(id);
+        const Deletedata = await fetch(BASE_URL+"/update_user_by_admin",{
+            method: 'PUT',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            body: JSON.stringify({
+                is_deleted: 0,
+                // user_id:
+            })
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setIsDelete(result);
+            // console.log(result.message);
+        },[]);
+    }
     
 
     ///////////Click function Show Modal
-    const [show, setShow] = useState("none");
+    const [show, setShow] = useState("");
     const handleShow = ()=>{setShow("block")}
-    const closeModal=()=>{setShow("none")}
+    const closeModal=()=>{setShow("")}
 
 
     ///////////Click function for visible the data table three dots
@@ -66,32 +108,34 @@ function ShowUserData(props) {
                 <span className="material-icons">more_vert</span>
             </button>
                 <div className={`dropdown-menu viewpage ${open}`}>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={handleShow}>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={handleShow}>
                         <span className="material-icons">visibility</span>{props.view}
                         
-                    </a>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#" onClick={showUser}>
+                    </label>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={showUser}>
                         <span className="material-icons">edit</span>{props.edit}
-                    </a>
-                    <a className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" href="#">
+                    </label>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={() => deleteHandler(isEdit.admin_id)}>
                         <span className="material-icons">delete_outline</span>{props.delete}
-                    </a>
+                    </label>
                 </div>
         </div>
 
     {/* Modal show */}
-    <div class="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card card-static-2">
-                        <div class="card-body-table" id="showDetail">
-                            <div class="shopowner-content-left pd-20 modalId pd-user_popup">
-                            <div class="shopowner-dt-left">
-                                <h4 class="font-bold mb-0 text-left p-2">View Employee</h4>
-                                    <button  onClick={closeModal} type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+    <div className="modal fade show" role="dialog" aria-labelledby="view_modal_popupTitle" style={{display:show}}>
+    <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+            <div className="modal-body">
+                <div className="row">
+                <div className="col-lg-12 col-md-12">
+                    <div className="card card-static-2">
+                        <div className="card-body-table" id="showDetail">
+                            <div className="shopowner-content-left pd-20 modalId pd-user_popup">
+                            <div className="shopowner-dt-left">
+                                <h4 className="font-bold mb-0 text-left p-2">View Employee</h4>
+                                    <button onClick={closeModal} type="button" className="close"  data-dismiss="modal" aria-label="Close">
+
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                             </div>
@@ -103,7 +147,9 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Employee Name</b>
                                         </span>
-                                        <span class="right-dt mt-2 font-16">Ramchandra</span>
+
+                                        <span className="right-dt mt-2 font-16">{isEdit.name}</span>
+
                                     </div>
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -113,9 +159,7 @@ function ShowUserData(props) {
                                             <b>E-mail</b>
                                         </span>
 
-                                        <span class="right-dt mt-2 font-16">
-                                        {/* {userList.email} */}
-                                        </span>
+                                        <span class="right-dt mt-2 font-16">{isEdit.email}</span>
 
 
                                     </div>
@@ -126,7 +170,9 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Role Type</b>
                                         </span>
+
                                         <span class="right-dt mt-2 font-16">Employee</span>
+
                                     </div> 
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -135,7 +181,9 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Mobile</b>
                                         </span>
+
                                         <span class="right-dt mt-2 font-16">12333333</span>
+
                                     </div>
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -144,6 +192,7 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Shift</b>
                                         </span>
+
                                         <span class="right-dt mt-2 font-16">Day Time</span>
                                     </div>
                                     <div class="shopowner-dt-list">
@@ -152,7 +201,9 @@ function ShowUserData(props) {
                                                 <i class="far fa-dot-circle"><RiFocusLine/></i>
                                             </span><b>Salary</b>
                                         </span>
+
                                     <span class="right-dt mt-2 font-16">12k</span>
+
                                     </div>
                                 </div>
                             </div>

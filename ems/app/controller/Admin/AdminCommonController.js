@@ -37,8 +37,7 @@ module.exports.admin_get_user_list = (req, res) => {
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);
-        // console.log(user_type);
-        console.log(data);
+        // console.log(data);
         if (data) {
             
             var query = `SELECT user.*,country.name AS country_name,emp_strength.strength AS emp_strength FROM user 
@@ -89,7 +88,7 @@ module.exports.admin_get_user_list = (req, res) => {
 
 }
 
-////TO DO Monday
+//TO DO Monday
 // module.exports.update_user_by_admin = (req, res) => {
 //     var authheader = req.headers.authorization;
 //     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
@@ -169,7 +168,8 @@ module.exports.admin_get_user_list = (req, res) => {
 //     }
 // }
 // }
-/* module.exports.update_user_by_admin = (req, res) => {
+
+module.exports.update_user_by_admin = (req, res) => {
     var authheader = req.headers.authorization;
     var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
     var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
@@ -198,6 +198,7 @@ module.exports.admin_get_user_list = (req, res) => {
                 }).then((result) => {
                     return res.status(200).json({
                         message: lang.SUCCESS,
+                        result:user_id
                     });
 
                 });
@@ -213,4 +214,4 @@ module.exports.admin_get_user_list = (req, res) => {
             message: lang.TOKEN_REQUIRED
         });
     }
-} */
+} 

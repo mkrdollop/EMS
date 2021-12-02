@@ -11,9 +11,9 @@ import {BASE_URL} from '../../http-commen';
 function AllUserList(props) {
     const  [userList, setUserList] = useState([]);
     // console.log(userList);
-    const data = userList.map(user=>{
+    const data = userList.map((user,i)=>{
         return(
-            <tr>
+            <tr key={i}>
                 <td>{user.user_id}</td>
                 <td>{user.company_name}</td>   
                 <td>{user.first_name}</td>  
@@ -22,7 +22,7 @@ function AllUserList(props) {
                 <td>{user.country_name}</td>  
                 <td>{user.emp_strength}</td>
                 <td>
-                    <ShowUserData key={user.user_id} view="View" edit="Edit" delete="Delete" />
+                    <ShowUserData key={i} user_id={user.user_id} view="View" edit="Edit" delete="Delete" />
                 </td>
             </tr>
             
@@ -131,13 +131,13 @@ function AllUserList(props) {
                                                         <div className="dataTables_paginate paging_simple_numbers" id="ShowPlan_paginate">
                                                             <ul className="pagination">
                                                                 <li className="paginate_button page-item previous disabled" id="ShowPlan_previous">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="0" tabIndex="0" className="page-link">Previous</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="0" tabindex="0" className="page-link">Previous</a>
                                                                 </li>
                                                                 <li className="paginate_button page-item active">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="1" tabIndex="0" className="page-link">1</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="1" tabindex="0" className="page-link">1</a>
                                                                 </li>
                                                                 <li className="paginate_button page-item next disabled" id="ShowPlan_next">
-                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="2" tabIndex="0" className="page-link">Next</a>
+                                                                    <a href="#" aria-controls="ShowPlan" data-dt-idx="2" tabindex="0" className="page-link">Next</a>
                                                                 </li>
                                                             </ul>
                                                         </div>

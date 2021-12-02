@@ -97,7 +97,7 @@ function Login() {
 
    async function loginUser(credentials) {
    //   console.log(credentials);
-      console.log(error);
+      // console.log(error);
       if(validateForm()){
          var details = {
             'email': credentials.email,
