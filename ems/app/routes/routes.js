@@ -145,8 +145,8 @@ module.exports = app => {
     //////////////////////////////////admin plan
     app.post("/admin_add_plan", PlanController.admin_add_plan);
     app.get("/admin_get_all_plan", PlanController.admin_get_all_plan);
-    app.get("/get_admin_plan_by_planId", PlanController.get_admin_plan_by_planId);
-    app.put("/delete_plan", PlanController.delete_plan);
+    //app.get("/get_admin_plan_by_planId", PlanController.get_admin_plan_by_planId);
+    app.delete("/delete_plan", PlanController.delete_plan);
 
     //////////////////////////AdminCommonController
     app.get("/admin_get_user_list",AdminCommonController.admin_get_user_list);
