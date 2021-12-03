@@ -9,29 +9,20 @@ import {BASE_URL} from '../../http-commen';
 import axios from 'axios';
 
 function ShowUserData(props) {
-    console.log(props);
+    // console.log(props);
     const history= useHistory();
 
     const token = localStorage.getItem("token");
-    const  [isEdit, setIsEdit] = useState([]);
-    const  [isDelete, setIsDelete] = useState([]);
-
+    const  [isViewData, setIsViewData] = useState([]);
+    // const  [isDelete, setIsDelete] = useState([]);
     // console.log(isDelete);
-    // console.log(isEdit.admin_id);
-    // function handleRemove(id) {
-        // console.log(id);
-        // const newList = isEdit.filter((item) => isEdit.admin_id !== id);
-        // setIsDelete({ type: 'deleted', id });
-        // console.log(newList);
-        // setIsEdit(newList);
-    //   }
 
+    //// useEffect(() => deleteHandler(), []);
+    useEffect(() => showUserHandler(), []);
 
-    useEffect(() => deleteHandler(), []);
-    useEffect(() => AddUser (), []);
-
-    async function AddUser (){
-        const Response= await fetch(BASE_URL+"/get_admin_profile",{
+    /////////////// view Users Data
+    async function showUserHandler(){
+        const Response = await fetch(BASE_URL+"/get_user_profile?user_id="+props.user_id,{
             method: 'GET',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -39,58 +30,39 @@ function ShowUserData(props) {
             },
         })
         .then(res => res.json())
-        .then((result) => {
-
-            setIsEdit(result.userData);
-            // console.log(result.userData);
-
+        .then((result) => { 
+            // console.log(result);
+            setIsViewData(result.userData);
         },[])
     }
-    // this.props.match.params.id
-
-
     ///////////Redirect page
     const showUser = () => history.push('/showuser');
-    // const deleteUser = () => history.location.key(id);
 
-    // const handleRemove = () => history.push('/alluserlist');
+    // <button type="button" class="btn btn-danger" onClick={() => handleRemove(isViewData - 1)}>Delete</button>
     
-    // <button type="button" class="btn btn-danger" onClick={() => setIsEdit(isEdit - 1)}>Delete</button>
-    // axios.delete(BASE_URL+"/update_user_by_admin", {
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //         'Authorization': token
-    //     },
-    //     body: JSON.stringify({
-    //         is_deleted: "delete",
-    //     })
-    //   });
     async function deleteHandler(id) {
-        console.log(id);
-        const Deletedata = await fetch(BASE_URL+"/update_user_by_admin",{
+        // console.log(id);
+        const Deletedata = await fetch(BASE_URL+"/update_user_by_admin?user_id="+props.user_id+"&is_deleted=0",{
             method: 'PUT',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            body: JSON.stringify({
-                is_deleted: 0,
-                // user_id:
-            })
         })
         .then(res => res.json())
         .then((result) => {
-            setIsDelete(result);
-            // console.log(result.message);
+            // setIsDelete(result);
+            // console.log(alert("delete"));
+            // history.push(resetRoute);
+            // history.push("/alluserlist");
+
         },[]);
     }
-    
 
     ///////////Click function Show Modal
     const [show, setShow] = useState("");
     const handleShow = ()=>{setShow("block")}
     const closeModal=()=>{setShow("")}
-
 
     ///////////Click function for visible the data table three dots
     const [open, setopen] = useState("");
@@ -115,7 +87,7 @@ function ShowUserData(props) {
                     <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={showUser}>
                         <span className="material-icons">edit</span>{props.edit}
                     </label>
-                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={() => deleteHandler(isEdit.admin_id)}>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={() => deleteHandler(props.user_id)}>
                         <span className="material-icons">delete_outline</span>{props.delete}
                     </label>
                 </div>
@@ -145,10 +117,19 @@ function ShowUserData(props) {
                                             <span class="dp_icon">
                                                 <i><FaTags/></i>
                                             </span>
-                                            <b>Employee Name</b>
+                                            <b>Company Name</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{isViewData.company_name}</span>
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><FaTags/></i>
+                                            </span>
+                                            <b>Comnpany Owner</b>
                                         </span>
 
-                                        <span className="right-dt mt-2 font-16">{isEdit.name}</span>
+                                        <span className="right-dt mt-2 font-16">{isViewData.first_name}</span>
 
                                     </div>
                                     <div class="shopowner-dt-list">
@@ -159,9 +140,7 @@ function ShowUserData(props) {
                                             <b>E-mail</b>
                                         </span>
 
-                                        <span class="right-dt mt-2 font-16">{isEdit.email}</span>
-
-
+                                        <span class="right-dt mt-2 font-16">{isViewData.email}</span>
                                     </div>
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -171,8 +150,17 @@ function ShowUserData(props) {
                                             <b>Role Type</b>
                                         </span>
 
-                                        <span class="right-dt mt-2 font-16">Employee</span>
+                                        <span class="right-dt mt-2 font-16">{isViewData.role_type}</span>
 
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiAlignLeft/></i>
+                                            </span>
+                                            <b>Country</b>
+                                        </span>
+                                        <span class="right-dt mt-2 font-16">{isViewData.country_name}</span>
                                     </div> 
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -181,9 +169,7 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Mobile</b>
                                         </span>
-
-                                        <span class="right-dt mt-2 font-16">12333333</span>
-
+                                        <span class="right-dt mt-2 font-16">{isViewData.mobile}</span>
                                     </div>
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
@@ -192,9 +178,17 @@ function ShowUserData(props) {
                                             </span>
                                             <b>Shift</b>
                                         </span>
-
-                                        <span class="right-dt mt-2 font-16">Day Time</span>
+                                        <span class="right-dt mt-2 font-16">{isViewData.work_timing_name}</span>
                                     </div>
+                                    {/* <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><FaUserTag/></i>
+                                            </span>
+                                            <b>Employee Strength</b>
+                                        </span>
+                                        <span class="right-dt mt-2 font-16">{isViewData.emp_strength}</span>
+                                    </div> */}
                                     <div class="shopowner-dt-list">
                                         <span class="left-dt">
                                             <span class="dp_icon">
@@ -202,8 +196,7 @@ function ShowUserData(props) {
                                             </span><b>Salary</b>
                                         </span>
 
-                                    <span class="right-dt mt-2 font-16">12k</span>
-
+                                    <span class="right-dt mt-2 font-16">{isViewData.salary_amount}</span>
                                     </div>
                                 </div>
                             </div>

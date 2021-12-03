@@ -171,10 +171,10 @@ module.exports.admin_get_user_list = (req, res) => {
 
 module.exports.update_user_by_admin = (req, res) => {
     var authheader = req.headers.authorization;
-    var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
-    var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
-    var is_active = typeof req.body.is_active != 'undefined' ? req.body.is_active : "";
-    var is_deleted= typeof req.body.is_deleted != 'undefined' ? req.body.is_deleted : "";
+    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
+    var user_id = typeof req.query.user_id != 'undefined' ? req.query.user_id : "";
+    var is_active = typeof req.query.is_active != 'undefined' ? req.query.is_active : "";
+    var is_deleted= typeof req.query.is_deleted != 'undefined' ? req.query.is_deleted : "";
     var lang = language_helper.load_language(language);
     if (authheader) {
         var data = token_helper.verifyJwtToken(authheader);

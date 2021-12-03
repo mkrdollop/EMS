@@ -169,22 +169,25 @@ module.exports.change_user_password = (req, res) => {
   ********** */
 module.exports.get_user_profile = (req, res) => {
 
-    var language = typeof req.body.language != 'undefined' ? req.query.language : "English";
+    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
     var lang = language_helper.load_language(language);
     var header = req.headers.authorization;
     if (header) {
         var data = token_helper.verifyJwtToken(header);
         if (data) {
-            var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
+            var user_id = typeof req.query.user_id != 'undefined' ? req.query.user_id : "";
 
             if(data.role_type=="Admin_User" || data.role_type=="Employee"){
                 user_id = data.user_id ;
             }
             // console.log(user_id);
-            querys =`SELECT user.*,emp_strength.strength
+            querys =`SELECT user.*,emp_strength.strength,country.name AS country_name,salary.salary_amount,salary.salary_type,user_work_timing.work_timing_name
                     FROM user
+                    LEFT JOIN country ON (country.id = user.country_id)
+                    LEFT JOIN user_work_timing ON (user_work_timing.user_id = user.user_id)
+                    LEFT JOIN salary ON (salary.user_id = user.user_id)
                     LEFT JOIN emp_strength ON emp_strength.id = user.emp_strength_id
-                    WHERE user_id = `+ user_id + ` `;
+                    WHERE user.user_id = `+ user_id + ` `;
             db.connection.query(querys, { type: Sequelizes.QueryTypes.SELECT, plain: true, })
                 .then(function (user) {
                     if (user) {
