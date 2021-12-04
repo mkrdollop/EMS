@@ -1,31 +1,74 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import AboutUsModel from '../../WebComponents/AboutUs/AboutUsModel';
 import Navside from '../../NavsideBar/Navside';
 import NavbarTop from '../../../DeployHead/Navigations/NavbarTop';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../../http-commen';
+
 
 function AddAbout() {
-    const stockVeiwMenu=[
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+    // const stockVeiwMenu=[
+	// 	{
+	// 		view:"Veiw",
+	// 		edit:"Edit",
+	// 		delete:"Delete",
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+	// 	},
+	// 	{
+	// 		view:"Veiw",
+	// 		edit:"Edit",
+	// 		delete:"Delete",
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+	// 	},
+	// 	{
+	// 		view:"Veiw",
+	// 		edit:"Edit",
+	// 		delete:"Delete",
 
-		},
-	]
+	// 	},
+	// ]
+    const token = localStorage.getItem("token");
+
+    const  [isAdout, setIsAdout] = useState([]);
+    console.log(isAdout);
+    // const aboutList = isAdout.map(data =>{
+    // console.log(data);
+    //     return(
+    //         <tr>
+    //             <td>{data.id}</td>
+    //             <td>{}</td>  
+    //             <td>{data.about}</td>  
+    //             <td>{data.created_at}</td>  
+    //             <td>{data.updated_at}</td>  
+    //             <td>
+    //                 <AboutUsModel key={data.id} view="View" edit="Edit" delete="Delete" />
+    //             </td>
+    //         </tr>
+    //     )
+    // });
+
+    useEffect(() => aboutUsList(), []);
+
+
+    async function aboutUsList (){
+        await fetch(BASE_URL+"/get_about",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            /* query: JSON.stringify({
+                user_type: 'Admin_User',
+            }) */
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setIsAdout(result.abouts);
+            // console.log(result.abouts);
+        
+        },[])
+    }
     return (
     <>
     <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -81,23 +124,19 @@ function AddAbout() {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="ShowPlan_tbody">
-
-                                                {stockVeiwMenu.map((data, index) => {
-                                                    return (
-                                                        <>
-                                                        <tr>
-                                                        <td>ID</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem Type</td>
-                                                        <td>Active</td>
-                                                        <td>Date</td>
-                                                        <td>
+                                                    {/* {aboutList} */}
+                                                {/* {stockVeiwMenu.map((data, index) => { */}
+                                                    {/* return ( */}
+                                                        {/* <> */}
+                                                        
+                                                       
+                                                        {/* <td>
                                                             <AboutUsModel key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                        </td>
-                                                        </tr>
-                                                            </>
-                                                        );
-                                                        })}
+                                                        </td> */}
+                                                        
+                                                            {/* </> */}
+                                                        {/* // ); */}
+                                                        {/* // })} */}
                                                 </tbody>
                                             </table>
                                             </div>

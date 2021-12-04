@@ -14,11 +14,11 @@ function ShowUserData(props) {
 
     const token = localStorage.getItem("token");
     const  [isViewData, setIsViewData] = useState([]);
-    // const  [isDelete, setIsDelete] = useState([]);
-    // console.log(isDelete);
+
 
     //// useEffect(() => deleteHandler(), []);
     useEffect(() => showUserHandler(), []);
+    // useEffect(() => editUserList(), []);
 
     /////////////// view Users Data
     async function showUserHandler(){
@@ -35,13 +35,28 @@ function ShowUserData(props) {
             setIsViewData(result.userData);
         },[])
     }
-    ///////////Redirect page
-    const showUser = () => history.push('/showuser');
-
-    // <button type="button" class="btn btn-danger" onClick={() => handleRemove(isViewData - 1)}>Delete</button>
     
+
+    // const editPageHandler = async e => {
+	// 	e.preventDefault();
+    //         editUserList({
+    //             company_name,
+    //             first_name
+    //         });
+    //         alert("success");
+    //         history.push('/showuser?user_id='+props.user_id);
+    // }
+    
+    ///////////Redirect page
+    const editPageHandler = (e) => {history.push('/showuser');
+        
+}
+
+    
+    /////////////// delete Users Data
     async function deleteHandler(id) {
         // console.log(id);
+        console.log(alert("Are you sure wants to delete"));
         const Deletedata = await fetch(BASE_URL+"/update_user_by_admin?user_id="+props.user_id+"&is_deleted=0",{
             method: 'PUT',
             headers: {
@@ -49,14 +64,6 @@ function ShowUserData(props) {
                'Authorization': token
             },
         })
-        .then(res => res.json())
-        .then((result) => {
-            // setIsDelete(result);
-            // console.log(alert("delete"));
-            // history.push(resetRoute);
-            // history.push("/alluserlist");
-
-        },[]);
     }
 
     ///////////Click function Show Modal
@@ -84,10 +91,10 @@ function ShowUserData(props) {
                         <span className="material-icons">visibility</span>{props.view}
                         
                     </label>
-                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={showUser}>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={editPageHandler}>
                         <span className="material-icons">edit</span>{props.edit}
                     </label>
-                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={() => deleteHandler(props.user_id)}>
+                    <label className="dropdown-item kb_menu_on_dta_tbl_ed_vw_del_btn" onClick={deleteHandler}>
                         <span className="material-icons">delete_outline</span>{props.delete}
                     </label>
                 </div>

@@ -22,7 +22,7 @@ function AllUserList(props) {
                 <td>{user.country_name}</td>  
                 <td>{user.emp_strength}</td>
                 <td>
-                    <ShowUserData key={i} user_id={user.user_id} view="View" edit="Edit" delete="Delete" />
+                    <ShowUserData key={i} user_id={user.user_id}  view="View" edit="Edit" delete="Delete" />
                 </td>
             </tr>
             

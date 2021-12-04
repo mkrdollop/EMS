@@ -1,14 +1,49 @@
-import React, { Fragment ,useState} from 'react';
+import React, { Fragment ,useState,useEffect} from 'react';
 import '../../assets/css/style.css';
+import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
 import Navside from '../NavsideBar/Navside';
+import {BASE_URL} from '../../http-commen';
 
 function AddUserData(props) {
 	console.log(props);
-	const [addUser, setAddUser] = useState();
-	// const {company,email,mobile,role_type,shift} = props;
+    const token = localStorage.getItem("token");
+    const history= useHistory();
+
+	const  [company_name, setCompany_name] = useState();
+    const  [first_name, setFirst_name] = useState();
+
+    useEffect(() => editUserList(), []);
+
+	async function editUserList(){
+        // console.log(props.user_id);
+         
+        // var updateData = [];
+
+        const Response = await fetch(BASE_URL+"/update_user_profile?user_id="+props.user_id,{
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            // body:updateData
+        })
+        .then(res => res.json())
+        .then((result) => { 
+            console.log(result);
+            // setIsViewData(result.userData);
+        },[])
+    }
+	// const editPageHandler = async e => {
+	// 	e.preventDefault();
+    //         editUserList({
+    //             company_name,
+    //             first_name
+    //         });
+    //         alert("success");
+    // }
 
     return (
         <Fragment>
@@ -43,12 +78,18 @@ function AddUserData(props) {
 															{/* <input type="hidden" name="plan_id" value=""/> */}
 															<input type="text" className="form-control" id="plan_title" name="plan_title" required="" />
 														</div>
+													</div><div className="col-md-6"> 
+														<div className="form-group">
+															<label>Company Owner</label>                                   
+															{/* <input type="hidden" name="plan_id" value=""/> */}
+															<input onChange={e => first_name(e.target.value)} type="text" className="form-control" id="plan_title" name="plan_title" required="" />
+														</div>
 													</div>
                                                     <div className="col-md-6"> 
 														<div className="form-group">
 															<label>E-mail</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input type="email" className="form-control" name="" required="" />
+															<input  type="email" className="form-control" name="" required="" />
 														</div>
 													</div>
                                                     <div className="col-md-6 no_of">
@@ -57,6 +98,12 @@ function AddUserData(props) {
 															<input type="number" className="form-control" />
 														</div>
 													</div>
+													{/* <div className="col-md-6 no_of">
+														<div className="form-group">
+															<label>Country Name<span className="no_of_name"></span></label>
+															<input type="text" className="form-control" name="" required="" />
+														</div>
+													</div> */}
 													<div className="col-md-6">
 														<div className="form-group">
 															<label>Role</label>
