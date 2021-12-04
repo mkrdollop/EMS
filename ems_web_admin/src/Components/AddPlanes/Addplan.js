@@ -67,10 +67,9 @@ function Addplan() {
 															<label>Plan For</label>
 															<select className="form-control" name="plan_for" id="plan_for">
 																<option value="">Select Duration</option>
-																<option value="1">1 Month</option>
-																<option value="1">3 Month</option>
-																<option value="6">6 Months</option>
-																<option value="6">1 year</option>
+																<option value="Weekly">Weekly</option>
+																<option value="Monthly">Monthly</option>
+																<option value="Yearly">Yearly</option>
 															</select>
 														</div>
 													</div>
