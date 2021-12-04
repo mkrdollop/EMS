@@ -1,16 +1,19 @@
 import React, { Fragment,useState } from 'react';
 import '../../assets/css/style.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory,Redirect } from "react-router-dom";
 import NavbarTop from './NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
 // import Navside from '../NavsideBar/Navside';
 import Navside from '../../Components/NavsideBar/Navside';
 import {BASE_URL} from '../../http-commen';
-
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 
 function ChangePassword() {
-	const [title, setTitle] = useState();
+
+	//  const history = useHistory();
+	// const [title, setTitle] = useState();
 	const [oldpassword, setOldPassword] = useState();
 	const [newpassword, setNewPassword] = useState();
 	const [cpassword, setCPassword] = useState();
@@ -26,40 +29,52 @@ function ChangePassword() {
 
 
 	const validateForm=()=> {
-
-		//let fields = this.state.fields;
 		
 		let formIsValid = true;
-		// errors["password"]="";
-
+		
+		// oldpassword
 		console.log(oldpassword);
-		if (!oldpassword && newpassword) {
-		   formIsValid = false;
-		   //errors["password"] = "*Please enter your password.";
-		   setOPasswordError("*Please enter your password.");
+	
+		if (!oldpassword){
+				formIsValid = false;
+				setOPasswordError("*Please enter your old password.");
+		} 
+		else if (oldpassword.length < 6 || oldpassword.length > 15) {
+				formIsValid = false;
+				setOPasswordError("*Enter password between 6 char and 15 char");
 		}
-		
-		if (typeof oldpassword !== "undefined" && typeof newpassword !== "undefined") {
-		   if (oldpassword.length < 6) {
-				 formIsValid = false;
-				 //errors["password"] = "*Please enter minimum 6 character.";
-				 setOPasswordError("*Please enter minimum 6 character.");
-		   } else if (oldpassword.length > 15) {
-				 formIsValid = false;
-				 //errors["password"] = "*Please enter maximum 15 character.";
-				 setOPasswordError("*Please enter maximum 15 character.");
-		   }
+	
+
+		// newpassword
+		if (!newpassword){
+			formIsValid = false;
+			setNPasswordError("*Please enter your new password.");
+	  	} 
+	  	else if (newpassword.length < 6 || newpassword.length > 15) {
+			formIsValid = false;
+			setNPasswordError("*Enter password between 6 char and 15 char");
+	  	}
+ 
+		// confirm password
+		if (!cpassword){
+			formIsValid = false;
+			setCPasswordError("*Please enter your confirm password.");
+	  	} 
+	  	else if (cpassword.length < 6 || cpassword.length > 15) {
+			formIsValid = false;
+			setCPasswordError("*Enter password between 6 char and 15 char");
+	  	}
+		else if (newpassword != cpassword) {
+			setCPasswordError("*Passwords Don't Match");
 		}
-  
-		
+
 		return formIsValid;
-  
   
 	 }
 
 
 
-	 const handleSubmit = async e => {;
+	const handleSubmit = async e => {
 		e.preventDefault();
 		
 		if(validateForm()){
@@ -67,11 +82,11 @@ function ChangePassword() {
 				oldpassword,
 				newpassword
 			  });
-			alert("success");
+			// alert("success");
+			
 		}
 		
-		
-	  }
+	}
 
 
 	  async function changePassword(param){
@@ -98,19 +113,31 @@ function ChangePassword() {
             },
             body:formBody
             // query:'users'
-        })
-    .then(res => res.json())
+        })	
+    .then(res =>{res.json()
+	// console.log(res.json)
+	})
     .then((result) => {
-    //   setPlanList(result.plan);
       console.log(result);
       
     },[])
+	// const jsonResponse = await responseData.json();
+	// console.log(jsonResponse);
+	// if (responseData.status>=400){
+	// 	  toast.error(jsonResponse.message);
+	// }else{
+	// 	  toast.success(jsonResponse.message);		  			  
+	// }
+
+	
+	
     
     }
   
 
     return (
     <Fragment>
+	 {/* <ToastContainer /> */}
 		<div className="ems-dashboard dark dark-sidebar theme-black">    
 			<div className="main-wrapper main-wrapper-1">
 
@@ -130,7 +157,7 @@ function ChangePassword() {
 							<div className="row">
 								<div className="col-12 col-md-10 col-lg-8 mx-auto">
 									<div className="card">
-										<form className="needs-validation" name="planForm" id="plan" onSubmit={handleSubmit} novalidate="">
+										<form className="needs-validation" name="planForm" id="plan" onSubmit={handleSubmit} noValidate="">
 
 									
 											<div className="card-body">
@@ -140,7 +167,7 @@ function ChangePassword() {
 														<div className="form-group">
 															<label>Old Password</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input onChange={e => setOldPassword(e.target.value)} type="text"  placeholder="Enter Old Password" className="form-control" id="plan_title" name="old_password" required=""/>
+															<input onChange={e => setOldPassword(e.target.value)} type="password"  placeholder="Enter Old Password" className="form-control" id="old_Password" name="old_password" required=""/>
 															<div>{opasswordError}</div>
 														</div>
 													</div>
@@ -151,7 +178,7 @@ function ChangePassword() {
 														<div className="form-group">
 															<label>New Password</label>                                   
 															<input type="hidden" name="plan_id" value=""/>
-															<input onChange={e => setNewPassword(e.target.value)} type="text"  placeholder="Enter New Password" className="form-control" id="plan_title" name="new_password" required=""/>
+															<input onChange={e => setNewPassword(e.target.value)} type="password"  placeholder="Enter New Password" className="form-control" id="new_password" name="new_password" required=""/>
 															<div>{npasswordError}</div>
 														</div>
 													</div>
@@ -161,7 +188,7 @@ function ChangePassword() {
 														<div className="form-group">
 															<label>Confirm Password</label>                                   
 															<input type="hidden" name="plan_id"   value=""/>
-															<input onChange={e => setCPassword(e.target.value)} type="text" placeholder="Confirm Password" className="form-control" id="plan_title" name="confirm_password" required=""/>
+															<input onChange={e => setCPassword(e.target.value)} type="password" placeholder="Confirm Password" className="form-control" id="confirm_password" name="confirm_password" required=""/>
 															<div>{cpasswordError}</div>
 														</div>
 													</div>

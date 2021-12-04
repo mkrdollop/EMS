@@ -36,6 +36,7 @@ function PlanAction(props) {
         
     }
     useEffect(() => PlanDetail(),[]);
+    
     async function PlanDetail (){
         await fetch(BASE_URL+"/admin_get_all_plan?plan_id="+props.plan_id,{
             method: 'GET',
@@ -47,7 +48,7 @@ function PlanAction(props) {
 
         .then(res => res.json())
         .then((result) => {
-            if(result.plan.is_active==1){
+            if(result.plan.is_active === 1 ){
                 result.plan.is_active="Active";
             }else{
                 result.plan.is_active="Deactive";

@@ -35,7 +35,7 @@ function AllplanList() {
         )
     });
   
-      async function PlanList (){
+      async function PlanList(){
         var responseData = await fetch(BASE_URL+"/admin_get_all_plan",{
             method: 'GET',
             headers: {
