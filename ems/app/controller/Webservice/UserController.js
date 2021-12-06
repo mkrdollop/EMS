@@ -230,10 +230,9 @@ module.exports.get_user_profile = (req, res) => {
 
 module.exports.update_user_profile = (req, res) => {
     //var form = new FormData();
-    
     var header = req.headers.authorization;
     var lang = language_helper.load_language("English");
-    if (header) {    
+    if (header) {  
         var data = token_helper.verifyJwtToken(header);
         if (data) {
             
@@ -307,6 +306,7 @@ module.exports.update_user_profile = (req, res) => {
                     }).then((result) => {
                         return res.status(200).json({
                             message: lang.SUCCESS,
+                            result:result
                         });
 
                     });
@@ -330,8 +330,6 @@ module.exports.update_user_profile = (req, res) => {
             message: lang.TOKEN_REQUIRED
         });
     }
-
-
 }
 
 /*******
@@ -382,7 +380,7 @@ module.exports.update_fcm_id = (req, res) => {
  * @use:remove logo/banner
  * @param:token
  * @method:get
- * @response:OK 
+ * @response:OK
   ********** */
 module.exports.remove_logo_banner = (req, res) => {
 

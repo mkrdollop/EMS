@@ -10,19 +10,10 @@ import {BASE_URL} from '../../http-commen';
 function ShowUserData(props) {
     // console.log(props);
     const history= useHistory();
-
     const token = localStorage.getItem("token");
-    
     const  [isViewData, setIsViewData] = useState([]);
-    const  [editData, setEditData] = useState({
-        company_name:" ",
-        first_name:" ",
-        country_name:" ",
-        work_timing_name:" ",
-    });
-    console.log(editData);
+   
     useEffect(() => showUserHandler(), []);
-    // useEffect(() => editUserList(), []);
 
     /////////////// view Users Data
     async function showUserHandler(){
@@ -38,57 +29,6 @@ function ShowUserData(props) {
             // console.log(result);
             setIsViewData(result.userData);
         },[])
-    }
-
-    // const editPageHandler = async event => {
-	// 	event.preventDefault();
-    //     const fildName= event.target.getAttribute("name"); 
-    //     const fildValue= event.target.value; 
-
-    //     const newUserData = {...editData};
-    //     newUserData[fildName] = fildValue; 
-    //     setEditData(newUserData);  
-    //     console.log(newUserData);
-    // }
-
-    useEffect(() => editUserList(), []);
-    async function editUserList(credentials){
-        console.log(credentials);
-        // let formData = new FormData();
-        //     formData.append('company_name', credentials.company_name);
-        //     formData.append('first_name',credentials.first_name);
-        //     formData.append('country_name', credentials.country_name);
-        //     formData.append('work_timing_name',credentials.work_timing_name);
-        var details = {
-            // 'company_name':,
-            // 'first_name':,
-            // 'country_name':credentials.country_name,
-            // 'work_timing_name':credentials.work_timing_name,
-         };
-        console.log(props.user_id);
-
-        var formBody = [];
-        for (var property in details) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(details[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-         }
-         formBody = formBody.join("&");
-
-       // var updateData = [];
-       const Response = await fetch(BASE_URL+"/update_user_profile?user_id="+props.user_id,{
-        method: 'POST',
-        headers: {
-           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-           'Authorization': token
-        },
-        data:formBody
-    })
-    .then(res => res.json())
-    .then((result) => { 
-        console.log("result");
-        setEditData(result);
-    },[]);
     }
 
     ///////////Redirect page
