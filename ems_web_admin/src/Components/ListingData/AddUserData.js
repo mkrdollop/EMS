@@ -1,6 +1,7 @@
 import React, { Fragment ,useState,useEffect} from 'react';
 import '../../assets/css/style.css';
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { nanoid  } from 'nanoid';
 import { Link } from 'react-router-dom';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 import Footer from '../../DeployHead/Footer/Footer';
@@ -10,8 +11,18 @@ import {BASE_URL} from '../../http-commen';
 function AddUserData() {
     const token = localStorage.getItem("token");
 	const {id} = useParams();
-	console.log(id);
+	// console.log(id);
     const  [isShowUserData, setIsShowUserData] = useState([]);
+	const [stateUser, setstate] = useState();
+	const  [editUserData, setEditUserData] = useState({
+        company_name:" ",
+        first_name:" ",
+        // country_name:" ",
+        // work_timing_name:" ",
+		// email:"",
+		// mobile:""
+    });
+    // console.log(editUserData);
 
 	// console.log(isShowUserData.company_name);
     useEffect(() => showUserHandler(), []);
@@ -30,6 +41,98 @@ function AddUserData() {
             setIsShowUserData(result.userData);
         },[])
     }
+
+	 const editPageHandler = async event => {
+		event.preventDefault();
+        const fildName= event.target.getAttribute("name"); 
+        const fildValue= event.target.value; 
+
+        const newUserData = {...editUserData};
+        newUserData[fildName] = fildValue; 
+        setEditUserData(newUserData);  
+        console.log(newUserData);
+    }
+
+    useEffect(() => AddUser(), []);
+	async function AddUser(credentials){
+		console.log(credentials);
+
+	const Response = await fetch(BASE_URL+"/update_user_profile?user_id="+id,{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+				'Authorization': token
+			},
+		})
+		.then(res => res.json())
+		.then((result) => { 
+			console.log(result);
+			// setEditUserData(result);
+		},[]);
+	}
+
+	// const handleSubmit = async e => {
+	// 	e.preventDefault();
+	// 	AddUser({
+	// 		company_name,
+	// 	   	first_name
+	// 	});
+		
+	//   }
+	// async function AddUser(credentials){
+    //     console.log(credentials);
+    //     // let formData = new FormData();
+    //     //     formData.append('company_name', credentials.company_name);
+    //     //     formData.append('first_name',credentials.first_name);
+    //     //     formData.append('country_name', credentials.country_name);
+    //     //     formData.append('work_timing_name',credentials.work_timing_name);
+    //     var details = {
+    //         'company_name':credentials.company_name,
+    //         'first_name':credentials.first_name,
+    //         'country_name':credentials.country_name,
+    //         'work_timing_name':credentials.work_timing_name,
+    //      };
+    //     // console.log(props.user_id);
+
+    //     var formBody = [];
+    //     for (var property in details) {
+    //         var encodedKey = encodeURIComponent(property);
+    //         var encodedValue = encodeURIComponent(details[property]);
+    //         formBody.push(encodedKey + "=" + encodedValue);
+    //      }
+    //      formBody = formBody.join("&");
+
+    //    // var updateData = [];
+    //    const Response = await fetch(BASE_URL+"/update_user_profile?user_id="+id,{
+    //     method: 'POST',
+    //     headers: {
+    //        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    //        'Authorization': token
+    //     },
+    //     data:formBody
+    // })
+    // .then(res => res.json())
+    // .then((result) => { 
+    //     console.log("result");
+    //     setEditUserData(result);
+    // },[]);
+    // }
+	const onSubmitHandler = (event) => {
+		event.preventDefault();
+		console.log(event);
+		const editUserList = ({
+			user_id: nanoid(),
+			company_name:editUserData.company_name,
+			first_name:editUserData.first_name,
+			email:editUserData.email,
+			mobile:editUserData.mobile,
+			country_name:editUserData.country_name,
+			work_timing_name:editUserData.work_timing_name,
+		});
+		// const newStateData = [...stateUser, editUserList]
+		// console.log(newStateData);
+		// setstate(newStateData);
+	  }
     return (
         <Fragment>
 		<div className="ems-dashboard dark dark-sidebar theme-black">    
@@ -51,7 +154,7 @@ function AddUserData() {
 							<div className="row">
 								<div className="col-12 col-md-10 col-lg-8 mx-auto">
 									<div className="card">
-										<form className="needs-validation" name="planForm" id="plan" novalidate="">
+										<form className="needs-validation" onSubmit={ onSubmitHandler}>
 											<div className="card-header">
 												<h4>Users</h4>
 											</div>
@@ -60,26 +163,26 @@ function AddUserData() {
 													<div className="col-md-6"> 
 														<div className="form-group">
 															<label>Company Name</label>                                   
-															<input value={isShowUserData.company_name} type="company_name" className="form-control" id="plan_title" name={isShowUserData.company_name} required="" />
+															<input onChange={editPageHandler} value={isShowUserData.company_name} type="text" className="form-control" name="company_name" required="" />
 														</div>
 													</div><div className="col-md-6"> 
 														<div className="form-group">
 															<label>Company Owner</label>                                   
 															{/* <input type="hidden" name="plan_id" value=""/> */}
-															<input value={isShowUserData.first_name} type="first_name" className="form-control" id="plan_title" name="plan_title" required="" />
+															<input  onChange={editPageHandler} value={isShowUserData.first_name} type="text" className="form-control" name="first_name" required="" />
 														</div>
 													</div>
                                                     <div className="col-md-6"> 
 														<div className="form-group">
 															<label>E-mail</label>                                   
 															{/* <input type="hidden" name="plan_id" value=""/> */}
-															<input value={isShowUserData.email} type="email" className="form-control" name="email" required="" />
+															<input  onChange={editPageHandler} value={isShowUserData.email} type="email" className="form-control" name="email" required="" />
 														</div>
 													</div>
                                                     <div className="col-md-6 no_of">
 														<div className="form-group">
 															<label>Mobile No.<span className="no_of_name"></span></label>
-															<input value={isShowUserData.mobile} type="mobile" className="form-control" />
+															<input  onChange={editPageHandler} value={isShowUserData.mobile} type="mobile" name="mobile" className="form-control" />
 														</div>
 													</div>
 													{/* <div className="col-md-6 no_of">
@@ -112,14 +215,14 @@ function AddUserData() {
 													<div className="col-md-6 fee">
 														<div className="form-group">
 															<label>Salary</label>
-															<input value={isShowUserData.salary_amount} type="salary_amount" name="salary_amount" className="form-control" required=""/>
+															<input  onChange={editPageHandler} value={isShowUserData.salary_amount} type="salary_amount" name="salary_amount" className="form-control" required=""/>
 														</div>
 													</div>
 													
 												</div>
 											</div>
 											<div className="card-footer text-right">
-											<Link to="/alluserlist"><button type="submit" className="btn btn-primary" id="submitBtn">Submit</button></Link>
+											<button type="submit" className="btn btn-primary" id="submitBtn">Submit</button>
 											</div>
 										</form>
 									</div>

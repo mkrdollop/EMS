@@ -4,7 +4,7 @@ import ShowUserData from '../ListingData/ShowUserData';
 // import AddUserData from '../ListingData/AddUserData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {BASE_URL} from '../../http-commen';
 // import Axios from 'axios';
 // console.log(BASE_URL+"/admin_get_user_list");
@@ -64,10 +64,10 @@ function AllUserList(props) {
                             <div class="card table-card">
                                 <div class="card-header">
                                     <h4>All Users</h4>
-                                    {/* <Link to="/showuser" className="px-4 btn btn-primary ad_btn_on_dtble">
+                                    <Link to="/showuser/:id" className="px-4 btn btn-primary ad_btn_on_dtble">
                                         <span className="font-600 font-16">+</span>
                                         Add
-                                    </Link> */}
+                                    </Link>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
