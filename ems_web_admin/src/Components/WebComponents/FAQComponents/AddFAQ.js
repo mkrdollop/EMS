@@ -1,30 +1,52 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import FAQModel from '../FAQComponents/FAQModel';
 import Navside from '../../NavsideBar/Navside';
 import NavbarTop from '../../../DeployHead/Navigations/NavbarTop';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../../http-commen';
+
 
 function AddFAQ() {
-    const stockVeiwMenu=[
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+    const token = localStorage.getItem("token");
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+    const [FAQ, setFAQ] = useState([]);
+    console.log(FAQ);
+    const FAQ_DATA = FAQ.map(data =>{
+        // console.log("data");
+            return(
+                <tr>
+                    <td>{data.id}</td>
+                    <td>{data.content}</td>  
+                    <td>{data.created_at}</td>  
+                    <td>{data.updated_at}</td>  
+                    <td>
+                    <FAQModel key={data.id} view="View" edit="Edit" delete="Delete" />
+                    </td>
+                </tr>
+            )
+    });
+    useEffect(() => FAQList(), []);
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
 
-		},
-	]
+    async function FAQList (){
+        await fetch(BASE_URL+"/get_faq",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+            /* query: JSON.stringify({
+                user_type: 'Admin_User',
+            }) */
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setFAQ(result.FAQ);
+        //  console.log(result.FAQ);
+        
+        },[])
+    }
+
     return (
         <>
     <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -71,8 +93,7 @@ function AddFAQ() {
                                             <table id="ShowPlan" className="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>User Id</th>
-                                                        <th>Users</th>
+                                                        <th>Id</th>
                                                         <th>Contains</th>
                                                         <th>Updated Date</th>
                                                         <th>Created Date</th>
@@ -80,23 +101,7 @@ function AddFAQ() {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="ShowPlan_tbody">
-
-                                                {stockVeiwMenu.map((data, index) => {
-                                                    return (
-                                                        <>
-                                                        <tr>
-                                                        <td>ID</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem Type</td>
-                                                        <td>Active</td>
-                                                        <td>Date</td>
-                                                        <td>
-                                                            <FAQModel key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                        </td>
-                                                        </tr>
-                                                            </>
-                                                        );
-                                                        })}
+                                                    {FAQ_DATA}
                                                 </tbody>
                                             </table>
                                             </div>

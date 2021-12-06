@@ -12,7 +12,6 @@ function AboutUsModel(props) {
     ///////////Redirect page to About
     const editAbout = () => history.push('/about');
     
-
     ///////////Click function Show Modal
     const [show, setShow] = useState("none");
     const handleShow = ()=>{setShow("block")}
@@ -65,6 +64,15 @@ function AboutUsModel(props) {
                                     </button>
                             </div>
                             <div className="shopowner-dts">
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><FaTags/></i>
+                                            </span>
+                                            <b>Id</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
+                                    </div>
                                     <div className="shopowner-dt-list" style={{width: '100%'}}>
                                         <span className="left-dt">
                                             <span className="dp_icon">
@@ -81,6 +89,24 @@ function AboutUsModel(props) {
                                         5.4	About Use
                                         Ability to add/ modify/ remove Privacy Policy page Content.  
                                         </span>
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiAlignLeft/></i>
+                                            </span>
+                                            <b>Updated Date</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiFocusLine/></i>
+                                            </span>
+                                            <b>Created Date</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
                                     </div>
                                 </div>
                             </div>

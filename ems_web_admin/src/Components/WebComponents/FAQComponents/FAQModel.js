@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { MdContentPaste } from "react-icons/md";
+import { RiFocusLine } from "react-icons/ri";
 import { FaQuestionCircle } from "react-icons/fa";
 
 function FAQModel(props) {
@@ -61,6 +62,15 @@ function FAQModel(props) {
                                     </button>
                             </div>
                             <div className="shopowner-dts">
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiFocusLine/></i>
+                                            </span>
+                                            <b>Id</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
+                                    </div>
                                     <div className="shopowner-dt-list" style={{width: '100%'}}>
                                         <span className="left-dt">
                                             <span className="dp_icon">
@@ -78,6 +88,24 @@ function FAQModel(props) {
                                         5.4	About Use
                                         Ability to add/ modify/ remove Privacy Policy page Content.  
                                         </span>
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiFocusLine/></i>
+                                            </span>
+                                            <b>Updated Date</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
+                                    </div>
+                                    <div class="shopowner-dt-list">
+                                        <span class="left-dt">
+                                            <span class="dp_icon">
+                                                <i><RiFocusLine/></i>
+                                            </span>
+                                            <b>Created Date</b>
+                                        </span>
+                                        <span className="right-dt mt-2 font-16">{}</span>
                                     </div>
                                 </div>
                             </div>

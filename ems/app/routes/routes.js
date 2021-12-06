@@ -48,7 +48,7 @@ module.exports = app => {
     ////////// About Us
     app.post("/add_about_us", AboutController.admin_add_about_us);
     app.delete("/delete_about_us", AboutController.admin_delete_about_us);
-    app.get("/get_about_us", AboutController.admin_get_all_about_us);
+    app.get("/admin_get_all_about_us", AboutController.admin_get_all_about_us);
 
 
 
@@ -56,7 +56,7 @@ module.exports = app => {
     app.post("/add_terms_condition", TermsAndCondtionController.admin_add_terms_condition);
     // app.patch("/add_terms_condition", TermsAndCondtionController.admin_add_terms_condition);
     app.delete("/delete_terms_condition", TermsAndCondtionController.admin_delete_terms_condition);
-    app.get("/get_terms_condition", TermsAndCondtionController.admin_get_all_terms_condition);
+    app.get("/admin_get_all_terms_condition", TermsAndCondtionController.admin_get_all_terms_condition);
 
 
 

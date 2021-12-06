@@ -8,65 +8,38 @@ import {BASE_URL} from '../../../http-commen';
 
 
 function AddAbout() {
-    // const stockVeiwMenu=[
-	// 	{
-	// 		view:"Veiw",
-	// 		edit:"Edit",
-	// 		delete:"Delete",
-
-	// 	},
-	// 	{
-	// 		view:"Veiw",
-	// 		edit:"Edit",
-	// 		delete:"Delete",
-
-	// 	},
-	// 	{
-	// 		view:"Veiw",
-	// 		edit:"Edit",
-	// 		delete:"Delete",
-
-	// 	},
-	// ]
     const token = localStorage.getItem("token");
 
     const  [isAdout, setIsAdout] = useState([]);
-    console.log(isAdout);
-    // const aboutList = isAdout.map(data =>{
-    // console.log(data);
-    //     return(
-    //         <tr>
-    //             <td>{data.id}</td>
-    //             <td>{}</td>  
-    //             <td>{data.about}</td>  
-    //             <td>{data.created_at}</td>  
-    //             <td>{data.updated_at}</td>  
-    //             <td>
-    //                 <AboutUsModel key={data.id} view="View" edit="Edit" delete="Delete" />
-    //             </td>
-    //         </tr>
-    //     )
-    // });
-
     useEffect(() => aboutUsList(), []);
 
-
+    console.log(isAdout);
+    const ABOUT_DATA = isAdout.map(data =>{
+    // console.log("data");
+        return(
+            <tr>
+                <td>{data.id}</td>
+                <td>{data.about}</td>  
+                <td>{data.created_at}</td>  
+                <td>{data.updated_at}</td>  
+                <td>
+                    <AboutUsModel key={data.id} view="View" edit="Edit" delete="Delete" />
+                </td>
+            </tr>
+        )
+    });
     async function aboutUsList (){
-        await fetch(BASE_URL+"/get_about",{
+        await fetch(BASE_URL+"/admin_get_all_about_us",{
             method: 'GET',
             headers: {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            /* query: JSON.stringify({
-                user_type: 'Admin_User',
-            }) */
         })
         .then(res => res.json())
         .then((result) => {
-            setIsAdout(result.abouts);
+            setIsAdout(result.about);
             // console.log(result.abouts);
-        
         },[])
     }
     return (
@@ -115,28 +88,15 @@ function AddAbout() {
                                             <table id="ShowPlan" className="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>User Id</th>
-                                                        <th>Users</th>
-                                                        <th>Contains</th>
+                                                        <th>Id</th>
+                                                        <th>AboutUs</th>
                                                         <th>Updated Date</th>
                                                         <th>Created Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="ShowPlan_tbody">
-                                                    {/* {aboutList} */}
-                                                {/* {stockVeiwMenu.map((data, index) => { */}
-                                                    {/* return ( */}
-                                                        {/* <> */}
-                                                        
-                                                       
-                                                        {/* <td>
-                                                            <AboutUsModel key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                        </td> */}
-                                                        
-                                                            {/* </> */}
-                                                        {/* // ); */}
-                                                        {/* // })} */}
+                                                    {ABOUT_DATA}
                                                 </tbody>
                                             </table>
                                             </div>

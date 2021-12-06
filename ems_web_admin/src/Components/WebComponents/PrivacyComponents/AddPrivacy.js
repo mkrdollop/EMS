@@ -1,31 +1,45 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import FAQModel from '../FAQComponents/FAQModel';
 import Navside from '../../NavsideBar/Navside';
 import NavbarTop from '../../../DeployHead/Navigations/NavbarTop';
 import PrivacyModel from './PrivacyModel';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../../http-commen';
 
 function AddPrivacy() {
-    const stockVeiwMenu=[
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+    const token = localStorage.getItem("token");
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
+    const [privacy, setPrivacy] = useState([]);
+    useEffect(() => privacyList(), []);
 
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-	]
+    const PRIVACY_DATA = privacy.map(data =>{
+        // console.log("data");
+            return(
+                <tr>
+                    <td>{data.id}</td>
+                    <td>{data.policy}</td>  
+                    <td>{data.created_at}</td>  
+                    <td>{data.updated_at}</td>  
+                    <td>
+                    <PrivacyModel key={data.id} view="View" edit="Edit" delete="Delete" />
+                    </td>
+                </tr>
+            )
+    });
+    async function privacyList (){
+        await fetch(BASE_URL+"/get_privcy_policy",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setPrivacy(result.privacypolicy);
+        //  console.log(result.privacypolicy);
+        },[])
+    }
     return (
         <>
         <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -73,31 +87,14 @@ function AddPrivacy() {
                                                     <thead>
                                                         <tr>
                                                             <th>Id</th>
-                                                            <th>Users</th>
-                                                            <th>Contains</th>
+                                                            <th>Policy</th>
                                                             <th>Updated Date</th>
                                                             <th>Created Date</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody className="ShowPlan_tbody">
-        
-                                                    {stockVeiwMenu.map((data, index) => {
-                                                        return (
-                                                            <>
-                                                            <tr>
-                                                            <td>ID</td>
-                                                            <td>lorem</td>
-                                                            <td>lorem Type</td>
-                                                            <td>Active</td>
-                                                            <td>Date</td>
-                                                            <td>
-                                                                <PrivacyModel key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                            </td>
-                                                            </tr>
-                                                                </>
-                                                            );
-                                                            })}
+                                                        {PRIVACY_DATA}
                                                     </tbody>
                                                 </table>
                                                 </div>

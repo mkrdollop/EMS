@@ -1,30 +1,43 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Navside from '../../NavsideBar/Navside';
 import NavbarTop from '../../../DeployHead/Navigations/NavbarTop';
 import TermsModel from './TermsModel';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../../../http-commen';
 
 function AddTerms() {
-    const stockVeiwMenu=[
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-		{
-			view:"Veiw",
-			edit:"Edit",
-			delete:"Delete",
-
-		},
-	]
+    const token = localStorage.getItem("token");
+    const [terms, setTerms] = useState([]);
+    useEffect(() => TermsList(), []);
+    
+    const TERMS_DATA = terms.map(data =>{
+        // console.log("data");
+            return(
+                <tr>
+                    <td>{data.id}</td>
+                    <td>{data.terms}</td>  
+                    <td>{data.created_at}</td>  
+                    <td>{data.updated_at}</td>  
+                    <td>
+                    <TermsModel key={data.id} view="View" edit="Edit" delete="Delete" />
+                    </td>
+                </tr>
+            )
+    });
+    async function TermsList (){
+        await fetch(BASE_URL+"/admin_get_all_terms_condition",{
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'Authorization': token
+            },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            setTerms(result.terms);
+            // console.log(result.terms);
+        },[])
+    }
     return (
         <>
     <div className="ems-dashboard dark dark-sidebar theme-black">   
@@ -72,7 +85,6 @@ function AddTerms() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Users</th>
                                                         <th>Contains</th>
                                                         <th>Updated Date</th>
                                                         <th>Created Date</th>
@@ -80,23 +92,7 @@ function AddTerms() {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="ShowPlan_tbody">
-
-                                                {stockVeiwMenu.map((data, index) => {
-                                                    return (
-                                                        <>
-                                                        <tr>
-                                                        <td>ID</td>
-                                                        <td>lorem</td>
-                                                        <td>lorem Type</td>
-                                                        <td>Active</td>
-                                                        <td>Date</td>
-                                                        <td>
-                                                            <TermsModel key={index} view={data.view} edit={data.edit} delete={data.delete} />
-                                                        </td>
-                                                        </tr>
-                                                            </>
-                                                        );
-                                                        })}
+                                                    {TERMS_DATA}
                                                 </tbody>
                                             </table>
                                             </div>
