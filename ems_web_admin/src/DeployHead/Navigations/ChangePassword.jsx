@@ -37,35 +37,35 @@ function ChangePassword() {
 	
 		if (!oldpassword){
 				formIsValid = false;
-				setOPasswordError("*Please enter your old password.");
+				setOPasswordError("Please enter your old password.");
 		} 
 		else if (oldpassword.length < 6 || oldpassword.length > 15) {
 				formIsValid = false;
-				setOPasswordError("*Enter password between 6 char and 15 char");
+				setOPasswordError("Enter password between 6 char and 15 char");
 		}
 	
 
 		// newpassword
 		if (!newpassword){
 			formIsValid = false;
-			setNPasswordError("*Please enter your new password.");
+			setNPasswordError("Please enter your new password.");
 	  	} 
 	  	else if (newpassword.length < 6 || newpassword.length > 15) {
 			formIsValid = false;
-			setNPasswordError("*Enter password between 6 char and 15 char");
+			setNPasswordError("Enter password between 6 char and 15 char");
 	  	}
  
 		// confirm password
 		if (!cpassword){
 			formIsValid = false;
-			setCPasswordError("*Please enter your confirm password.");
+			setCPasswordError("Please enter your confirm password.");
 	  	} 
 	  	else if (cpassword.length < 6 || cpassword.length > 15) {
 			formIsValid = false;
-			setCPasswordError("*Enter password between 6 char and 15 char");
+			setCPasswordError("Enter password between 6 char and 15 char.");
 	  	}
 		else if (newpassword != cpassword) {
-			setCPasswordError("*Passwords Don't Match");
+			setCPasswordError("New and Confirm Password Don't Match.");
 		}
 
 		return formIsValid;
@@ -82,9 +82,10 @@ function ChangePassword() {
 				oldpassword,
 				newpassword
 			  });
-			// alert("success");
+			alert("successfully paswword changed");
 			
 		}
+		e.target.reset(); 	// To clear data after password change
 		
 	}
 
@@ -164,10 +165,9 @@ function ChangePassword() {
 
 													<div className="col-md-6"> 
 														<div className="form-group">
-															<label>Old Password</label>                                   
-															<input type="hidden" name="plan_id" value=""/>
+															<label>Old Password <span style={{color:"red"}}>*</span></label>                                 
 															<input onChange={e => setOldPassword(e.target.value)} type="password"  placeholder="Enter Old Password" className="form-control" id="old_Password" name="old_password" required=""/>
-															<div>{opasswordError}</div>
+															<div style={{color:"red"}}>{opasswordError}</div>
 														</div>
 													</div>
 
@@ -175,20 +175,18 @@ function ChangePassword() {
 
 													<div className="col-md-6"> 
 														<div className="form-group">
-															<label>New Password</label>                                   
-															<input type="hidden" name="plan_id" value=""/>
+															<label>New Password <span style={{color:"red"}}>*</span></label>                                   
 															<input onChange={e => setNewPassword(e.target.value)} type="password"  placeholder="Enter New Password" className="form-control" id="new_password" name="new_password" required=""/>
-															<div>{npasswordError}</div>
+															<div style={{color:"red"}}>{npasswordError}</div>
 														</div>
 													</div>
 
 
 													<div className="col-md-6"> 
 														<div className="form-group">
-															<label>Confirm Password</label>                                   
-															<input type="hidden" name="plan_id"   value=""/>
+															<label>Confirm Password <span style={{color:"red"}}>*</span></label>                                   
 															<input onChange={e => setCPassword(e.target.value)} type="password" placeholder="Confirm Password" className="form-control" id="confirm_password" name="confirm_password" required=""/>
-															<div>{cpasswordError}</div>
+															<div style={{color:"red"}}>{cpasswordError}</div>
 														</div>
 													</div>
 
