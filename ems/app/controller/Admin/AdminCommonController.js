@@ -90,86 +90,86 @@ module.exports.admin_get_user_list = (req, res) => {
 
 //TO DO Monday
 
-module.exports.update_user_by_admin = (req, res) => {
-    var authheader = req.headers.authorization;
-    var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
-    var user_id = typeof req.query.user_id != 'undefined' ? req.query.user_id : "";
-    var is_active = typeof req.query.is_active != 'undefined' ? req.query.is_active : "";
-    var is_deleted= typeof req.query.is_deleted != 'undefined' ? req.query.is_deleted : "";
-    var lang = language_helper.load_language(language);
-    if (authheader) {
-        var data = token_helper.verifyJwtToken(authheader);
-        if (data) {
-            upadteValue = [];
+// module.exports.update_user_by_admin = (req, res) => {
+//     var authheader = req.headers.authorization;
+//     var language = typeof req.query.language != 'undefined' ? req.query.language : "English";
+//     var user_id = typeof req.query.user_id != 'undefined' ? req.query.user_id : "";
+//     var is_active = typeof req.query.is_active != 'undefined' ? req.query.is_active : "";
+//     var is_deleted= typeof req.query.is_deleted != 'undefined' ? req.query.is_deleted : "";
+//     var lang = language_helper.load_language(language);
+//     if (authheader) {
+//         var data = token_helper.verifyJwtToken(authheader);
+//         if (data) {
+//             upadteValue = [];
 
-            if (user_id != "") {
-                updateValues = {
-                    updated_at: current_date
-                }
-                // if (admin_id != "") {
-                //     updateValues.admin_id = admin_id;
-                // }
-                if (employee_id != "") {
-                    updateValues.employee_id = employee_id;
-                }
-                if (role_type != "") {
-                    updateValues.role_type = role_type;
-                }
-                if (first_name != "") {
-                    updateValues.first_name = first_name;
-                }
-                if (first_name != "") {
-                    updateValues.first_name = first_name;
-                }
-                if (first_name != "") {
-                    updateValues.first_name = first_name;
-                }
-                if (is_active != "") {
-                    updateValues.is_active = is_active;
-                }
-                if (is_deleted != "") {
-                    updateValues.is_deleted = is_deleted;
-                }
-                if (plan_type != "") {
-                    updateValues.plan_type = plan_type;
-                }
+//             if (user_id != "") {
+//                 updateValues = {
+//                     updated_at: current_date
+//                 }
+//                 // if (admin_id != "") {
+//                 //     updateValues.admin_id = admin_id;
+//                 // }
+//                 if (employee_id != "") {
+//                     updateValues.employee_id = employee_id;
+//                 }
+//                 if (role_type != "") {
+//                     updateValues.role_type = role_type;
+//                 }
+//                 if (first_name != "") {
+//                     updateValues.first_name = first_name;
+//                 }
+//                 if (first_name != "") {
+//                     updateValues.first_name = first_name;
+//                 }
+//                 if (first_name != "") {
+//                     updateValues.first_name = first_name;
+//                 }
+//                 if (is_active != "") {
+//                     updateValues.is_active = is_active;
+//                 }
+//                 if (is_deleted != "") {
+//                     updateValues.is_deleted = is_deleted;
+//                 }
+//                 if (plan_type != "") {
+//                     updateValues.plan_type = plan_type;
+//                 }
             
-            if(is_active !="")
-            {
-                upadteValue.is_active = is_active;
-            }
-            if(is_deleted !="")
-            {
-                upadteValue.is_deleted = is_deleted;
-            }
-            db.User.update(upadteValue,
-                {
-                    where:
-                    {
-                        user_id: user_id,
+//             if(is_active !="")
+//             {
+//                 upadteValue.is_active = is_active;
+//             }
+//             if(is_deleted !="")
+//             {
+//                 upadteValue.is_deleted = is_deleted;
+//             }
+//             db.User.update(upadteValue,
+//                 {
+//                     where:
+//                     {
+//                         user_id: user_id,
 
-                    }
-                }).then((result) => {
-                    return res.status(200).json({
-                        message: lang.SUCCESS,
-                        result: user_id
-                    });
+//                     }
+//                 }).then((result) => {
+//                     return res.status(200).json({
+//                         message: lang.SUCCESS,
+//                         result: user_id
+//                     });
 
-                });
-        }
-        else {
-            res.status(400).json({
-                message: lang.INVALID_TOKEN
-            });
-        }
-    }
-    else {
-        res.status(400).json({
-            message: lang.TOKEN_REQUIRED
-        });
-    }
-}
-}
+//                 });
+//         }
+//         else {
+//             res.status(400).json({
+//                 message: lang.INVALID_TOKEN
+//             });
+//         }
+//     }
+//     else {
+//         res.status(400).json({
+//             message: lang.TOKEN_REQUIRED
+//         });
+//     }
+// }
+// }
 
 module.exports.update_user_by_admin = (req, res) => {
     var authheader = req.headers.authorization;

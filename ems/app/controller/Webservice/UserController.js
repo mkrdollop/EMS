@@ -235,14 +235,13 @@ module.exports.update_user_profile = (req, res) => {
     var lang = language_helper.load_language("English");
     if (header) {    
         var data = token_helper.verifyJwtToken(header);
-       
         if (data) {
             
             const cpUpload = upload.fields([{ name: 'banner', maxCount: 1 }, { name: 'logo', maxCount: 1 }]);
-
+            console.log(req.files);
             cpUpload(req, res, function (err) {
                 
-                var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "English";
+                var user_id = typeof req.body.user_id != 'undefined' ? req.body.user_id : "";
                 var language = typeof req.body.language != 'undefined' ? req.body.language : "English";
                 var company_name = typeof req.body.company_name != 'undefined' ? req.body.company_name : "";
                 var first_name = typeof req.body.first_name != 'undefined' ? req.body.first_name : "";

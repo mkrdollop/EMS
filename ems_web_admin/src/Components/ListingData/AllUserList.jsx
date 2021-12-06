@@ -1,6 +1,7 @@
-import React,{ useState,useEffect } from 'react';
+import React,{ useState,useEffect, Fragment } from 'react';
 import '../../assets/css/style.css';
 import ShowUserData from '../ListingData/ShowUserData';
+// import AddUserData from '../ListingData/AddUserData';
 import Navside from '../NavsideBar/Navside';
 import NavbarTop from '../../DeployHead/Navigations/NavbarTop';
 // import { Link } from 'react-router-dom';
@@ -25,7 +26,6 @@ function AllUserList(props) {
                     <ShowUserData key={i} user_id={user.user_id}  view="View" edit="Edit" delete="Delete" />
                 </td>
             </tr>
-            
         )
     });
     
@@ -41,9 +41,6 @@ function AllUserList(props) {
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'Authorization': token
             },
-            /* query: JSON.stringify({
-                user_type: 'Admin_User',
-            }) */
         })
         .then(res => res.json())
         .then((result) => {

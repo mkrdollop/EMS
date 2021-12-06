@@ -69,7 +69,7 @@ function App() {
     <Route path="/privacypolicy" component={PrivacyPolicy} />
     <Route path="/addprivacy" component={AddPrivacy} />
     <Route path="/features" component={Features} />
-    <Route path="/showuser" component={AddUserData} />
+    <Route path="/showuser/:id" component={AddUserData} />
     <Route path="/aboutpage" component={AboutPage} />
     <Route path="/faqpage" component={FAQPages} />
     <Route path="/privacypage" component={PrivacyPages} />
